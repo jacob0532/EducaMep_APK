@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Random</string>
+    <string name="administrador">Administrador</string>
+    <string name="estudiante">Estudiante</string>
+    <string name="docente">Docente</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="nombre_de_usuario2">Nombre de usuario</string>
+    <string name="contrase_a2">Contraseña</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="radiobutton">RadioButton</string>
+    <string name="olvide_la_contrase_a">Olvide la contraseña</string>
+    <string name="curso_seleccionado">Curso seleccionado</string>
+    <string name="salir">Salir</string>
+    <string name="chat_del_curso">Chat del curso</string>
+    <string name="publicarnoticia">PublicarNoticia</string>
+    <string name="asignar_tarea">Asignar tarea</string>
+    <string name="lista_de_estudiantes">Lista de estudiantes</string>
+</resources>
