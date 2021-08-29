@@ -7,37 +7,36 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="373dp"
-        android:layout_height="408dp"
+        android:layout_width="375dp"
+        android:layout_height="535dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnSalir2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btnChat"
+            android:id="@+id/btnAsignacion"
             android:layout_width="340dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="#525665"
-            android:text="@string/chat_del_curso"
+            android:text="@string/asignacion"
             app:cornerRadius="200dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLista"
-             />
+            app:layout_constraintTop_toBottomOf="@+id/btnEstudiantes"
+            app:strokeColor="#000000"
+            app:strokeWidth="1dp" />
 
         <Button
-            android:id="@+id/btnNoticia"
+            android:id="@+id/btnCursos"
             android:layout_width="340dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="#525665"
-            android:text="@string/publicarnoticia"
+            android:text="@string/cursos"
             app:cornerRadius="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.433"
@@ -47,66 +46,45 @@
             app:strokeWidth="1dp" />
 
         <Button
-            android:id="@+id/btnTarea"
+            android:id="@+id/btnDocentes"
             android:layout_width="340dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="#525665"
-            android:text="@string/asignar_tarea"
+            android:text="@string/docentes"
             app:cornerRadius="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.433"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnNoticia"
+            app:layout_constraintTop_toBottomOf="@+id/btnCursos"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
 
         <Button
-            android:id="@+id/btnLista"
+            android:id="@+id/btnEstudiantes"
             android:layout_width="340dp"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:backgroundTint="#525665"
-            android:text="@string/lista_de_estudiantes"
+            android:text="@string/estudiantes"
             app:cornerRadius="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.433"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTarea"
+            app:layout_constraintTop_toBottomOf="@+id/btnDocentes"
             app:strokeWidth="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/lbCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/curso_seleccionado"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/sCursos"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbCurso"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <Button
-        android:id="@+id/btnSalir"
+        android:id="@+id/btnSalir2"
         android:layout_width="240dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="#BD1414"
         android:text="@string/salir"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

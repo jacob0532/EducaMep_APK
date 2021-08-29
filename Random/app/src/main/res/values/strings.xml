@@ -16,4 +16,23 @@
     <string name="publicarnoticia">PublicarNoticia</string>
     <string name="asignar_tarea">Asignar tarea</string>
     <string name="lista_de_estudiantes">Lista de estudiantes</string>
+    <string name="asignacion">Asignacion</string>
+    <string name="cursos">Cursos</string>
+    <string name="docentes">Docentes</string>
+    <string name="estudiantes">Estudiantes</string>
+    <string name="gestion_de_cursos">Gestion de Cursos</string>
+    <string name="agregar">Agregar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="modificar">Modificar</string>
+    <string name="atras">Atras</string>
+    <string name="agregar_curso">Agregar Curso</string>
+    <string name="nombre_del_curso">Nombre del curso</string>
+    <string name="grado_del_curso">Grado del curso</string>
+    <string name="horario">- - - - - - - Horario - - - - - - -</string>
+    <string name="inicio">Inicio</string>
+    <string name="fin">Fin</string>
+    <string name="dia">Dia</string>
+    <string name="eliminar_hora">Eliminar hora</string>
+    <string name="agregar_hora">Agregar Hora</string>
+    <string name="confirmar">Confirmar</string>
 </resources>
