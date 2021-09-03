@@ -1,14 +1,22 @@
 <resources>
+    <string name="nombre_del_curso2">Nombre del curso</string>
+    <string name="grado_del_curso2">Grado del curso</string>
+    <string name="nombre2">Nombre</string>
+    <string name="primer_apellido2">Primer apellido</string>
+    <string name="segundo_apellido2">Segundo apellido</string>
+    <string name="correo2">Correo</string>
+    <string name="calificacion2">Calificacion</string>
+
+    <string name="grado_escolar2">Grado escolar</string>
+
     <string name="app_name">Random</string>
     <string name="administrador">Administrador</string>
     <string name="estudiante">Estudiante</string>
     <string name="docente">Docente</string>
     <string name="contrase_a">Contraseña</string>
     <string name="nombre_de_usuario">Nombre de usuario</string>
-    <string name="nombre_de_usuario2">Nombre de usuario</string>
-    <string name="contrase_a2">Contraseña</string>
     <string name="iniciar">Iniciar</string>
-    <string name="radiobutton">RadioButton</string>
+    <string name="rbayuda">Ayuda</string>
     <string name="olvide_la_contrase_a">Olvide la contraseña</string>
     <string name="curso_seleccionado">Curso seleccionado</string>
     <string name="salir">Salir</string>
@@ -29,10 +37,33 @@
     <string name="nombre_del_curso">Nombre del curso</string>
     <string name="grado_del_curso">Grado del curso</string>
     <string name="horario">- - - - - - - Horario - - - - - - -</string>
+    <string name="listacursos">- - - - - - Lista de cursos - - - - - -</string>
     <string name="inicio">Inicio</string>
     <string name="fin">Fin</string>
     <string name="dia">Dia</string>
     <string name="eliminar_hora">Eliminar hora</string>
     <string name="agregar_hora">Agregar Hora</string>
     <string name="confirmar">Confirmar</string>
+    <string name="eliminar_curso">Eliminar curso</string>
+    <string name="modificar_curso">Modificar curso</string>
+    <string name="gestion_de_docentes">Gestion de docentes</string>
+    <string name="agregar_docente">Agregar docente</string>
+    <string name="cedula">Cedula</string>
+    <string name="nombre">Nombre</string>
+    <string name="primer_apellido">Primer apellido</string>
+    <string name="segundo_apellido">Segundo apellido</string>
+    <string name="correo">Correo</string>
+    <string name="calificacion">Calificacion</string>
+    <string name="eliminar_docente">Eliminar docente</string>
+    <string name="modificar_docente">Modificar docente</string>
+    <string name="gestion_de_estudiantes">Gestion de estudiantes</string>
+    <string name="agregar_estudiante">Agregar estudiante</string>
+    <string name="grado_escolar">Grado escolar</string>
+    <string name="modificar_estudiante">Modificar estudiante</string>
+    <string name="eliminar_estudiante">Eliminar estudiante</string>
+    <string name="asignacion_de_docentes_y_estudiantes">Asignacion de docentes y estudiantes</string>
+    <string name="asignacion_de_docentes">Asignacion de docentes</string>
+    <string name="asignacion_de_estudiantes">asignacion de estudiantes</string>
+    <string name="listacursosdocente">- - - - - - Lista de cursos del docente - - - - - -</string>
+    <string name="listacursosestudiante">- - - - - - Lista de cursos del estudiante - - - - - -</string>
 </resources>

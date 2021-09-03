@@ -2,9 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnEliminarHora"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="98dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#C2FFDB"
+        android:text="@string/eliminar_hora"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
+    <Button
+        android:id="@+id/btnAgregarHora"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="93dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#C2FFDB"
+        android:text="@string/agregar_hora"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <Button
         android:id="@+id/btnAtras"
@@ -34,11 +61,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAgregarHora" />
 
+    <TextView
+        android:id="@+id/tvHorario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/horario"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sGrado" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/constraintLayout"
         android:layout_width="370dp"
         android:layout_height="89dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHorario">
@@ -106,27 +144,31 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvAgregarCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/agregar_curso"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="369dp"
+        android:layout_height="159dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <TableLayout
+            android:id="@+id/tableHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/tvNombreCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/nombre_del_curso"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAgregarCurso" />
+        app:layout_constraintTop_toBottomOf="@+id/sCurso" />
 
     <EditText
         android:id="@+id/tbNombreCurso"
@@ -134,24 +176,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="@string/nombre_del_curso"
+        android:hint="@string/nombre_del_curso2"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreCurso"
         tools:ignore="DuplicateSpeakableTextCheck" />
-
-    <Spinner
-        android:id="@+id/sGrado"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGrado"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/tvGrado"
@@ -164,58 +195,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbNombreCurso" />
 
+    <Spinner
+        android:id="@+id/sGrado"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGrado" />
+
+    <Spinner
+        android:id="@+id/sCurso"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvModificarCurso" />
+
     <TextView
-        android:id="@+id/tvHorario"
+        android:id="@+id/tvModificarCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/horario"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="10dp"
+        android:text="@string/modificar_curso"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sGrado" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="369dp"
-        android:layout_height="159dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <TableLayout
-            android:id="@+id/tableHorarios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/btnEliminarHora"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="98dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/eliminar_hora"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-    <Button
-        android:id="@+id/btnAgregarHora"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/agregar_hora"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
