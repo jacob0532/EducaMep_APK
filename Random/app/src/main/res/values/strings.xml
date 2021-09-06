@@ -11,6 +11,12 @@
     <string name="curso_seleccionado2">Curso seleccionado</string>
     <string name="id_tarea2">ID de la tarea generada</string>
     <string name="fecha_tarea2"></string>
+    <string name="nombre_estudiante2">Nombre del estudiante</string>
+    <string name="fecha_estudiante2">Fecha de nacimiento</string>
+    <string name="carnet_estudiante2">Carnet del estudiante</string>
+    <string name="encargado_estudiante2">Encargado legal del estudiante</string>
+    <string name="Telefono_estudiante2">Telefono del encargado</string>
+    <string name="nota_estudiante2">Nota del estudiante</string>
 
     <string name="app_name">Random</string>
     <string name="administrador">Administrador</string>
@@ -76,4 +82,10 @@
     <string name="titulo_tarea">Titulo de la tarea</string>
     <string name="fecha_tarea">Fecha de la tarea</string>
     <string name="descripcion_tarea">Descripcion de la tarea</string>
+    <string name="nombre_estudiante">Nombre del estudiante</string>
+    <string name="fecha_estudiante">Fecha de nacimiento</string>
+    <string name="carnet_estudiante">Carnet</string>
+    <string name="encargado_estudiante">Encargado legal</string>
+    <string name="Telefono_estudiante">Telefono del encargado legal</string>
+    <string name="nota_estudiante">Nota del estudiante</string>
 </resources>
