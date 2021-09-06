@@ -6,8 +6,11 @@
     <string name="segundo_apellido2">Segundo apellido</string>
     <string name="correo2">Correo</string>
     <string name="calificacion2">Calificacion</string>
-
     <string name="grado_escolar2">Grado escolar</string>
+
+    <string name="curso_seleccionado2">Curso seleccionado</string>
+    <string name="id_tarea2">ID de la tarea generada</string>
+    <string name="fecha_tarea2"></string>
 
     <string name="app_name">Random</string>
     <string name="administrador">Administrador</string>
@@ -66,4 +69,11 @@
     <string name="asignacion_de_estudiantes">asignacion de estudiantes</string>
     <string name="listacursosdocente">- - - - - - Lista de cursos del docente - - - - - -</string>
     <string name="listacursosestudiante">- - - - - - Lista de cursos del estudiante - - - - - -</string>
+    <string name="titulo_noticia">Titulo de la noticia</string>
+    <string name="descripcion_noticia">Descripcion de la noticia</string>
+    <string name="publicar">Publicar</string>
+    <string name="id_tarea">ID de la tarea</string>
+    <string name="titulo_tarea">Titulo de la tarea</string>
+    <string name="fecha_tarea">Fecha de la tarea</string>
+    <string name="descripcion_tarea">Descripcion de la tarea</string>
 </resources>
