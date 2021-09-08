@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lbCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/curso_seleccionado"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/sCursos"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbCurso"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="375dp"
+        android:layout_height="319dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnProfesor">
+
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="340dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#525665"
+            android:text="@string/chat_del_curso"
+            app:cornerRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTarea"
+            app:strokeColor="#000000"
+            app:strokeWidth="1dp" />
+
+        <Button
+            android:id="@+id/btnNoticia"
+            android:layout_width="340dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#525665"
+            android:text="@string/noticias"
+            app:cornerRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.433"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#000000"
+            app:strokeWidth="1dp" />
+
+        <Button
+            android:id="@+id/btnTarea"
+            android:layout_width="340dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#525665"
+            android:text="@string/tareas"
+            app:cornerRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.433"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnNoticia"
+            app:strokeColor="#000000"
+            app:strokeWidth="1dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnSalir"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#BD1414"
+        android:text="@string/salir"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/tvProfesorEncargado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/profesor_encargado"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sCursos" />
+
+    <Button
+        android:id="@+id/btnProfesor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#3BBF40"
+        android:text="@string/profesor_encargado2"
+        android:textColor="#000000"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfesorEncargado"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

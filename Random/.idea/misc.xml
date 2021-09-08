@@ -21,18 +21,24 @@
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/eliminarcurso.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/eliminardocente.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/eliminarestudiante.xml" value="0.264" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/estudianteprincipal.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/gestionasignaciones.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/gestioncursos.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/gestiondocentes.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/gestionestudiantes.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/listaestudiantes.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/listanoticias.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/listatareas.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/login.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/loginselect.xml" value="0.24010416666666667" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/modificarcurso.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/modificardocente.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/modificarestudiante.xml" value="0.264" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/perfildocente.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/perfilestudiante.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/publicarnoticia.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/vernoticia.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProjects/Random/app/src/main/res/layout/vertarea.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

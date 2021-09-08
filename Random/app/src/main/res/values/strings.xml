@@ -18,6 +18,16 @@
     <string name="Telefono_estudiante2">Telefono del encargado</string>
     <string name="nota_estudiante2">Nota del estudiante</string>
 
+    <string name="profesor_encargado2">Profesor encargado</string>
+    <string name="titulo_noticia2">Titulo de la noticia</string>
+    <string name="titulo_tarea2">Titulo de la tarea</string>
+    <string name="descripcion_noticia2">Descripcion de la noticia</string>
+    <string name="descripcion_tarea2">Descripcion de la tarea</string>
+    <string name="nombre_docente2">Nombre del docente</string>
+    <string name="correo_docente2">Correo electronico</string>
+    <string name="Cedula_docente2">Carnet del docente</string>
+    <string name="calificacionpromedio2">5.0</string>
+
     <string name="app_name">Random</string>
     <string name="administrador">Administrador</string>
     <string name="estudiante">Estudiante</string>
@@ -88,4 +98,12 @@
     <string name="encargado_estudiante">Encargado legal</string>
     <string name="Telefono_estudiante">Telefono del encargado legal</string>
     <string name="nota_estudiante">Nota del estudiante</string>
+    <string name="profesor_encargado">Profesor encargado</string>
+    <string name="noticias">Noticias</string>
+    <string name="tareas">Tareas</string>
+    <string name="nombre_docente">Nombre del docente</string>
+    <string name="correo_docente">Correo electronico</string>
+    <string name="Cedula_docente">Carnet del docente</string>
+    <string name="calificacionpromedio">Calificacion promedio</string>
+    <string name="calificar_docente">Calificar docente</string>
 </resources>
