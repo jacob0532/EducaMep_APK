@@ -10,6 +10,90 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EducaMep">
         <activity
+            android:name=".VerTareaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".VerNoticiaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerfilEstudianteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PerfilDocenteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ModificarEstudianteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ModificarDocenteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ModificarCursoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginSelectActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListaTareasActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListaNoticiasActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListaEstudiantesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GestionEstudiantesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GestionDocentesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GestionCursosActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GestionAsignacionesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EstudiantePrincipalActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EliminarEstudianteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EliminarDocenteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EliminarCursoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DocentePrincipalActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AsignacionEstudiantesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AsignacionDocentesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AgregarTareaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AgregarNoticiaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AgregarEstudianteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AgregarDocenteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AgregarCursoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AdministradorPrincipalActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>

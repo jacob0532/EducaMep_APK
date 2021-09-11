@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EducaMep</string>
+    <string name="app_name">EducaMEP</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -39,7 +39,6 @@
     <string name="Cedula_docente2">Carnet del docente</string>
     <string name="calificacionpromedio2">5.0</string>
 
-    <string name="app_name">Random</string>
     <string name="administrador">Administrador</string>
     <string name="estudiante">Estudiante</string>
     <string name="docente">Docente</string>
@@ -117,5 +116,4 @@
     <string name="Cedula_docente">Carnet del docente</string>
     <string name="calificacionpromedio">Calificacion promedio</string>
     <string name="calificar_docente">Calificar docente</string>
-    <string name="educamep">EducaMep</string>
 </resources>
