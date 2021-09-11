@@ -117,4 +117,5 @@
     <string name="Cedula_docente">Carnet del docente</string>
     <string name="calificacionpromedio">Calificacion promedio</string>
     <string name="calificar_docente">Calificar docente</string>
+    <string name="educamep">EducaMep</string>
 </resources>
