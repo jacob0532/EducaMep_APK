@@ -225,30 +225,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tbSegundoApellido"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
-        <TextView
-            android:id="@+id/tvCalificacion"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="@string/calificacion"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbCalificacion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCorreo" />
-
-        <EditText
-            android:id="@+id/tbCalificacion"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/calificacion2"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbCorreo"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
