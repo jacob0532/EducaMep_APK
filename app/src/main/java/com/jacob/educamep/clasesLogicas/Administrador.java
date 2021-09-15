@@ -1,5 +1,20 @@
 package com.jacob.educamep.clasesLogicas;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class Administrador extends Usuario{
     public Administrador(long cedula, String nombre, String apellido1, String apellido2, String correoElectronico, String contraseña) {
         super(cedula, nombre, apellido1, apellido2, correoElectronico, contraseña);
@@ -50,8 +65,50 @@ public class Administrador extends Usuario{
      * Funciones de docente *
      * **********************
      */
-    public void insertarDocente(){
+    public String insertarDocente(long cedula, String nombre, String apellido1, String apellido2, String correo){
+        String registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/insertarDocente.php";
+        try {
+            Log.d("MI APP","Inicia....");
+            URL url = new URL(registrar_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+            String data = URLEncoder.encode("cedula","UTF-8") + "=" + URLEncoder.encode(String.valueOf(cedula),"UTF-8") + "&" +
+                    URLEncoder.encode("nombre","UTF-8") + "=" + URLEncoder.encode(nombre,"UTF-8") + "&" +
+                    URLEncoder.encode("apellido1","UTF-8") + "=" + URLEncoder.encode(apellido1,"UTF-8") + "&" +
+                    URLEncoder.encode("apellido2","UTF-8") + "=" + URLEncoder.encode(apellido2,"UTF-8") + "&" +
+                    URLEncoder.encode("correo","UTF-8") + "=" + URLEncoder.encode(correo,"UTF-8");
 
+            bufferedWriter.write(data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,StandardCharsets.UTF_8));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line);
+
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.d("MI APP","Termino....");
+            return stringBuilder.toString();
+
+        } catch (MalformedURLException e) {
+            Log.d("MI APP","SE HA UTILIZADO UNA URL CON FORMATO INCORRECTO");
+            return "SE HA PRODUCIDO UN ERROR CATCH1";
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("MI APP","Error, CONECTESE A INTERNET >:/");
+            return "Se ha producido un error, comprueba tu conexión a internet";
+        }
     }
     public void modificarDocente(){
 

@@ -2,11 +2,17 @@ package com.jacob.educamep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+
+import com.jacob.educamep.clasesLogicas.Administrador;
+import com.jacob.educamep.clasesLogicas.BDEducaMep;
+import com.jacob.educamep.clasesLogicas.Usuario;
 
 public class AgregarDocenteActivity extends AppCompatActivity {
 
@@ -28,5 +34,24 @@ public class AgregarDocenteActivity extends AppCompatActivity {
         final Button btnAgregarCurso = findViewById(R.id.btnAgregarCurso);
         final Button btnAtras = findViewById(R.id.btnAtras);
         final Button btnConfirmar = findViewById(R.id.btnConfirmar);
+        //-------------------------------------------------------
+        //Prueba
+        //Administrador usuario = new Administrador(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito");
+        //BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) usuario, 2, 1);
+        BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) getIntent().getSerializableExtra("usuario"), 2, 1);
+        btnConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long cedula = Integer.parseInt(txtCedula.getText().toString());
+                String nombre = txtNombre.getText().toString();
+                String apellido1 = txtPrimerApellido.getText().toString();
+                String apellido2 = txtSegundoApellido.getText().toString();
+                String correo = txtSegundoApellido.getText().toString();
+                db.execute(cedula, nombre, apellido1, apellido2, correo);
+
+                Intent anterior = new Intent(view.getContext(),GestionDocentesActivity.class);
+                startActivity(anterior);
+            }
+        });
     }
 }

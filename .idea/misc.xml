@@ -6,12 +6,32 @@
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/drawable/roundbutton.xml" value="0.2" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/drawable/roundedtext.xml" value="0.2703125" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/activity_login.xml" value="0.23425925925925925" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/administradorprincipal.xml" value="0.176" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/agregarcurso.xml" value="0.11510416666666666" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/agregardocente.xml" value="0.264" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/agregarestudiante.xml" value="0.1" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/agregarnoticia.xml" value="0.21944444444444444" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/agregartarea.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/asignaciondocentes.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/asignacionestudiantes.xml" value="0.21944444444444444" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/chatcurso.xml" value="0.264" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/docenteprincipal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/eliminarcurso.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/eliminardocente.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/estudianteprincipal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/gestionasignaciones.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/listaestudiantes.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/listanoticias.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/listatareas.xml" value="0.21944444444444444" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/login.xml" value="0.23425925925925925" />
         <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/loginselect.xml" value="0.23425925925925925" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/modificarcurso.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/modificardocente.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/modificarestudiante.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/perfildocente.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/perfilestudiante.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/vernoticia.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Nitroso/Documents/GitHub/EducaMep_APKMain/app/src/main/res/layout/vertarea.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yeico/Desktop/EducaMep_APK/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/yeico/Desktop/EducaMep_APK/app/src/main/res/layout/administradorprincipal.xml" value="0.25" />
         <entry key="..\:/Users/yeico/Desktop/EducaMep_APK/app/src/main/res/layout/agregarcurso.xml" value="0.33" />

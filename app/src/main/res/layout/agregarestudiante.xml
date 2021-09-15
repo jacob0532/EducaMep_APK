@@ -7,264 +7,274 @@
     tools:layout_editor_absoluteX="-16dp"
     tools:layout_editor_absoluteY="288dp">
 
-    <TextView
-        android:id="@+id/tvAgregarEstudiante"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/agregar_estudiante"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="411dp"
-        android:layout_height="278dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAgregarEstudiante">
-
-        <TextView
-            android:id="@+id/tvCedula"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/cedula"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbCedula"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvNombre"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/nombre"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbNombre"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCedula" />
-
-        <TextView
-            android:id="@+id/tvPrimerApellido"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/primer_apellido"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbPrimerApellido"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
-
-        <TextView
-            android:id="@+id/tvSegundoApellido"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/segundo_apellido"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbCorreo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrimerApellido" />
-
-        <TextView
-            android:id="@+id/tvCorreo"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/correo"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tbSegundoApellido"
-            app:layout_constraintHorizontal_bias="0.482"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSegundoApellido" />
-
-        <EditText
-            android:id="@+id/tbCedula"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/cedula"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
-        <EditText
-            android:id="@+id/tbNombre"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/nombre"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbCedula"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
-        <EditText
-            android:id="@+id/tbPrimerApellido"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/primer_apellido"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbNombre"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
-        <EditText
-            android:id="@+id/tbSegundoApellido"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/segundo_apellido"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbPrimerApellido"
-            tools:ignore="DuplicateSpeakableTextCheck" />
-
-        <EditText
-            android:id="@+id/tbCorreo"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:ems="10"
-            android:hint="@string/correo"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbSegundoApellido"
-            tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tvListaCursos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="@string/listacursos"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Spinner
-        android:id="@+id/sCursos"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvListaCursos"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="360dp"
-        android:layout_height="159dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sCursos"
-        tools:ignore="SpeakableTextPresentCheck">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TableLayout
-            android:id="@+id/tableCursos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvAgregarEstudiante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/agregar_estudiante"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="411dp"
+                android:layout_height="278dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAgregarEstudiante">
+
+                <TextView
+                    android:id="@+id/tvCedula"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/cedula"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tbCedula"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNombre"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/nombre"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tbNombre"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCedula" />
+
+                <TextView
+                    android:id="@+id/tvPrimerApellido"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/primer_apellido"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tbPrimerApellido"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
+
+                <TextView
+                    android:id="@+id/tvSegundoApellido"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/segundo_apellido"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tbCorreo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPrimerApellido" />
+
+                <TextView
+                    android:id="@+id/tvCorreo"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/correo"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tbSegundoApellido"
+                    app:layout_constraintHorizontal_bias="0.482"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSegundoApellido" />
+
+                <EditText
+                    android:id="@+id/tbCedula"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:hint="@string/cedula"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+                <EditText
+                    android:id="@+id/tbNombre"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:hint="@string/nombre"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tbCedula"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+                <EditText
+                    android:id="@+id/tbPrimerApellido"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:hint="@string/primer_apellido"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tbNombre"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+                <EditText
+                    android:id="@+id/tbSegundoApellido"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:hint="@string/segundo_apellido"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tbPrimerApellido"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+                <EditText
+                    android:id="@+id/tbCorreo"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:hint="@string/correo"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tbSegundoApellido"
+                    tools:ignore="DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvListaCursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="@string/listacursos"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <Spinner
+                android:id="@+id/sCursos"
+                android:layout_width="360dp"
+                android:layout_height="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvListaCursos"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="360dp"
+                android:layout_height="159dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sCursos"
+                tools:ignore="SpeakableTextPresentCheck">
+
+                <TableLayout
+                    android:id="@+id/tableCursos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btnEliminarsCurso"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="98dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#C2FFDB"
+                android:text="@string/eliminar_curso"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
+            <Button
+                android:id="@+id/btnAgregarCurso"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="93dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="#C2FFDB"
+                android:text="@string/agregar_curso"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
+            <Button
+                android:id="@+id/btnAtras"
+                android:layout_width="134dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="#D51A1A"
+                android:text="@string/atras"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnEliminarsCurso" />
+
+            <Button
+                android:id="@+id/btnConfirmar"
+                android:layout_width="134dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#01F622"
+                android:text="@string/confirmar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnAgregarCurso" />
+
+            <TextView
+                android:id="@+id/tvGrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/grado_escolar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <Spinner
+                android:id="@+id/sGrado"
+                android:layout_width="280dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvGrado"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnEliminarsCurso"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="98dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/eliminar_curso"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
-
-    <Button
-        android:id="@+id/btnAgregarCurso"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/agregar_curso"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
-
-    <Button
-        android:id="@+id/btnAtras"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="#D51A1A"
-        android:text="@string/atras"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEliminarsCurso" />
-
-    <Button
-        android:id="@+id/btnConfirmar"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#01F622"
-        android:text="@string/confirmar"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgregarCurso" />
-
-    <TextView
-        android:id="@+id/tvGrado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/grado_escolar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Spinner
-        android:id="@+id/sGrado"
-        android:layout_width="280dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvGrado"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

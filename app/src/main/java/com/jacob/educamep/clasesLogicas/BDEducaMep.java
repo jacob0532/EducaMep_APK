@@ -60,7 +60,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 2: //Gestion de docentes
                         switch (accion2){
                             case 1: //insertar
-                                varAdministrador.insertarDocente();
+                                resultado = varAdministrador.insertarDocente((long) params[0], (String)params[1], (String)params[2], (String)params[3], (String)params[4]);
                                 break;
                             case 2: //mostrar
                                 varAdministrador.mostrarDocente();
@@ -140,6 +140,9 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 1: //Noticias del curso Estudiantes
                         switch (accion2){
                             case 1: //ver noticia
+                                varEstudiante.visualizarListaNoticias((int)params[0]);
+                                break;
+                            case 2: //ver noticia
                                 varEstudiante.visualizarNoticia((int)params[0]);
                                 break;
                         }
@@ -147,6 +150,9 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 2: //Tareas del curso Estudiantes
                         switch (accion2){
                             case 1: //ver tarea
+                                resultado = varEstudiante.visualizarListaTareas((int)params[0]);
+                                break;
+                            case 2: //ver tarea
                                 varEstudiante.visualizarTarea((int)params[0]);
                                 break;
                         }

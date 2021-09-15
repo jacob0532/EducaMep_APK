@@ -5,139 +5,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvListaCursos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/listacursosestudiante"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sCursos" />
-
-    <Button
-        android:id="@+id/btnConfirmar"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#01F622"
-        android:text="@string/confirmar"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgregarCurso" />
-
-    <Button
-        android:id="@+id/btnAtras"
-        android:layout_width="134dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="#D51A1A"
-        android:text="@string/atras"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnEliminarsCurso" />
-
-    <Button
-        android:id="@+id/btnEliminarsCurso"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="98dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/eliminar_curso"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
-
-    <Spinner
-        android:id="@+id/sCedulas"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCedula"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Spinner
-        android:id="@+id/sCursos"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:layout_width="360dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCursos" />
-
-    <Button
-        android:id="@+id/btnAgregarCurso"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="93dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#C2FFDB"
-        android:text="@string/agregar_hora"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
-
     <ScrollView
-        android:id="@+id/scrollView"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:layout_width="360dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvListaCursos">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TableLayout
-            android:id="@+id/tableCursos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvListaCursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/listacursosestudiante"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sCursos" />
+
+            <Button
+                android:id="@+id/btnConfirmar"
+                android:layout_width="134dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#01F622"
+                android:text="@string/confirmar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnAgregarCurso" />
+
+            <Button
+                android:id="@+id/btnAtras"
+                android:layout_width="134dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:backgroundTint="#D51A1A"
+                android:text="@string/atras"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnEliminarsCurso" />
+
+            <Button
+                android:id="@+id/btnEliminarsCurso"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="98dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#C2FFDB"
+                android:text="@string/eliminar_curso"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
+            <Spinner
+                android:id="@+id/sCedulas"
+                android:layout_width="360dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCedula"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Spinner
+                android:id="@+id/sCursos"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_width="360dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCursos" />
+
+            <Button
+                android:id="@+id/btnAgregarCurso"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="93dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#C2FFDB"
+                android:text="@string/agregar_hora"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_width="360dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvListaCursos">
+
+                <TableLayout
+                    android:id="@+id/tableCursos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/tvAsignacionDocentes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/asignacion_de_estudiantes"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/cursos"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sCedulas" />
+
+            <TextView
+                android:id="@+id/tvCedula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/cedula"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAsignacionDocentes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/tvAsignacionDocentes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/asignacion_de_estudiantes"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvCursos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/cursos"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sCedulas" />
-
-    <TextView
-        android:id="@+id/tvCedula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/cedula"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAsignacionDocentes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
