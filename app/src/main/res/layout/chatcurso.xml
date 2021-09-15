@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ChatCursoActivity">
 
     <TextView
-        android:id="@+id/lbTareas"
+        android:id="@+id/lbChatCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/tareas"
+        android:text="@string/chat_del_curso"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +27,12 @@
         android:textColor="#157AD5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbTareas" />
+        app:layout_constraintTop_toBottomOf="@+id/lbChatCurso" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="380dp"
-        android:layout_height="460dp"
+        android:layout_width="360dp"
+        android:layout_height="457dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +44,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/user_message"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnAtras"
@@ -56,6 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

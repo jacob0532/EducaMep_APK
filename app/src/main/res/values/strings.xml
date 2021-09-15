@@ -39,6 +39,8 @@
     <string name="Cedula_docente2">Carnet del docente</string>
     <string name="calificacionpromedio2">5.0</string>
 
+    <string name="user_message">Escribe un mensaje!</string>
+
     <string name="administrador">Administrador</string>
     <string name="estudiante">Estudiante</string>
     <string name="docente">Docente</string>
