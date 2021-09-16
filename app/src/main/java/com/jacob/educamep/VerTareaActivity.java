@@ -17,5 +17,12 @@ public class VerTareaActivity extends AppCompatActivity {
         final TextView containerDescripcion = findViewById(R.id.tvDescripcion2);
         final Button btnNotificar = findViewById(R.id.button);
         final Button btnAtras = findViewById(R.id.btnAtras);
+
+        String id = (String) getIntent().getSerializableExtra("idCurso");
+        lblNombreCurso.setText(id);
+        String titulo = (String) getIntent().getSerializableExtra("titulo");
+        lblTituloTarea.setText(titulo);
+        String descripcion = (String) getIntent().getSerializableExtra("descripcion");
+        containerDescripcion.setText(descripcion);
     }
 }

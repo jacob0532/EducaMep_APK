@@ -29,6 +29,7 @@ public class ListaTareasActivity extends AppCompatActivity {
         final TableLayout tblTareas = findViewById(R.id.tablaTareas);
         final Button btnAtras = findViewById(R.id.btnAtras);
         String id = (String) getIntent().getSerializableExtra("idCurso");
+        lblCurso.setText(id);
         ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
 
         //to-do eliminar Prueba
@@ -68,7 +69,7 @@ public class ListaTareasActivity extends AppCompatActivity {
         tv0.setText("Titulo");
         tv0.setTextColor(Color.BLUE);
         TextView tv1 = new TextView(this);
-        tv1.setText("Descripcion");
+        tv1.setText("Fecha Entrega");
         tv1.setTextColor(Color.BLUE);
         // se añaden los textview a la guia
         tr0.addView(tv1);
@@ -96,8 +97,12 @@ public class ListaTareasActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v)
                 {
+                    Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                    String id = (String) getIntent().getSerializableExtra("idCurso");
                     Intent siguiente = new Intent(v.getContext(), VerTareaActivity.class);
                     Bundle b = new Bundle();
+                    b.putSerializable("usuario", usuario);
+                    b.putSerializable("idCurso", id);
                     b.putSerializable("idTarea", String.valueOf(tareas.get(finalI)[0]));
                     b.putSerializable("titulo", String.valueOf(tareas.get(finalI)[1]));
                     b.putSerializable("descripcion", String.valueOf(tareas.get(finalI)[2]));

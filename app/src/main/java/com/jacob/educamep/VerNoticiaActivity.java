@@ -16,5 +16,12 @@ public class VerNoticiaActivity extends AppCompatActivity {
         final TextView lblTituloNoticia= findViewById(R.id.tvTitulo2);
         final TextView containerDescripcion = findViewById(R.id.tvDescripcion2);
         final Button btnAtras = findViewById(R.id.btnAtras);
+
+        String id = (String) getIntent().getSerializableExtra("idCurso");
+        lblNombreCurso.setText(id);
+        String titulo = (String) getIntent().getSerializableExtra("titulo");
+        lblTituloNoticia.setText(titulo);
+        String descripcion = (String) getIntent().getSerializableExtra("descripcion");
+        containerDescripcion.setText(descripcion);
     }
 }

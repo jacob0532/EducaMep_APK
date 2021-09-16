@@ -1,6 +1,8 @@
 package com.jacob.educamep.clasesLogicas;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     long cedula;
     String nombre;
     String apellido1;
