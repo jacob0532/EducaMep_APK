@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Estudiante extends Usuario{
     int gradoEscolar;
     ArrayList<Curso> listaCursos = new ArrayList<Curso>();
-    ArrayList<Tarea> tareaCurso = new ArrayList<>();
+    StringParser parser = new StringParser();
 
     public Estudiante(long cedula, String nombre, String apellido1, String apellido2,
                       String correoElectronico, String contraseña, int gradoEscolar,
@@ -37,8 +37,8 @@ public class Estudiante extends Usuario{
 
     }
 
-    public String visualizarListaTareas(int idCurso){
-        tareaCurso = new ArrayList<>();
+    public returnAsync visualizarListaTareas(int idCurso){
+        ArrayList<String[]> list = new ArrayList<String[]>();
         String registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Estudiante/visualizarTareas.php";
         try {
             URL url = new URL(registrar_url);
@@ -61,27 +61,25 @@ public class Estudiante extends Usuario{
 
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                Log.d("MI APPPAPAPA", line);
+                Log.d("MI OPPPOPOPO", line);
                 stringBuilder.append(line);
             }
             String temp = stringBuilder.toString();
+            list = parser.convert(temp);
 
-            Log.d("MI APPPAPAPA", "================================");
-            Log.d("MI APPPAPAPA", temp);
-            Log.d("MI APPPAPAPA", "================================");
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
 
         } catch (MalformedURLException e) {
             Log.d("MI APP","SE HA UTILIZADO UNA URL CON FORMATO INCORRECTO");
-            return "SE HA PRODUCIDO UN ERROR CATCH1";
+            return new returnAsync("SE HA PRODUCIDO UN ERROR CATCH1", null);
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("MI APP","Error, CONECTESE A INTERNET >:/");
-            return "Se ha producido un error, comprueba tu conexión a internet";
+            return new returnAsync("Se ha producido un error, comprueba tu conexión a internet", null);
         }
-        return "funciono";
+        return new returnAsync("funciono", list);
     }
 
     public void visualizarTarea(int idCurso){
@@ -96,5 +94,4 @@ public class Estudiante extends Usuario{
     public void calificarProfesor(int idCurso){
 
     }
-
 }

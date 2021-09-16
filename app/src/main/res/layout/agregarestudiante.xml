@@ -51,7 +51,7 @@
                     android:id="@+id/tvNombre"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="35dp"
                     android:text="@string/nombre"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toStartOf="@+id/tbNombre"

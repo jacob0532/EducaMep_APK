@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -16,6 +17,7 @@ import com.jacob.educamep.clasesLogicas.Estudiante;
 import com.jacob.educamep.clasesLogicas.Usuario;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class ListaTareasActivity extends AppCompatActivity {
 
@@ -26,12 +28,24 @@ public class ListaTareasActivity extends AppCompatActivity {
         final TextView lblCurso = findViewById(R.id.tvCursoActual);
         final TableLayout tblTareas = findViewById(R.id.tablaTareas);
         final Button btnAtras = findViewById(R.id.btnAtras);
-        //Prueba
-        //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
-        //BDEducaMep db = new BDEducaMep(ListaTareasActivity.this, (Usuario) usuario, 2, 1);
-        //db.execute(1);
-        BDEducaMep db = new BDEducaMep(ListaTareasActivity.this, (Usuario) getIntent().getSerializableExtra("usuario"), 2, 1);
-        db.execute((int) getIntent().getSerializableExtra("idCurso"));
+        String id = (String) getIntent().getSerializableExtra("idCurso");
+        ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
+
+        //to-do eliminar Prueba
+        /*ArrayList<String[]> list = new ArrayList<String[]>();
+        String[] str1 = {"1", "Prueba", "la prueba", "2021-09-08", "2021-08-08"};
+        String[] str2 = {"3", "Pruebasa", "la prueba definitiva", "2021-08-08", "2021-02-08"};
+        list.add(str1);
+        list.add(str2);
+        // prueba lista
+        for (int i=0; i<list.size(); i++){
+            for(int j=0; j<list.get(i).length;j++){
+                Log.d("MI OPPPOPOPO", list.get(i)[j]);
+            }
+            Log.d("MI OPPPOPOPO", "=================");
+        }*/
+
+        fillTable(list);
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,55 +55,60 @@ public class ListaTareasActivity extends AppCompatActivity {
             }
         });
     }
-    /*protected void fillTable() {
+    protected void fillTable(ArrayList<String[]> tareas) {
         TableLayout table = findViewById(R.id.tablaTareas);
         table.setStretchAllColumns(true);
-        table.setWeightSum(3); //numero de columnas
+        table.setWeightSum(2); //numero de columnas
 
         // crear fila con las guias de la tabla
         TableRow tr0 = new TableRow(this);
         tr0.setId(-1);
         // textViews para la informacion de las guias
         TextView tv0 = new TextView(this);
-        tv0.setText("Cedula");
+        tv0.setText("Titulo");
         tv0.setTextColor(Color.BLUE);
         TextView tv1 = new TextView(this);
-        tv1.setText("Nombre");
+        tv1.setText("Descripcion");
         tv1.setTextColor(Color.BLUE);
-        TextView tv2 = new TextView(this);
-        tv2.setText("Grado");
-        tv2.setTextColor(Color.BLUE);
         // se añaden los textview a la guia
         tr0.addView(tv1);
         tr0.addView(tv0);
-        tr0.addView(tv2);
         // se añade la fila de guias a la tabla
         table.addView(tr0);
-
-        // contenidos de la base de datos
-        ArrayList<String[]> students = getList();
         // se añaden a la tabla
-        for (int i=0; i< students.size(); i++){
+        for (int i=0; i< tareas.size(); i++){
             TableRow tr = new TableRow(this);
             tr.setId(i);
-            for (int j=0; j< students.get(i).length; j++){
-                TextView tv = new TextView(this);
-                tv.setText(students.get(i)[j]);
-                tv.setTextColor(Color.BLACK);
-                tr.addView(tv);
-            }
+
+            TextView tv = new TextView(this);
+            tv.setText(tareas.get(i)[1]);
+            tv.setTextColor(Color.BLACK);
+            TextView tv2 = new TextView(this);
+            tv2.setText(tareas.get(i)[3]);
+            tv2.setTextColor(Color.BLACK);
+            tr.addView(tv);
+            tr.addView(tv2);
+
             // click de la fila
             tr.setClickable(true);
+            int finalI = i;
             tr.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v)
                 {
-                    Button btn = findViewById(R.id.btnExample);
-                    btn.setText(students.get(tr.getId())[1]);
+                    Intent siguiente = new Intent(v.getContext(), VerTareaActivity.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("idTarea", String.valueOf(tareas.get(finalI)[0]));
+                    b.putSerializable("titulo", String.valueOf(tareas.get(finalI)[1]));
+                    b.putSerializable("descripcion", String.valueOf(tareas.get(finalI)[2]));
+                    b.putSerializable("fechaE", String.valueOf(tareas.get(finalI)[3]));
+                    b.putSerializable("fechaA", String.valueOf(tareas.get(finalI)[4]));
+                    siguiente.putExtras(b);
+                    startActivity(siguiente);
                 }
             });
             // añadir a la tabla
             table.addView(tr);
         }
-    }*/
+    }
 }

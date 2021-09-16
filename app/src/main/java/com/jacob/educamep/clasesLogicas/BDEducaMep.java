@@ -2,22 +2,10 @@ package com.jacob.educamep.clasesLogicas;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 
 //AsynTask: Clase que ejecuta acciones antes, durante o despúes de un suceso
@@ -27,7 +15,8 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
     Usuario autor;
     int accion1;
     int accion2;
-    String resultado="";
+    public String resultado="";
+    public ArrayList<String[]> resultado2;
 
     public BDEducaMep(Context context, Usuario autor, int accion1, int accion2){
         this.context = new WeakReference<>(context);
@@ -150,7 +139,9 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 2: //Tareas del curso Estudiantes
                         switch (accion2){
                             case 1: //ver tarea
-                                resultado = varEstudiante.visualizarListaTareas((int)params[0]);
+                                returnAsync resultTemp = varEstudiante.visualizarListaTareas((int)params[0]);
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
                                 break;
                             case 2: //ver tarea
                                 varEstudiante.visualizarTarea((int)params[0]);
