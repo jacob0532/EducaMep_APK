@@ -23,11 +23,11 @@
     <string name="id_tarea2">ID de la tarea generada</string>
     <string name="fecha_tarea2"></string>
     <string name="nombre_estudiante2">Nombre del estudiante</string>
-    <string name="fecha_estudiante2">Fecha de nacimiento</string>
     <string name="carnet_estudiante2">Carnet del estudiante</string>
-    <string name="encargado_estudiante2">Encargado legal del estudiante</string>
-    <string name="Telefono_estudiante2">Telefono del encargado</string>
-    <string name="nota_estudiante2">Nota del estudiante</string>
+    <string name="primer_apellido_est2">Primer apellido del estudiante</string>
+    <string name="segundo_apellido_est2">Segundo apellido del encargado</string>
+    <string name="grado_est2">Grado escolar del estudiante</string>
+    <string name="correo_est2">Correo del estudiante</string>
 
     <string name="profesor_encargado2">Profesor encargado</string>
     <string name="titulo_noticia2">Titulo de la noticia</string>
@@ -105,11 +105,11 @@
     <string name="fecha_tarea">Fecha de la tarea</string>
     <string name="descripcion_tarea">Descripcion de la tarea</string>
     <string name="nombre_estudiante">Nombre del estudiante</string>
-    <string name="fecha_estudiante">Fecha de nacimiento</string>
     <string name="carnet_estudiante">Carnet</string>
-    <string name="encargado_estudiante">Encargado legal</string>
-    <string name="Telefono_estudiante">Telefono del encargado legal</string>
-    <string name="nota_estudiante">Nota del estudiante</string>
+    <string name="primer_apellido_est">Primer apellido</string>
+    <string name="segundo_apellido_est">Segundo apellido</string>
+    <string name="grado_est">Grado escolar</string>
+    <string name="correo_est">Correo del estudiante</string>
     <string name="profesor_encargado">Profesor encargado</string>
     <string name="noticias">Noticias</string>
     <string name="tareas">Tareas</string>
