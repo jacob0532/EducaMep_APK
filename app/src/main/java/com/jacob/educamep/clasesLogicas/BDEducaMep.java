@@ -139,7 +139,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                 switch (accion1){
                     case 1: //Noticias del curso Estudiantes
                         switch (accion2){
-                            case 1: //ver noticia
+                            case 1: //ver lista noticia
                                 varEstudiante.visualizarListaNoticias((int)params[0]);
                                 break;
                             case 2: //ver noticia
