@@ -35,14 +35,14 @@ public class AgregarDocenteActivity extends AppCompatActivity {
         final Button btnAtras = findViewById(R.id.btnAtras);
         final Button btnConfirmar = findViewById(R.id.btnConfirmar);
         //-------------------------------------------------------
-        //Prueba
+        //to-do eliminar pruebas
         //Administrador usuario = new Administrador(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito");
         //BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) usuario, 2, 1);
         BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) getIntent().getSerializableExtra("usuario"), 2, 1);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long cedula = Integer.parseInt(txtCedula.getText().toString());
+                long cedula = Long.parseLong(txtCedula.getText().toString());
                 String nombre = txtNombre.getText().toString();
                 String apellido1 = txtPrimerApellido.getText().toString();
                 String apellido2 = txtSegundoApellido.getText().toString();

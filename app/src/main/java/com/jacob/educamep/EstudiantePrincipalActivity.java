@@ -2,9 +2,18 @@ package com.jacob.educamep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import com.jacob.educamep.clasesLogicas.BDEducaMep;
+import com.jacob.educamep.clasesLogicas.Estudiante;
+import com.jacob.educamep.clasesLogicas.Usuario;
+
+import java.util.ArrayList;
 
 public class EstudiantePrincipalActivity extends AppCompatActivity {
 
@@ -18,5 +27,28 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
         final Button btnTarea = findViewById(R.id.btnTarea);
         final Button btnChat = findViewById(R.id.btnChat);
         final Button btnSalir = findViewById(R.id.btnSalir);
+
+        btnTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Prueba
+                //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
+                //BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 2, 1);
+                //db.execute(1);
+                Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 2, 1);
+                db.execute((int) getIntent().getSerializableExtra("idCurso"));
+                while(db.resultado2 == null){
+                    Log.d("MI OPPPOPOPO", "loading...");
+                }
+                Intent send = new Intent(view.getContext(),ListaTareasActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", (ArrayList<String[]>)db.resultado2);
+                b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
+                //b.putSerializable("idCurso", "1");
+                send.putExtras(b);
+                startActivity(send);
+            }
+        });
     }
 }
