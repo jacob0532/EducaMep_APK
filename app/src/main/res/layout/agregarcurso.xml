@@ -69,7 +69,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/sInicio"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDia"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck">
+                </Spinner>
 
                 <TextView
                     android:id="@+id/tvFin"

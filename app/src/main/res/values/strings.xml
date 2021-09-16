@@ -118,4 +118,39 @@
     <string name="Cedula_docente">Carnet del docente</string>
     <string name="calificacionpromedio">Calificacion promedio</string>
     <string name="calificar_docente">Calificar docente</string>
+    <string-array name="gradosSpinner">
+        <item>1ero</item>
+        <item>2nd</item>
+        <item>3ero</item>
+        <item>4to</item>
+        <item>5to</item>
+        <item>6to</item>
+    </string-array>
+    <string-array name="diasSpinner">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sabado</item>
+        <item>Domingo</item>
+    </string-array>
+    <string-array name="horasSpinner">
+        <item>7:00 am</item>
+        <item>7:30 am</item>
+        <item>8:00 am</item>
+        <item>8:30 am</item>
+        <item>9:00 am</item>
+        <item>9:30 am</item>
+        <item>10:00 am</item>
+        <item>10:30 am</item>
+        <item>11:00 am</item>
+        <item>11:30 am</item>
+        <item>12:00 am</item>
+        <item>12:30 am</item>
+        <item>1:00 pm</item>
+        <item>1:30 am</item>
+        <item>2:00 pm</item>
+        <item>2:30 am</item>
+    </string-array>
 </resources>
