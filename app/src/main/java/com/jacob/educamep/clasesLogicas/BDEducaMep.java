@@ -2,6 +2,7 @@ package com.jacob.educamep.clasesLogicas;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
@@ -96,7 +97,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 1: //Noticias del curso
                         switch (accion2){
                             case 1: //publicar noticia
-                                varDocente.agregarNoticias((int)params[0]);
+                                resultado = varDocente.agregarNoticias((int)params[0], (String)params[1], (String)params[2]);
                                 break;
                         }
                         break;
@@ -117,6 +118,11 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 4: //Lista de estudiantes
                         switch (accion2){
                             case 1: //ver lista estudiantes
+                                returnAsync resultTemp = varDocente.visualizarListaEstudiantes((int)params[0]);
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
+                                break;
+                            case 2: //ver estudiante
                                 varDocente.visualizarEstudiantes((int)params[0]);
                                 break;
                         }
@@ -140,7 +146,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                         break;
                     case 2: //Tareas del curso Estudiantes
                         switch (accion2){
-                            case 1: //ver tarea
+                            case 1: //ver lista tarea
                                 returnAsync resultTemp = varEstudiante.visualizarListaTareas((int)params[0]);
                                 resultado = resultTemp.result;
                                 resultado2 = resultTemp.result2;

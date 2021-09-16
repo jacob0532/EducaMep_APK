@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class PerfilEstudianteActivity extends AppCompatActivity {
 
     @Override
@@ -20,5 +22,21 @@ public class PerfilEstudianteActivity extends AppCompatActivity {
         final TextView lblGradoEscolar = findViewById(R.id.tvGrado2);
         final TextView lblCorreo = findViewById(R.id.tvCorreo2);
         final Button btnAtras = findViewById(R.id.btnAtras);
+
+        String id = (String) getIntent().getSerializableExtra("idCurso");
+        lblNombreCurso.setText(id);
+        String cedula = (String) getIntent().getSerializableExtra("cedula");
+        lblCedula.setText(cedula);
+        String nombre = (String) getIntent().getSerializableExtra("nombre");
+        lblNombreEstudiante.setText(nombre);
+        String primer = (String) getIntent().getSerializableExtra("primer");
+        lblPrimerApellido.setText(primer);
+        String segundo = (String) getIntent().getSerializableExtra("segundo");
+        lblSegundoApellido.setText(segundo);
+        String grado = (String) getIntent().getSerializableExtra("grado");
+        lblGradoEscolar.setText(grado);
+        String correo = (String) getIntent().getSerializableExtra("correo");
+        lblCorreo.setText(correo);
+
     }
 }

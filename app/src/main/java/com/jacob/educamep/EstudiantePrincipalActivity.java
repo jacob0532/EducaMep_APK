@@ -34,12 +34,12 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Prueba
-                Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
-                BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 4, 1);
-                db.execute(1);
-                //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
-                //BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 4, 1);
-                //db.execute((int) getIntent().getSerializableExtra("idCurso"));
+                //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
+                //BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 4, 1);
+                //db.execute(1);
+                Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 4, 1);
+                db.execute((int) getIntent().getSerializableExtra("idCurso"));
                 while(db.resultado2 == null){
                     Log.d("MI OPPPOPOPO", "loading...");
                 }
