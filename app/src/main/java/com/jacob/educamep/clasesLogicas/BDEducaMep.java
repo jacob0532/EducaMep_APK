@@ -106,7 +106,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 2: //Tareas del curso
                         switch (accion2){
                             case 1: //publicar tarea
-                                varDocente.agregarTareas((int)params[0]);
+                                resultado = varDocente.agregarTareas((int)params[0], (String)params[1], (String)params[2], (String)params[3]);
                                 break;
                         }
                         break;

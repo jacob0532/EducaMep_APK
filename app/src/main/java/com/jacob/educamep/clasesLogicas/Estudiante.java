@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +17,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class Estudiante extends Usuario{
+public class Estudiante extends Usuario implements Serializable {
     int gradoEscolar;
     ArrayList<Curso> listaCursos = new ArrayList<Curso>();
     StringParser parser = new StringParser();

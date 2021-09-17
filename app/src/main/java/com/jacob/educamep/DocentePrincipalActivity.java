@@ -72,5 +72,21 @@ public class DocentePrincipalActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnAsignarTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Prueba
+                Docente usuario = new Docente(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
+                //Docente usuario = (Docente) getIntent().getSerializableExtra("usuario");
+                Intent send = new Intent(view.getContext(), AgregarTareaActivity.class);
+                Bundle b = new Bundle();
+                //b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
+                b.putSerializable("idCurso", "1");
+                b.putSerializable("usuario", usuario);
+                send.putExtras(b);
+                startActivity(send);
+            }
+        });
     }
 }

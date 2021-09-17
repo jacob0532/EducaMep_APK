@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +17,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario implements Serializable {
     StringParser parser = new StringParser();
     public Administrador(long cedula, String nombre, String apellido1, String apellido2, String correoElectronico, String contraseña) {
         super(cedula, nombre, apellido1, apellido2, correoElectronico, contraseña);

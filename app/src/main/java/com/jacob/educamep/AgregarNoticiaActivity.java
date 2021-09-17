@@ -39,7 +39,7 @@ public class AgregarNoticiaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Docente usuario = (Docente) getIntent().getSerializableExtra("usuario");
-                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 1, 1);
+                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 2, 1);
                 int intId = Integer.parseInt(id);
                 String titulo = txtTitulo.getText().toString();
                 String descripcion = txtDescripcion.getText().toString();
