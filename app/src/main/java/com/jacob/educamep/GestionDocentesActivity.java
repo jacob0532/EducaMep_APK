@@ -73,5 +73,21 @@ public class GestionDocentesActivity extends AppCompatActivity {
             }
         });
         
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),AgregarDocenteActivity.class);
+                startActivity(anterior);
+            }
+        });
+        
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),AdministradorPrincipalActivity.class);
+                startActivity(anterior);
+            }
+        });
+        
     }
 }
