@@ -76,6 +76,22 @@ public class GestionEstudiantesActivity extends AppCompatActivity {
                 }
             }
         });
+        
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),AgregarEstudianteActivity.class);
+                startActivity(anterior);
+            }
+        });
+        
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),AdministradorPrincipalActivity.class);
+                startActivity(anterior);
+            }
+        });
 
     }
 }
