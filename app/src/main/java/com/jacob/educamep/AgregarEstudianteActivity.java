@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -39,6 +44,23 @@ public class AgregarEstudianteActivity extends AppCompatActivity {
         Administrador usuario = new Administrador(1, "admin", "_", "_", "admin@gmail.com", "superpepito");
 
         BDEducaMep db = new BDEducaMep(AgregarEstudianteActivity.this, usuario, 3, 1);
+        
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gradosSpinner, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        comboBoxGradoEsc.setAdapter(adapter);
+        comboBoxGradoEsc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String text = comboBoxGradoEsc.getSelectedItem().toString();
+                Log.d("TEXTO del grado",text);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +69,7 @@ public class AgregarEstudianteActivity extends AppCompatActivity {
                 String apellido1 = txtPrimerApellido.getText().toString();
                 String apellido2 = txtSegundoApellido.getText().toString();
                 String correo = txtCorreo.getText().toString();
-                String grado= "No aplica";//hay que obtenerlo del "combobox" de los grados que deben de estar predefinidos.
+                String grado= comboBoxGradoEsc.getSelectedItem().toString();
                 db.execute(cedula, nombre, apellido1, apellido2, correo,grado);
 
                 Intent anterior = new Intent(view.getContext(),GestionDocentesActivity.class);

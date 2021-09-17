@@ -2,6 +2,7 @@ package com.jacob.educamep.clasesLogicas;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
@@ -71,13 +72,15 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                                 resultado = varAdministrador.insertarEstudiante((long) params[0], (String)params[1], (String)params[2], (String)params[3], (String)params[4], (String)params[5]);
                                 break;
                             case 2: //mostrar
-                                varAdministrador.mostrarEstudiante();
+                                returnAsync resultTemp = varAdministrador.mostrarEstudiante();
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
                                 break;
                             case 3: //modificar
-                                varAdministrador.modificarEstudiante();
+                                resultado =varAdministrador.modificarEstudiante((long) params[0], (String)params[1], (String)params[2], (String)params[3], (String)params[4], (String)params[5]);
                                 break;
                             case 4: //eliminar
-                                varAdministrador.eliminarEstudiante();
+                                resultado = varAdministrador.eliminarEstudiante((long) params[0]);
                                 break;
                         }
                         break;
@@ -99,14 +102,14 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 1: //Noticias del curso
                         switch (accion2){
                             case 1: //publicar noticia
-                                varDocente.agregarNoticias((int)params[0]);
+                                resultado = varDocente.agregarNoticias((int)params[0], (String)params[1], (String)params[2]);
                                 break;
                         }
                         break;
                     case 2: //Tareas del curso
                         switch (accion2){
                             case 1: //publicar tarea
-                                varDocente.agregarTareas((int)params[0]);
+                                resultado = varDocente.agregarTareas((int)params[0], (String)params[1], (String)params[2], (String)params[3]);
                                 break;
                         }
                         break;
@@ -120,6 +123,11 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 4: //Lista de estudiantes
                         switch (accion2){
                             case 1: //ver lista estudiantes
+                                returnAsync resultTemp = varDocente.visualizarListaEstudiantes((int)params[0]);
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
+                                break;
+                            case 2: //ver estudiante
                                 varDocente.visualizarEstudiantes((int)params[0]);
                                 break;
                         }
@@ -132,7 +140,9 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 1: //Noticias del curso Estudiantes
                         switch (accion2){
                             case 1: //ver lista noticia
-                                varEstudiante.visualizarListaNoticias((int)params[0]);
+                                returnAsync resultTemp = varEstudiante.visualizarListaNoticias((int)params[0]);
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
                                 break;
                             case 2: //ver noticia
                                 varEstudiante.visualizarNoticia((int)params[0]);
@@ -141,7 +151,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                         break;
                     case 2: //Tareas del curso Estudiantes
                         switch (accion2){
-                            case 1: //ver tarea
+                            case 1: //ver lista tarea
                                 returnAsync resultTemp = varEstudiante.visualizarListaTareas((int)params[0]);
                                 resultado = resultTemp.result;
                                 resultado2 = resultTemp.result2;
@@ -161,7 +171,9 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 4: //Profesor encargado
                         switch (accion2){
                             case 1: //ver profesor
-                                varEstudiante.visualizarProfesor((int)params[0]);
+                                returnAsync resultTemp = varEstudiante.visualizarProfesor((int)params[0]);
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
                                 break;
                             case 2: //calificar profesor
                                 varEstudiante.calificarProfesor((int)params[0]);

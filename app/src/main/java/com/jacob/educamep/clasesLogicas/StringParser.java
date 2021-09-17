@@ -1,8 +1,9 @@
 package com.jacob.educamep.clasesLogicas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StringParser {
+public class StringParser implements Serializable {
     public ArrayList<String[]> convert (String line){
         ArrayList<String[]> list = new ArrayList<String[]>();
         if (!line.equals("")){

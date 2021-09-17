@@ -1,5 +1,6 @@
 package com.jacob.educamep.clasesLogicas;
 
+
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -11,8 +12,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Usuario {
+
+
+public class Usuario implements Serializable{
     public long cedula;
     public String nombre;
     public String apellido1;
