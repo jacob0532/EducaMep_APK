@@ -17,12 +17,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Estudiante extends Usuario{
-    int gradoEscolar;
+    String gradoEscolar;
     ArrayList<Curso> listaCursos = new ArrayList<Curso>();
     StringParser parser = new StringParser();
 
     public Estudiante(long cedula, String nombre, String apellido1, String apellido2,
-                      String correoElectronico, String contraseña, int gradoEscolar,
+                      String correoElectronico, String contraseña, String gradoEscolar,
                       ArrayList<Curso> listaCursos) {
         super(cedula, nombre, apellido1, apellido2, correoElectronico, contraseña);
         this.gradoEscolar = gradoEscolar;

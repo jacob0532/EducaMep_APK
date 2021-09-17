@@ -1,20 +1,12 @@
 package com.jacob.educamep.clasesLogicas;
 
-enum Dia{
-    Lunes,
-    Martes,
-    Miercoles,
-    Jueves,
-    Viernes,
-    Sabado,
-    Domingo
-}
-public class Horario {
-    String horaInicial;
-    String horaFinal;
-    Dia dia;
 
-    public Horario(String horaInicial, String horaFinal, Dia dia) {
+public class Horario {
+    public String horaInicial;
+    public String horaFinal;
+    public String dia;
+
+    public Horario(String horaInicial, String horaFinal, String dia) {
         this.horaInicial = horaInicial;
         this.horaFinal = horaFinal;
         this.dia = dia;

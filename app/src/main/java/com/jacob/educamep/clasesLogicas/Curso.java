@@ -3,14 +3,14 @@ package com.jacob.educamep.clasesLogicas;
 import java.util.ArrayList;
 
 public class Curso {
-    int idCurso;
-    String nombre;
-    int grado;
-    ArrayList<Horario> horarios = new ArrayList<>();
-    ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
-    Docente profesorEncargado;
-    ArrayList<Noticia> listaNoticias = new ArrayList<>();
-    ArrayList<Tarea> listaTareas = new ArrayList<>();
+    public int idCurso;
+    public String nombre;
+    public int grado;
+    public ArrayList<Horario> horarios = new ArrayList<>();
+    public ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
+    public Docente profesorEncargado;
+    public ArrayList<Noticia> listaNoticias = new ArrayList<>();
+    public ArrayList<Tarea> listaTareas = new ArrayList<>();
 
     public Curso(int idCurso, String nombre, int grado,
                  ArrayList<Horario> horarios, ArrayList<Estudiante> listaEstudiantes,

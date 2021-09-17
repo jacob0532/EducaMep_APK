@@ -11,12 +11,13 @@ import java.util.ArrayList;
 //AsynTask: Clase que ejecuta acciones antes, durante o despúes de un suceso
 //<Parametros que recibe,info durante el proceso, retorna del proceso>
 public class BDEducaMep extends AsyncTask<Object, Void, String> {
-    WeakReference<Context> context;
-    Usuario autor;
-    int accion1;
-    int accion2;
+    public WeakReference<Context> context;
+    public Usuario autor;
+    public int accion1;
+    public int accion2;
     public String resultado="";
     public ArrayList<String[]> resultado2;
+    public boolean valorEntrada;
 
     public BDEducaMep(Context context, Usuario autor, int accion1, int accion2){
         this.context = new WeakReference<>(context);
@@ -33,10 +34,12 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                     case 1: //Gestion de cursos
                         switch (accion2){
                             case 1: //insertar
-                                varAdministrador.insertarCurso();
+                                resultado = varAdministrador.insertarCurso(params[0].toString(),params[1].toString(),(ArrayList<Horario>) params[2]);
                                 break;
                             case 2: //mostrar
-                                varAdministrador.modificarCurso();
+                                returnAsync resultTemp = varAdministrador.mostrarIdsCurso();
+                                resultado = resultTemp.result;
+                                resultado2 = resultTemp.result2;
                                 break;
                             case 3: //modificar
                                 varAdministrador.modificarCurso();
@@ -167,6 +170,10 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                         break;
                 }
                 break;
+            default:
+                valorEntrada = autor.iniciarSesion((int) params[0]);
+                resultado = "Ingreso de sesion satisfactorio";
+
         }
         return resultado;
     }
