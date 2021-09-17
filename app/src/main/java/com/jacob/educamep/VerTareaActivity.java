@@ -2,7 +2,9 @@ package com.jacob.educamep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,5 +26,13 @@ public class VerTareaActivity extends AppCompatActivity {
         lblTituloTarea.setText(titulo);
         String descripcion = (String) getIntent().getSerializableExtra("descripcion");
         containerDescripcion.setText(descripcion);
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),ListaTareasActivity.class);
+                startActivity(anterior);
+            }
+        });
     }
 }

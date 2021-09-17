@@ -25,6 +25,14 @@ public class AgregarNoticiaActivity extends AppCompatActivity {
         Button btnPublicar = findViewById(R.id.btnPublicar);
         Button btnAtras = findViewById(R.id.btnAtras);
 
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),DocentePrincipalActivity.class);
+                startActivity(anterior);
+            }
+        });
+
         String id = (String) getIntent().getSerializableExtra("idCurso");
         lblNombreCurso.setText(id);
         btnPublicar.setOnClickListener(new View.OnClickListener() {
