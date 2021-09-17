@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class EstudiantePrincipalActivity extends AppCompatActivity {
+    String text="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,28 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
         Estudiante usuario = new Estudiante(usuario2.cedula,usuario2.nombre, usuario2.apellido1,usuario2.apellido2,usuario2.correoElectronico, usuario2.contraseña,"",null);
         Log.d("EJEMPLO",usuario.nombre);
 
+        final ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
+        final ArrayList<String> arregloStringsCursos = new ArrayList<String>();
+        for (int i=0;i<list.size();i++){
+            arregloStringsCursos.add(list.get(i)[0] + "-" + list.get(i)[1] + "-" + list.get(i)[2]);
+            Log.d("mi app",arregloStringsCursos.get(i));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arregloStringsCursos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        comboBoxCursos.setAdapter(adapter);
+        comboBoxCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String[] arr = comboBoxCursos.getSelectedItem().toString().split("-");
+                text = arr[0];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         btnProfesorEncargado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +68,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //db.execute(1);
                 //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 4, 1);
-                db.execute((int) getIntent().getSerializableExtra("idCurso"));
+                db.execute(Integer.parseInt(text));
                 while(db.resultado2 == null){
                     Log.d("MI OPPPOPOPO", "loading...");
                 }
@@ -54,6 +79,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                     Bundle b = new Bundle();
                     b.putSerializable("profesor", (ArrayList<String[]>)db.resultado2);
                     b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
+                    b.putSerializable("list", list);
                     //b.putSerializable("idCurso", "1");
                     send.putExtras(b);
                     startActivity(send);
@@ -70,7 +96,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //db.execute(1);
                 //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 1, 1);
-                db.execute((int) getIntent().getSerializableExtra("idCurso"));
+                db.execute(Integer.parseInt(text));
                 while(db.resultado2 == null){
                     Log.d("MI OPPPOPOPO", "loading...");
                 }
@@ -79,8 +105,9 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 }else {
                     Intent send = new Intent(view.getContext(), ListaNoticiasActivity.class);
                     Bundle b = new Bundle();
-                    b.putSerializable("list", (ArrayList<String[]>) db.resultado2);
+                    b.putSerializable("listN", (ArrayList<String[]>) db.resultado2);
                     b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
+                    b.putSerializable("list", list);
                     //b.putSerializable("idCurso", "1");
                     send.putExtras(b);
                     startActivity(send);
@@ -97,7 +124,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //db.execute(1);
                 //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 2, 1);
-                db.execute((int) getIntent().getSerializableExtra("idCurso"));
+                db.execute(Integer.parseInt(text));
                 while(db.resultado2 == null){
                     Log.d("MI OPPPOPOPO", "loading...");
                 }
@@ -106,8 +133,9 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 }else {
                     Intent send = new Intent(view.getContext(), ListaTareasActivity.class);
                     Bundle b = new Bundle();
-                    b.putSerializable("list", (ArrayList<String[]>) db.resultado2);
+                    b.putSerializable("listT", (ArrayList<String[]>) db.resultado2);
                     b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
+                    b.putSerializable("list", list);
                     //b.putSerializable("idCurso", "1");
                     send.putExtras(b);
                     startActivity(send);

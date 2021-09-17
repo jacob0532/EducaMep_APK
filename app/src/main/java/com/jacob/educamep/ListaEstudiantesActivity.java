@@ -28,13 +28,16 @@ public class ListaEstudiantesActivity extends AppCompatActivity {
 
         String id = (String) getIntent().getSerializableExtra("idCurso");
         lblCurso.setText(id);
-        ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
+        ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("listEst");
         fillTable(list);
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),DocentePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", list);
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
@@ -92,6 +95,8 @@ public class ListaEstudiantesActivity extends AppCompatActivity {
                     b.putSerializable("segundo", String.valueOf(estudiantes.get(finalI)[3]));
                     b.putSerializable("correo", String.valueOf(estudiantes.get(finalI)[4]));
                     b.putSerializable("grado", String.valueOf(estudiantes.get(finalI)[5]));
+                    b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                    b.putSerializable("listEst", getIntent().getSerializableExtra("listEst"));
                     siguiente.putExtras(b);
                     startActivity(siguiente);
                 }

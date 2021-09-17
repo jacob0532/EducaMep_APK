@@ -15,6 +15,7 @@ import com.jacob.educamep.clasesLogicas.BDEducaMep;
 import com.jacob.educamep.clasesLogicas.Docente;
 import com.jacob.educamep.clasesLogicas.Usuario;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AgregarTareaActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
         String id = (String) getIntent().getSerializableExtra("idCurso");
         lblNombreCurso.setText(id);
+        final ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
 
         btnCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(), DocentePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", list);
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
@@ -79,6 +84,9 @@ public class AgregarTareaActivity extends AppCompatActivity {
 
                 db.execute(intId, titulo, fecha, descripcion);
                 Intent anterior = new Intent(view.getContext(),DocentePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", list);
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });

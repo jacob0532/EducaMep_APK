@@ -76,6 +76,7 @@ public class DocentePrincipalActivity extends AppCompatActivity {
                 b.putSerializable("idCurso", (String) text);
                 //b.putSerializable("idCurso", "1");
                 b.putSerializable("usuario", usuario);
+                b.putSerializable("list", list);
                 send.putExtras(b);
                 startActivity(send);
             }
@@ -98,9 +99,10 @@ public class DocentePrincipalActivity extends AppCompatActivity {
                 }else{
                     Intent send = new Intent(view.getContext(),ListaEstudiantesActivity.class);
                     Bundle b = new Bundle();
-                    b.putSerializable("list", (ArrayList<String[]>)db.resultado2);
+                    b.putSerializable("listEst", (ArrayList<String[]>)db.resultado2);
                     b.putSerializable("idCurso", text);
                     //b.putSerializable("idCurso", "1");
+                    b.putSerializable("list", list);
                     send.putExtras(b);
                     startActivity(send);
                 }
@@ -117,6 +119,7 @@ public class DocentePrincipalActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 //b.putSerializable("idCurso", (String) comboBoxCursos.getSelectedItem());
                 b.putSerializable("idCurso", text);
+                b.putSerializable("list", list);
                 b.putSerializable("usuario", usuario);
                 send.putExtras(b);
                 startActivity(send);

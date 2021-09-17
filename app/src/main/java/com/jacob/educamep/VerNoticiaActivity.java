@@ -30,6 +30,10 @@ public class VerNoticiaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),ListaNoticiasActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                b.putSerializable("listN", getIntent().getSerializableExtra("listN"));
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });

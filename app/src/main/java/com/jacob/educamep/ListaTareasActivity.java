@@ -52,6 +52,9 @@ public class ListaTareasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),EstudiantePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
@@ -108,6 +111,8 @@ public class ListaTareasActivity extends AppCompatActivity {
                     b.putSerializable("descripcion", String.valueOf(tareas.get(finalI)[2]));
                     b.putSerializable("fechaE", String.valueOf(tareas.get(finalI)[3]));
                     b.putSerializable("fechaA", String.valueOf(tareas.get(finalI)[4]));
+                    b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                    b.putSerializable("listT", getIntent().getSerializableExtra("listT"));
                     siguiente.putExtras(b);
                     startActivity(siguiente);
                 }

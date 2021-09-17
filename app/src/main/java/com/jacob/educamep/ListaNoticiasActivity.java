@@ -26,7 +26,7 @@ public class ListaNoticiasActivity extends AppCompatActivity {
 
         String id = (String) getIntent().getSerializableExtra("idCurso");
         lblCurso.setText(id);
-        ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
+        ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("listN");
 
         //to-do eliminar Prueba
         /*ArrayList<String[]> list = new ArrayList<String[]>();
@@ -48,6 +48,9 @@ public class ListaNoticiasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),EstudiantePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
@@ -103,6 +106,8 @@ public class ListaNoticiasActivity extends AppCompatActivity {
                     b.putSerializable("titulo", String.valueOf(noticias.get(finalI)[1]));
                     b.putSerializable("descripcion", String.valueOf(noticias.get(finalI)[2]));
                     b.putSerializable("fecha", String.valueOf(noticias.get(finalI)[3]));
+                    b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                    b.putSerializable("listN", getIntent().getSerializableExtra("listN"));
                     siguiente.putExtras(b);
                     startActivity(siguiente);
                 }

@@ -31,6 +31,10 @@ public class VerTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),ListaTareasActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                b.putSerializable("listT", getIntent().getSerializableExtra("listT"));
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });

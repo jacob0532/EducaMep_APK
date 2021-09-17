@@ -44,6 +44,10 @@ public class PerfilEstudianteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),ListaEstudiantesActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", getIntent().getSerializableExtra("list"));
+                b.putSerializable("listEst", getIntent().getSerializableExtra("listEst"));
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });

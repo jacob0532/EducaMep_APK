@@ -14,6 +14,8 @@ import com.jacob.educamep.clasesLogicas.BDEducaMep;
 import com.jacob.educamep.clasesLogicas.Docente;
 import com.jacob.educamep.clasesLogicas.Usuario;
 
+import java.util.ArrayList;
+
 public class AgregarNoticiaActivity extends AppCompatActivity {
 
     @Override
@@ -26,10 +28,15 @@ public class AgregarNoticiaActivity extends AppCompatActivity {
         Button btnPublicar = findViewById(R.id.btnPublicar);
         Button btnAtras = findViewById(R.id.btnAtras);
 
+        final ArrayList<String[]> list = (ArrayList<String[]>) getIntent().getSerializableExtra("list");
+
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent anterior = new Intent(view.getContext(),DocentePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", list);
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
@@ -48,6 +55,9 @@ public class AgregarNoticiaActivity extends AppCompatActivity {
 
                 db.execute(intId, titulo, descripcion);
                 Intent anterior = new Intent(view.getContext(),DocentePrincipalActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", list);
+                anterior.putExtras(b);
                 startActivity(anterior);
             }
         });
