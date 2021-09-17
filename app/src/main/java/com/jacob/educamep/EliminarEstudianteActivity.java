@@ -73,7 +73,18 @@ public class EliminarEstudianteActivity extends AppCompatActivity {
                 Long idcedula= Long.valueOf(comboBoxCedulas.getSelectedItem().toString());
 
                 db.execute(idcedula);
+                
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
+                startActivity(anterior);
 
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
+                startActivity(anterior);
             }
         });
     }
