@@ -72,7 +72,15 @@ public class AgregarEstudianteActivity extends AppCompatActivity {
                 String grado= comboBoxGradoEsc.getSelectedItem().toString();
                 db.execute(cedula, nombre, apellido1, apellido2, correo,grado);
 
-                Intent anterior = new Intent(view.getContext(),GestionDocentesActivity.class);
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
+                startActivity(anterior);
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
                 startActivity(anterior);
             }
         });
