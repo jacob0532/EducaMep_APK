@@ -75,7 +75,6 @@ public class Administrador extends Usuario implements Serializable {
             return "Se ha producido un error, comprueba tu conexión a internet";
         }
     }
-    //"SELECT max(idCurso) FROM Curso"
     public void crearHorario(ArrayList<Horario> horarios){
         String registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/crearHorario.php";
         try {
@@ -126,10 +125,96 @@ public class Administrador extends Usuario implements Serializable {
         }
 
     }
-    public void modificarCurso(){
+    public String modificarCurso(String idCurso, String nombre, String grado){
+        String registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/actualizarCurso.php";
+        try {
+            Log.d("MI APP","Inicia....");
+            URL url = new URL(registrar_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter
+                    (new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+            String data =
+                    URLEncoder.encode("idCurso","UTF-8") +
+                            "=" + URLEncoder.encode(idCurso,"UTF-8") + "&" +
+                            URLEncoder.encode("nombre","UTF-8") +
+                            "=" + URLEncoder.encode(nombre,"UTF-8") + "&" +
+                            URLEncoder.encode("grado","UTF-8") +
+                            "=" + URLEncoder.encode(grado,"UTF-8");
 
+            bufferedWriter.write(data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader
+                    (new InputStreamReader(inputStream,StandardCharsets.UTF_8));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line);
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.d("MI APP","Termino....");
+            return stringBuilder.toString();
+        } catch (MalformedURLException e) {
+            Log.d("MI APP","SE HA UTILIZADO UNA URL CON FORMATO INCORRECTO");
+            return "SE HA PRODUCIDO UN ERROR CATCH1";
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("MI APP","Error, CONECTESE A INTERNET >:/");
+            return "Se ha producido un error, comprueba tu conexión a internet";
+        }
     }
-    public void eliminarCurso(){
+    public String eliminarCurso(String idCurso){
+        String registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/borrarCurso.php";
+        try {
+            Log.d("MI APP","Inicia....");
+            URL url = new URL(registrar_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter
+                    (new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+            String data =
+                    URLEncoder.encode("idCurso","UTF-8") +
+                            "=" + URLEncoder.encode(idCurso,"UTF-8");
+
+            bufferedWriter.write(data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader
+                    (new InputStreamReader(inputStream,StandardCharsets.UTF_8));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line);
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            Log.d("MI APP","Termino....");
+            return stringBuilder.toString();
+        } catch (MalformedURLException e) {
+            Log.d("MI APP","SE HA UTILIZADO UNA URL CON FORMATO INCORRECTO");
+            return "SE HA PRODUCIDO UN ERROR CATCH1";
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("MI APP","Error, CONECTESE A INTERNET >:/");
+            return "Se ha producido un error, comprueba tu conexión a internet";
+        }
+
 
     }
     public returnAsync mostrarIdsCurso(){

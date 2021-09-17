@@ -38,7 +38,7 @@ public class Usuario implements Serializable{
         String registrar_url = null;
         switch (tipo){
             case 1:
-                registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/";
+                registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/mostrarAdministrador.php";
                 break;
             case 2:
                 registrar_url = "http://educamep.freeoda.com/scriptsEducaMep/Administrador/mostrarDocentes.php";
@@ -76,20 +76,25 @@ public class Usuario implements Serializable{
             Log.d("MI APP","Error, CONECTESE A INTERNET >:/");
             return false;
         }
+        Log.d("verrrrrrrrrrrrrrrrrrrrr",String.valueOf(res));
         return res;
     }
     public boolean iniciarSesio2(ArrayList<String[]> list){
+        boolean bandera = false;
         for (int i=0;i<list.size();i++){
-            if(this.correoElectronico.equals(list.get(i)[4]) && this.cedula == Long.parseLong(list.get(i)[0])){
+            Log.d("REVISION",String.valueOf(this.cedula) +" ->"+list.get(i)[0]);
+            Log.d("REVISION",String.valueOf(this.correoElectronico) +" ->"+list.get(i)[4]);
+            if(this.correoElectronico.equals(list.get(i)[4]) && String.valueOf(this.cedula).equals(list.get(i)[0])){
                 this.cedula = Long.parseLong(list.get(i)[0]);
                 this.nombre = list.get(i)[1];
                 this.apellido1 = list.get(i)[2];
                 this.apellido2 = list.get(i)[3];
                 this.correoElectronico = list.get(i)[4];
                 this.contraseña = null;
-                return true;
+                Log.d("REVISION","entre");
+                bandera = true;
             }
         }
-        return false;
+        return bandera;
     }
 }

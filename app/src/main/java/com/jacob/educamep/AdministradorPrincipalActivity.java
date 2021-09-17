@@ -2,12 +2,17 @@ package com.jacob.educamep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.jacob.educamep.clasesLogicas.Administrador;
 import com.jacob.educamep.clasesLogicas.BDEducaMep;
+import com.jacob.educamep.clasesLogicas.Docente;
 import com.jacob.educamep.clasesLogicas.Estudiante;
+import com.jacob.educamep.clasesLogicas.Usuario;
 
 import java.util.ArrayList;
 
@@ -22,6 +27,15 @@ public class AdministradorPrincipalActivity extends AppCompatActivity {
         final Button btnEstudiantes = findViewById(R.id.btnEstudiantes);
         final Button btnAsignacion = findViewById(R.id.btnAsignacion);
         final Button btnSalir = findViewById(R.id.btnSalir);
-        Administrador usuario = (Administrador) getIntent().getSerializableExtra("usuario");
+        Usuario usuario2 = (Usuario) getIntent().getSerializableExtra("usuario");
+        Administrador usuario = new Administrador(usuario2.cedula,usuario2.nombre, usuario2.apellido1,usuario2.apellido2,usuario2.correoElectronico, usuario2.contraseña);
+        Log.d("EJEMPLO",usuario.nombre);
+        btnCursos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent siguiente = new Intent(v.getContext(),GestionCursosActivity.class);
+                startActivity(siguiente);
+            }
+        });
     }
 }

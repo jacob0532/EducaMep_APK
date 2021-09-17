@@ -31,13 +31,20 @@ public class LoginActivity extends AppCompatActivity {
         final EditText txtContraseña = findViewById(R.id.tbContrasena);
         final Button btnIniciar = findViewById(R.id.btnIniciar);
         Usuario usuario = new Usuario(0, null,null, null,txtUsuario.getText().toString(),null);
-        BDEducaMep bd = new BDEducaMep(LoginActivity.this,usuario,0,0);
+        String a = txtContraseña.getText().toString();
+
+
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                usuario.cedula = Long.parseLong(txtContraseña.getText().toString());
+                usuario.correoElectronico = txtUsuario.getText().toString();
+                BDEducaMep bd = new BDEducaMep(LoginActivity.this,usuario,0,0);
                 bd.execute(tipoUsuario);
-                Log.d("prueba",String.valueOf(bd.valorEntrada));
-                if(true){
+                while(bd.resultado == ""){
+                    Log.d("MI OPPPOPOPO", "loading...");
+                }
+                if(bd.valorEntrada){
                     Intent siguiente = null;
                     switch (tipoUsuario){
                         case 1:

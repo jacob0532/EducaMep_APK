@@ -25,6 +25,13 @@ public class GestionCursosActivity extends AppCompatActivity {
         final Button btnAtras = findViewById(R.id.btnAtras);
         Administrador a = new Administrador(0,null,null,null,null,null);
         BDEducaMep bd = new BDEducaMep(GestionCursosActivity.this,a,0,0);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent siguiente = new Intent(v.getContext(),AgregarCursoActivity.class);
+                startActivity(siguiente);
+            }
+        });
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +46,29 @@ public class GestionCursosActivity extends AppCompatActivity {
                 b.putSerializable("list", (ArrayList<String[]>)bd.resultado2);
                 siguiente.putExtras(b);
                 startActivity(siguiente);
+            }
+        });
+        btnModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bd.accion1 = 1;
+                bd.accion2 = 2;
+                bd.execute();
+                while(bd.resultado2 == null){
+                    Log.d("MI OPPPOPOPO", "loading...");
+                }
+                Intent siguiente = new Intent(v.getContext(),ModificarCursoActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("list", (ArrayList<String[]>)bd.resultado2);
+                siguiente.putExtras(b);
+                startActivity(siguiente);
+            }
+        });
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent atras = new Intent(v.getContext(),AdministradorPrincipalActivity.class);
+                startActivity(atras);
             }
         });
     }

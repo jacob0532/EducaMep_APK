@@ -140,6 +140,8 @@ public class AgregarCursoActivity extends AppCompatActivity{
             public void onClick(View v) {
                 String varNombre = txtNombre.getText().toString();
                 bd.execute(varNombre,grado,horarios);
+                Intent siguiente = new Intent(v.getContext(),AgregarCursoActivity.class);
+                startActivity(siguiente);
             }
         });
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.jacob.educamep.clasesLogicas.Administrador;
 import com.jacob.educamep.clasesLogicas.BDEducaMep;
 import com.jacob.educamep.clasesLogicas.Estudiante;
 import com.jacob.educamep.clasesLogicas.Usuario;
@@ -29,6 +30,9 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
         final Button btnTarea = findViewById(R.id.btnTarea);
         final Button btnChat = findViewById(R.id.btnChat);
         final Button btnSalir = findViewById(R.id.btnSalir);
+        Usuario usuario2 = (Usuario) getIntent().getSerializableExtra("usuario");
+        Estudiante usuario = new Estudiante(usuario2.cedula,usuario2.nombre, usuario2.apellido1,usuario2.apellido2,usuario2.correoElectronico, usuario2.contraseña,"",null);
+        Log.d("EJEMPLO",usuario.nombre);
 
         btnProfesorEncargado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +41,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
                 //BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 4, 1);
                 //db.execute(1);
-                Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 4, 1);
                 db.execute((int) getIntent().getSerializableExtra("idCurso"));
                 while(db.resultado2 == null){
@@ -64,7 +68,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
                 //BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 1, 1);
                 //db.execute(1);
-                Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 1, 1);
                 db.execute((int) getIntent().getSerializableExtra("idCurso"));
                 while(db.resultado2 == null){
@@ -91,7 +95,7 @@ public class EstudiantePrincipalActivity extends AppCompatActivity {
                 //Estudiante usuario = new Estudiante(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito", 5, null);
                 //BDEducaMep db = new BDEducaMep(EstudiantePrincipalActivity.this, (Usuario) usuario, 2, 1);
                 //db.execute(1);
-                Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
+                //Estudiante usuario = (Estudiante) getIntent().getSerializableExtra("usuario");
                 BDEducaMep db = new BDEducaMep(view.getContext(), usuario, 2, 1);
                 db.execute((int) getIntent().getSerializableExtra("idCurso"));
                 while(db.resultado2 == null){
