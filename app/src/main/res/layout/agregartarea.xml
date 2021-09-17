@@ -78,21 +78,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tbTitulo" />
 
-            <EditText
+            <TextView
                 android:id="@+id/tbTitulo3"
                 android:layout_width="283dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="@string/fecha_tarea"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toStartOf="@+id/btnCalendar"
                 app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitulo4"
-                tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck"
-                tools:text="@string/fecha_tarea2" />
+                />
 
             <TextView
                 android:id="@+id/tvTitulo"

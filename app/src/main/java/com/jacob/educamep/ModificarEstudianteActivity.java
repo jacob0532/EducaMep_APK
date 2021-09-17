@@ -12,6 +12,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 
+import com.jacob.educamep.clasesLogicas.Administrador;
+import com.jacob.educamep.clasesLogicas.BDEducaMep;
+
+import java.util.ArrayList;
+
 public class ModificarEstudianteActivity extends AppCompatActivity {
 
     @Override

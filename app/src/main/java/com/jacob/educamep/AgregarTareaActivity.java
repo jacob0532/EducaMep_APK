@@ -25,20 +25,16 @@ public class AgregarTareaActivity extends AppCompatActivity {
         setContentView(R.layout.agregartarea);
         TextView lblNombreCurso = findViewById(R.id.tvCursoActual);
         EditText txtTitulo = findViewById(R.id.tbTitulo);
-        EditText txtFecha = findViewById(R.id.tbTitulo3);
+        TextView txtFecha = findViewById(R.id.tbTitulo3);
         EditText txtDescripcion = findViewById(R.id.taDescripcion);
         Button btnCalendario = findViewById(R.id.btnCalendar);
         Button btnPublicar = findViewById(R.id.btnPublicar);
         Button btnAtras = findViewById(R.id.btnAtras);
         CalendarView calendar = findViewById(R.id.calendarView);
         calendar.setVisibility(View.INVISIBLE);
-        txtFecha.setClickable(false);
 
         String id = (String) getIntent().getSerializableExtra("idCurso");
         lblNombreCurso.setText(id);
-        String titulo = "";
-        String fecha = "";
-        String descripcion="";
 
         btnCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +71,7 @@ public class AgregarTareaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Docente usuario = (Docente) getIntent().getSerializableExtra("usuario");
-                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 1, 1);
+                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 2, 1);
                 int intId = Integer.parseInt(id);
                 String titulo = txtTitulo.getText().toString();
                 String fecha = txtFecha.getText().toString();
