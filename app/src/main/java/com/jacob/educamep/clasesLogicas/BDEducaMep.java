@@ -74,7 +74,7 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                                 resultado2 = resultTemp.result2;
                                 break;
                             case 3: //modificar
-                                varAdministrador.modificarEstudiante();
+                                resultado =varAdministrador.modificarEstudiante((long) params[0], (String)params[1], (String)params[2], (String)params[3], (String)params[4], (String)params[5]);
                                 break;
                             case 4: //eliminar
                                 resultado = varAdministrador.eliminarEstudiante((long) params[0]);
