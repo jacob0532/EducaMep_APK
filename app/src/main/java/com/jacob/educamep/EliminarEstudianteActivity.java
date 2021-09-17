@@ -54,7 +54,7 @@ public class EliminarEstudianteActivity extends AppCompatActivity {
                 lblPrimerApellido.setText(estudiantes.get(position)[2].toString());
                 lblSegundoApellido.setText(estudiantes.get(position)[3].toString());
                 lblCorreo.setText(estudiantes.get(position)[4].toString());
-                //lblGradoEscolar.setText(estudiantes.get(position)[5].toString());
+                lblGradoEscolar.setText(estudiantes.get(position)[5].toString());
             }
 
             @Override
