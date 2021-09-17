@@ -2,11 +2,20 @@ package com.jacob.educamep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+
+import com.jacob.educamep.clasesLogicas.Administrador;
+import com.jacob.educamep.clasesLogicas.BDEducaMep;
+
+import java.util.ArrayList;
 
 public class ModificarDocenteActivity extends AppCompatActivity {
 
@@ -28,5 +37,59 @@ public class ModificarDocenteActivity extends AppCompatActivity {
         final Button btnAgregarCurso = findViewById(R.id.btnAgregarCurso);
         final Button btnAtras = findViewById(R.id.btnAtras);
         final Button btnConfirmar = findViewById(R.id.btnConfirmar);
+
+        Administrador usuario = new Administrador(1, "admin", "_", "_", "admin@gmail.com", "superpepito");
+
+        BDEducaMep db = new BDEducaMep(ModificarDocenteActivity.this, usuario, 2, 3);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.gradosSpinner, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        comboBoxCedulasDocentes.setAdapter(adapter2);
+
+        ArrayList<String[]> docentes = (ArrayList<String[]>) getIntent().getSerializableExtra("docentes");//docentes
+        ArrayList<String> cedulas = new ArrayList<>();
+
+        for (int i=0; i< docentes.size(); i++){
+            cedulas.add(String.valueOf(docentes.get(i)[0]));
+        }
+        ArrayAdapter<CharSequence> adapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,cedulas);
+        comboBoxCedulasDocentes.setAdapter(adapter);
+
+        comboBoxCedulasDocentes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String text = comboBoxCedulasDocentes.getSelectedItem().toString();
+
+                txtNombre.setText(docentes.get(position)[1].toString());
+                txtPrimerApellido.setText(docentes.get(position)[2].toString());
+                txtSegundoApellido.setText(docentes.get(position)[3].toString());
+                txtCorreo.setText(docentes.get(position)[4].toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+        btnConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long cedula= Long.valueOf(comboBoxCedulasDocentes.getSelectedItem().toString());
+                String nombre = txtNombre.getText().toString();
+                String apellido1 = txtPrimerApellido.getText().toString();
+                String apellido2 = txtSegundoApellido.getText().toString();
+                String correo = txtCorreo.getText().toString();
+                db.execute(cedula, nombre, apellido1, apellido2, correo);
+
+                Intent anterior = new Intent(view.getContext(),GestionDocentesActivity.class);
+                startActivity(anterior);
+            }
+        });
+
+
+
     }
 }

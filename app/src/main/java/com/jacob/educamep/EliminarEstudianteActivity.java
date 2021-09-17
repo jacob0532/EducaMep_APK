@@ -54,7 +54,7 @@ public class EliminarEstudianteActivity extends AppCompatActivity {
                 lblPrimerApellido.setText(estudiantes.get(position)[2].toString());
                 lblSegundoApellido.setText(estudiantes.get(position)[3].toString());
                 lblCorreo.setText(estudiantes.get(position)[4].toString());
-                //lblGradoEscolar.setText(estudiantes.get(position)[5].toString());
+                lblGradoEscolar.setText(estudiantes.get(position)[5].toString());
             }
 
             @Override
@@ -73,7 +73,18 @@ public class EliminarEstudianteActivity extends AppCompatActivity {
                 Long idcedula= Long.valueOf(comboBoxCedulas.getSelectedItem().toString());
 
                 db.execute(idcedula);
+                
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
+                startActivity(anterior);
 
+            }
+        });
+
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),GestionEstudiantesActivity.class);
+                startActivity(anterior);
             }
         });
     }

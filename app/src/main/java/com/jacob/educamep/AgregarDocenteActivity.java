@@ -36,9 +36,9 @@ public class AgregarDocenteActivity extends AppCompatActivity {
         final Button btnConfirmar = findViewById(R.id.btnConfirmar);
         //-------------------------------------------------------
         //to-do eliminar pruebas
-        //Administrador usuario = new Administrador(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito");
+        Administrador usuario = new Administrador(123456, "pepito", "Ramirez", "Mora", "pepito@gmail.com", "superpepito");
         //BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) usuario, 2, 1);
-        BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this, (Usuario) getIntent().getSerializableExtra("usuario"), 2, 1);
+        BDEducaMep db = new BDEducaMep(AgregarDocenteActivity.this,usuario , 2, 1);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
