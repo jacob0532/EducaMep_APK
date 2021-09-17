@@ -88,6 +88,14 @@ public class ModificarDocenteActivity extends AppCompatActivity {
                 startActivity(anterior);
             }
         });
+        
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent anterior = new Intent(view.getContext(),GestionDocentesActivity.class);
+                startActivity(anterior);
+            }
+        });
 
 
 
