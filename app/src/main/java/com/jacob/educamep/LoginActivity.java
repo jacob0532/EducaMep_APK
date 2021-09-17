@@ -37,8 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuario.cedula = Long.parseLong(txtContraseña.getText().toString());
-                usuario.correoElectronico = txtUsuario.getText().toString();
+                try{
+                    usuario.cedula = Long.parseLong(txtContraseña.getText().toString());
+                    usuario.correoElectronico = txtUsuario.getText().toString();
+                }catch (Exception e){
+                    Intent anterior = new Intent(v.getContext(),LoginSelectActivity.class);
+                    startActivity(anterior);
+                }
                 BDEducaMep bd = new BDEducaMep(LoginActivity.this,usuario,0,0);
                 bd.execute(tipoUsuario);
                 while(bd.resultado == ""){
@@ -63,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Bundle b = new Bundle();
                     b.putSerializable("usuario", (Serializable) usuario);
+                    b.putSerializable("list", (ArrayList<String[]>)bd.resultado2);
                     siguiente.putExtras(b);
                     startActivity(siguiente);
                 }

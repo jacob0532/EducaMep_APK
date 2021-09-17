@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,12 +35,13 @@ public class AgregarNoticiaActivity extends AppCompatActivity {
         });
 
         String id = (String) getIntent().getSerializableExtra("idCurso");
+        Log.d("mi appaaaaaaa",id);
         lblNombreCurso.setText(id);
         btnPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Docente usuario = (Docente) getIntent().getSerializableExtra("usuario");
-                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 2, 1);
+                BDEducaMep db = new BDEducaMep(view.getContext(), (Usuario) usuario, 1, 1);
                 int intId = Integer.parseInt(id);
                 String titulo = txtTitulo.getText().toString();
                 String descripcion = txtDescripcion.getText().toString();

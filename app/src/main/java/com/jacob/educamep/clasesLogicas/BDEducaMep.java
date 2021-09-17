@@ -185,8 +185,14 @@ public class BDEducaMep extends AsyncTask<Object, Void, String> {
                 }
                 break;
             default:
+                Administrador a = new Administrador(0,null,null,
+                        null,
+                        null,
+                        null);
                 valorEntrada = autor.iniciarSesion((int) params[0]);
-                resultado = "Ingreso de sesion satisfactorio";
+                returnAsync resultTemp = a.mostrarIdsCurso();
+                resultado = resultTemp.result;
+                resultado2 = resultTemp.result2;
 
         }
         return resultado;
