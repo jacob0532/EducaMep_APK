@@ -13,7 +13,7 @@
                 <a class="nav-link" href="asignarTarea.php">Asignar Tarea</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="publicarNotica.php">Publicar Noticia</a>
+                <a class="nav-link" href="publicarNoticia.php">Publicar Noticia</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="listaEstudiantes.php">Lista de Estudiantes</a>

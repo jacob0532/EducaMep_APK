@@ -5,9 +5,4 @@ $conn = mysqli_connect(
     '',
     'EducaMEP'
 );
-
-if (isset($conn)){
-    echo 'something';
-}
-
 ?>
