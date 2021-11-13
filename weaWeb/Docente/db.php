@@ -31,6 +31,17 @@ function verifyDocente() : bool {
         return false;
     }
     return true;
-  }
+}
+
+function verifyRightUser(string $type ) : bool{
+    if(isset($_SESSION['idUser']) and isset($_SESSION['typeUser'])){
+        return false;
+    }
+    if ($_SESSION['typeUser'] == $type){
+        return false;
+    }
+    return true;
+}
+
 
 ?>

@@ -1,7 +1,13 @@
 <?php include("../db.php") ?>
 
 <?php include("includes/header.php") ?>
-    <?php if(verifyDocente()){
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyDocente()){
         $_SESSION['message'] = 'Debe Seleccionar un curso!';
         $_SESSION['message_type'] = 'danger';
         header("Location: index.php");
