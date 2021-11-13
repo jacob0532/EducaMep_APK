@@ -10,15 +10,18 @@
                 <a class="nav-link" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">About</a>
+                <a class="nav-link" href="asignarTarea.php">Asignar Tarea</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">MEP</a>
+                <a class="nav-link" href="publicarNoticia.php">Publicar Noticia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaEstudiantes.php">Lista de Estudiantes</a>
             </li>
         </ul>
         <div class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Help</a>
+                <a class="nav-link" href="Controllers/exitUser.php">logout</a>
             </li>
         </div>
     </div>
