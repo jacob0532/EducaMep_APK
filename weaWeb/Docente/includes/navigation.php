@@ -18,6 +18,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="listaEstudiantes.php">Lista de Estudiantes</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="chat.php">Chat</a>
+            </li>
         </ul>
         <div class="navbar-nav">
             <li class="nav-item">
