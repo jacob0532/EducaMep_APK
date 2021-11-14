@@ -13,7 +13,7 @@
                       unset($_SESSION['message_type']);} ?>
 
                 <div class="card card-body text-center">
-                    <form action="Includes/verifyLogin.php" method="POST">
+                    <form action="includes/verifyLogin.php" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">Usuario</label>
                             <input type="text" id="username" name="username" class="form-control" placeholder="exampe@example.com" autofocus>

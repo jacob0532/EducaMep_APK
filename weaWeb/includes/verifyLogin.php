@@ -8,14 +8,16 @@ if(isset($_POST['loginAdmin'])){
     
     $query = "SELECT cedula FROM `Administrador` WHERE correo='$user' and password='$password'";
     $result = mysqli_query($conn, $query);
-    if (!$result){
+    $row_cnt = mysqli_num_rows($result);
+    if (!$result or $row_cnt==0){
         $_SESSION['message'] = 'Usuario o contraseña incorrectas';
         $_SESSION['message_type'] = 'danger';
         header("Location: ../login.php?type=adm");
     }else{
         $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
         $_SESSION['typeUser'] = 'Administrador';
-        header("Location: ../Administrador/index.php");
+        $id = $_SESSION['idUser'];
+        header("Location: ../Administrador/index.php?id=$id");
     }
 }
 
@@ -33,8 +35,8 @@ if(isset($_POST['loginDocente'])){
     }else{
         $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
         $_SESSION['typeUser'] = 'Docente';
-        
-        header("Location: ../Docente/index.php?id=$row_cnt");
+        $id = $_SESSION['idUser'];
+        header("Location: ../Docente/index.php?id=$id");
     }
 }
 
@@ -44,15 +46,17 @@ if(isset($_POST['loginEstudiante'])){
     
     $query = "SELECT cedula FROM `Estudiante` WHERE correo='$user' and password='$password'";
     $result = mysqli_query($conn, $query);
-    if (!$result){
+    $row_cnt = mysqli_num_rows($result);
+    if (!$result or $row_cnt==0){
         $_SESSION['message'] = 'Usuario o contraseña incorrectas';
         $_SESSION['message_type'] = 'danger';
         header("Location: ../login.php?type=est");
     }else{
         $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
         $_SESSION['typeUser'] = 'Estudiante';
-        header("Location: ../Estudiante/index.php");
+        $id = $_SESSION['typeUser'];
+        header("Location: ../Estudiante/index.php?id=$id");
     }
 }
 
-?>
+?>			
