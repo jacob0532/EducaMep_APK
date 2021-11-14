@@ -13,7 +13,7 @@ if(isset($_POST['saveNews'])){
         $description = $_POST['descripcion'];
         $idCurso= $_SESSION['idCurso'];
         
-        $query = "INSERT INTO `noticia`(`titulo`, `idCurso`, `texto`, `fecha`) VALUES ('$tittle', '$idCurso', '$description', NOW());";
+        $query = "INSERT INTO `Noticia`(`titulo`, `idCurso`, `texto`, `fecha`) VALUES ('$tittle', '$idCurso', '$description', NOW());";
         $result = mysqli_query($conn, $query);
         if (!$result){
             die("query failed");
