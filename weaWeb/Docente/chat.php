@@ -12,7 +12,7 @@
         $_SESSION['message_type'] = 'danger';
         header("Location: index.php");
     }else{?>
-        <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="container p-3" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;">
             <div class="row">
                 <div class="col-md-auto">
                     <div class="wrapper">

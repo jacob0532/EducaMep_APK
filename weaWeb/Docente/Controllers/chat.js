@@ -21,12 +21,12 @@ sendBtn.onclick = ()=>{
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "Controllers/insertChat.php", true);
     xhr.onload = ()=>{
-      if(xhr.readyState === XMLHttpRequest.DONE){
-          if(xhr.status === 200){
-              inputField.value = "";
-              scrollToBottom();
-          }
-      }
+        if(xhr.readyState === XMLHttpRequest.DONE){
+            if(xhr.status === 200){
+                inputField.value = "";
+                scrollToBottom();
+            }
+        }
     }
     let formData = new FormData(form);
     xhr.send(formData);
@@ -54,8 +54,10 @@ setInterval(() =>{
           }
       }
     }
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("incoming_id="+incoming_id);
+    let formData = new FormData(form);
+    xhr.send(formData);
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //xhr.send("incoming_id="+incoming_id);
 }, 500);
 
 function scrollToBottom(){

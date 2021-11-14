@@ -9,7 +9,8 @@
 
 .wrapper{
   background: #fff;
-  max-width: 450px;
+  max-width: 800px;
+  min-width: 600px;
   width: 100%;
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
@@ -47,7 +48,7 @@
 }
 .chat-box .text{
   position: absolute;
-  top: 45%;
+  top: 20%;
   left: 50%;
   width: calc(100% - 50px);
   text-align: center;
@@ -58,10 +59,8 @@
 }
 .chat-box .chat p{
   word-wrap: break-word;
-  padding: 8px 16px;
-  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
-              0rem 16px 16px -16px rgb(0 0 0 / 10%);
 }
+/* Messages me*/
 .chat-box .outgoing{
   display: flex;
 }
@@ -69,29 +68,45 @@
   margin-left: auto;
   max-width: calc(100% - 130px);
 }
-.outgoing .details p{
+.outgoing .details .message{
+  padding: 8px 16px;
   background: #333;
   color: #fff;
   border-radius: 18px 18px 0 18px;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
 }
+.outgoing .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* Messages others */
 .chat-box .incoming{
   display: flex;
   align-items: flex-end;
-}
-.chat-box .incoming img{
-  height: 35px;
-  width: 35px;
 }
 .chat-box .incoming .details{
   margin-right: auto;
   margin-left: 10px;
   max-width: calc(100% - 130px);
 }
-.incoming .details p{
+.incoming .details .message{
+  padding: 8px 16px;
   background: #fff;
   color: #333;
-  border-radius: 18px 18px 18px 0;
+  border-radius: 18px 18px 0 18px;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
 }
+.incoming .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* typing area */
 .typing-area{
   padding: 18px 30px;
   display: flex;
