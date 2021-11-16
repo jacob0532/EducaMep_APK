@@ -12,7 +12,7 @@
                             $result = mysqli_query($conn, $query);
 
                             while($row = mysqli_fetch_array($result)){
-                                 echo '<option value="'.$row[cedula].'">'.$row[cedula].'-'.$row[NombreE].'</option>';
+                                 echo '<option value="'.$row['cedula'].'">'.$row['cedula'].'-'.$row['NombreE'].'</option>';
                             } 
                         ?>
                     </select>
@@ -24,7 +24,7 @@
                             $result = mysqli_query($conn, $query);
 
                             while($row = mysqli_fetch_array($result)){
-                                 echo '<option value="'.$row[idCurso].'">'.$row[idCurso].'-'.$row[NombreC].'</option>';
+                                 echo '<option value="'.$row['idCurso'].'">'.$row['idCurso'].'-'.$row['NombreC'].'</option>';
                             } 
                         ?>
                     </select>

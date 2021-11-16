@@ -1,0 +1,3536 @@
+<?php
+$conn = mysqli_connect(
+    'localhost',
+    '312306',
+    'eeerrr96',
+    '312306'
+);
+
+session_start();
+/*
+$conn = mysqli_connect(
+    'localhost',
+    '312306',
+    'eeerrr96',
+    '312306'
+);
+$conn = mysqli_connect(
+    'localhost',
+    'root',
+    '',
+    'EducaMEP'
+);
+*/
+
+if(!$conn){
+    exit("Error al intentar conectarse al servidor MYSQL.");
+}
+
+function verifyCurso() : bool {
+    if (isset($_SESSION['idCurso'])){
+        return false;
+    }
+    return true;
+}
+
+function verifyRightUser(string $type ) : bool{
+    if($_SESSION['idUser'] == null and $_SESSION['typeUser'] == null){
+        return true;
+    }
+    if ($_SESSION['typeUser'] != $type){
+        return true;
+    }
+    return false;
+}
+
+
+?>
+
+<?php include("db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                    <?php if(isset($_SESSION['message'])){ ?>
+                        <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                            <?= $_SESSION['message'] ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php unset($_SESSION['message']);
+                        unset($_SESSION['message_type']);
+                    } ?>
+
+                <div class="card card-body text-center">
+                    <div>
+                        <h1 class="display-3">Bienvenido a EducaMEP</h1>
+                    </div>
+                    <div>
+                        <a href="login.php?type=adm" class="btn btn-info" style="width: 50%;margin-top: 15px;">Login administrador</a>
+                    </div>
+                    <div>
+                        <a href="login.php?type=doc" class="btn btn-info" style="width: 50%;margin-top: 15px;">Login docente</a>
+                    </div>
+                    <div>
+                        <a href="login.php?type=est" class="btn btn-info" style="width: 50%;margin-top: 15px;">Login estudiante</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <?php if(isset($_SESSION['message'])){?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);} ?>
+
+                <div class="card card-body text-center">
+                    <form action="includes/verifyLogin.php" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="exampe@example.com" autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <?php if($_GET['type'] == 'adm'){ ?>
+                            <input type="submit" class="btn btn-success btn-block" name="loginAdmin" value="Login">
+                        <?php } ?>
+                        <?php if($_GET['type'] == 'doc'){ ?>
+                            <input type="submit" class="btn btn-success btn-block" name="loginDocente" value="Login">
+                        <?php } ?>
+                        <?php if($_GET['type'] == 'est'){ ?>
+                            <input type="submit" class="btn btn-success btn-block" name="loginEstudiante" value="Login">
+                        <?php } ?>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php
+function sendMail(String $subject, string $body, string $gmail){
+    require 'PHPMailer/PHPMailerAutoload.php';
+	$mail=new PHPMailer();
+	//indico a la clase que use SMTP
+	$mail->IsSMTP();
+	//permite modo debug para ver mensajes de las cosas que van ocurriendo
+	//$mail>SMTPDebug = 2;
+
+	//indico el servidor de Gmail para SMTP
+	$mail->Host='smtp.gmail.com';
+
+	//indico el puerto que usa Gmail
+	$mail->Port=587;
+
+	//Debo de hacer autenticaci&#65533;n SMTP
+	$mail->SMTPAuth=true;
+	$mail->SMTPSecure='tls';
+
+	//indico un usuario / clave de un usuario de gmail
+	$mail->Username='soporteeducamep@gmail.com';
+	$mail->Password='JJK-Group2021';
+
+	$mail->SetFrom('soporteeducamep@gmail.com', 'Soporte EducaMEP');
+	$mail->AddAddress($gmail);
+	$mail->AddReplyTo('soporteeducamep@gmail.com', 'Soporte EducaMEP');
+
+	$mail->isHTML(true);
+	$mail->Subject=$subject;
+	$mail->Body=$body;
+
+
+	if(!$mail->Send()) {
+		echo 'Error al enviar: ' . $mail->ErrorInfo;
+	} else {
+		echo 'Mensaje enviado!';
+	}
+}
+
+function sendMailWithPDF(String $subject, string $body, string $gmail, string $pdf, string $filename){
+    require 'PHPMailer/PHPMailerAutoload.php';
+	$mail=new PHPMailer();
+	//indico a la clase que use SMTP
+	$mail->IsSMTP();
+	//permite modo debug para ver mensajes de las cosas que van ocurriendo
+	//$mail>SMTPDebug = 2;
+
+	//indico el servidor de Gmail para SMTP
+	$mail->Host='smtp.gmail.com';
+
+	//indico el puerto que usa Gmail
+	$mail->Port=587;
+
+	//Debo de hacer autenticaci&#65533;n SMTP
+	$mail->SMTPAuth=true;
+	$mail->SMTPSecure='tls';
+
+	//indico un usuario / clave de un usuario de gmail
+	$mail->Username='soporteeducamep@gmail.com';
+	$mail->Password='JJK-Group2021';
+
+	$mail->SetFrom('soporteeducamep@gmail.com', 'Soporte EducaMEP');
+	$mail->AddAddress($gmail);
+	$mail->AddReplyTo('soporteeducamep@gmail.com', 'Soporte EducaMEP');
+
+	$mail->isHTML(true);
+	$mail->Subject=$subject;
+	$mail->Body=$body;
+	$mail->AddStringAttachment($pdf, $filename);
+
+	if(!$mail->Send()) {
+		echo 'Error al enviar: ' . $mail->ErrorInfo;
+	} else {
+		echo 'Mensaje enviado!';
+	}
+}
+?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--https://icons8.com/icon/set/popular/small--black     ICONOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Pagina principal docente</title>
+</head>
+<body style="height: 100%;">
+<?php include("includes/navigation.php") ?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+  <a href="index.php" class="navbar-brand">EducaMEP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.mep.go.cr/">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.mep.go.cr/">MEP</a>
+            </li>
+        </ul>
+        <div class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.mep.go.cr/">Help</a>
+            </li>
+        </div>
+    </div>
+  </div>
+</nav>
+
+<?php
+
+include("../db.php");
+
+if(isset($_POST['loginAdmin'])){
+    $user = $_POST['username'];
+    $password = $_POST['password'];
+    
+    $query = "SELECT cedula FROM `Administrador` WHERE correo='$user' and password='$password'";
+    $result = mysqli_query($conn, $query);
+    $row_cnt = mysqli_num_rows($result);
+    if (!$result or $row_cnt==0){
+        $_SESSION['message'] = 'Usuario o contraseña incorrectas';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: ../login.php?type=adm");
+    }else{
+        $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
+        $_SESSION['typeUser'] = 'Administrador';
+        $id = $_SESSION['idUser'];
+        header("Location: ../Administrador/IndexGestion.php?id=$id");
+    }
+}
+
+if(isset($_POST['loginDocente'])){
+    $user = $_POST['username'];
+    $password = $_POST['password'];
+    
+    $query = "SELECT cedula FROM `Docente` WHERE correo='$user' and password='$password'";
+    $result = mysqli_query($conn, $query);
+    $row_cnt = mysqli_num_rows($result);
+    if (!$result or $row_cnt==0){
+        $_SESSION['message'] = 'Usuario o contraseña incorrectas';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: ../login.php?type=doc");
+    }else{
+        $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
+        $_SESSION['typeUser'] = 'Docente';
+        $id = $_SESSION['idUser'];
+        header("Location: ../Docente/index.php?id=$id");
+    }
+}
+
+if(isset($_POST['loginEstudiante'])){
+    $user = $_POST['username'];
+    $password = $_POST['password'];
+    
+    $query = "SELECT cedula FROM `Estudiante` WHERE correo='$user' and password='$password'";
+    $result = mysqli_query($conn, $query);
+    $row_cnt = mysqli_num_rows($result);
+    if (!$result or $row_cnt==0){
+        $_SESSION['message'] = 'Usuario o contraseña incorrectas';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: ../login.php?type=est");
+    }else{
+        $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
+        $_SESSION['typeUser'] = 'Estudiante';
+        $id = $_SESSION['typeUser'];
+        header("Location: ../Estudiante/index.php?id=$id");
+    }
+}
+
+?>			
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+<?php if(verifyRightUser('Estudiante')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <?php if(isset($_SESSION['message'])){ ?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);
+                } ?>
+                <div class="card card-body text-center">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Profesor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $idCurso = $_SESSION['idCurso'];
+                                $query = "SELECT D.nombre,D.apellido1,D.apellido2,D.correo,D.cedula
+                                                FROM Docente D INNER JOIN CursosDocente CD ON CD.cedula=D.cedula
+                                                WHERE (CD.idCurso='$idCurso' AND CD.periodo=(SELECT YEAR(NOW())) )";
+
+                                $result = mysqli_query($conn, $query);
+
+                                while($row = mysqli_fetch_array($result)){?>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Cedula</p>
+                                            </div>
+                                            <label><?php echo $row['cedula'] ?></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Nombre</p>
+                                            </div>
+                                            <?php echo $row['nombre'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Primer apellido</p>
+                                            </div>
+                                        <?php echo $row['apellido1'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Segundo apellido</p>
+                                            </div>
+                                            <?php echo $row['apellido2'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Correo</p>
+                                            </div>
+                                            <?php echo $row['correo'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <label style="font-weight: bold;">Calificar</p>
+                                            </div>
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                      <tr>
+                                                           <a href="Controllers/calDoc.php?id=<?php echo $row['cedula'] ?>&cal=1">
+                                                               <img src="https://img.icons8.com/color-glass/452/christmas-star.png" width="32" height="32" style="margin-left: 15px;margin-right: 15px;">
+                                                           </a>
+                                                      </tr>
+                                                      <tr>
+                                                           <a href="Controllers/calDoc.php?id=<?php echo $row['cedula'] ?>&cal=2">
+                                                                <img src="https://img.icons8.com/color-glass/452/christmas-star.png" width="32" height="32" style="margin-left: 10px;margin-right: 10px;text-decoration: none !important;">
+                                                           </a>
+                                                      </tr>
+                                                      <tr>
+                                                           <a href="Controllers/calDoc.php?id=<?php echo $row['cedula'] ?>&cal=3">
+                                                                 <img src="https://img.icons8.com/color-glass/452/christmas-star.png" width="32" height="32" style="margin-left: 10px;margin-right: 10px;text-decoration: none !important;">
+                                                            </a>
+                                                      </tr>
+                                                      <tr>
+                                                           <a href="Controllers/calDoc.php?id=<?php echo $row['cedula'] ?>&cal=4">
+                                                                  <img src="https://img.icons8.com/color-glass/452/christmas-star.png" width="32" height="32" style="margin-left: 10px;margin-right: 10px;text-decoration: none !important;">
+                                                           </a>
+                                                      </tr>
+                                                      <tr>
+                                                           <a href="Controllers/calDoc.php?id=<?php echo $row['cedula'] ?>&cal=5">
+                                                                   <img src="https://img.icons8.com/color-glass/452/christmas-star.png" width="32" height="32" style="margin-left: 10px;margin-right: 10px;text-decoration: none !important;">
+                                                           </a>
+                                                      </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                <?php } 
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>	
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+<?php if(verifyRightUser('Estudiante')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <?php if(isset($_SESSION['message'])){ ?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);
+                } ?>
+                <div class="card card-body text-center">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Descripcion</th>
+                                <th>Fecha Asignacion</th>
+                                <th>Fecha Entrega</th>
+                                <th>ID Tarea</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $idCurso = $_SESSION['idCurso'];
+                                $query = "SELECT T.titulo,T.descripcion,T.fechaAsignacion,T.fechaEntrega,T.idTarea
+                                                FROM Tarea T INNER JOIN Curso C ON C.idCurso=T.idCurso
+                                                WHERE C.idCurso='$idCurso'"; 
+
+                                $result = mysqli_query($conn, $query);
+
+                                while($row = mysqli_fetch_array($result)){?>
+                                    <tr>
+                                        <td><?php echo $row['titulo'] ?></td>
+                                        <td><?php echo $row['descripcion'] ?></td>
+                                        <td><?php echo $row['fechaAsignacion'] ?></td>
+                                        <td><?php echo $row['fechaEntrega'] ?></td>
+                                        <td><?php echo $row['idTarea'] ?></td>
+                                    </tr>
+                                <?php } 
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+<?php if(verifyRightUser('Estudiante')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <?php if(isset($_SESSION['message'])){ ?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);
+                } ?>
+                <div class="card card-body text-center">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Mensaje</th>
+                                <th>Fecha</th>
+                                <th>ID Tarea</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $idCurso = $_SESSION['idCurso'];
+                                $query = "SELECT N.titulo,N.texto,N.fecha,N.idNoticia
+                                                FROM Noticia N INNER JOIN Curso C ON C.idCurso=N.idCurso
+                                                WHERE C.idCurso='$idCurso'";
+
+                                $result = mysqli_query($conn, $query);
+
+                                while($row = mysqli_fetch_array($result)){?>
+                                    <tr>
+                                        <td><?php echo $row['titulo'] ?></td>
+                                        <td><?php echo $row['texto'] ?></td>
+                                        <td><?php echo $row['fecha'] ?></td>
+                                        <td><?php echo $row['idNoticia'] ?></td>
+                                    </tr>
+                                <?php } 
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Estudiante')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    } else{ ?>
+        <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="row">
+                <div class="col-md-auto">
+                    
+                    <?php if(isset($_SESSION['message'])){ ?>
+                        <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                            <?= $_SESSION['message'] ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php unset($_SESSION['message']);
+                        unset($_SESSION['message_type']);
+                    } ?>
+
+                    <div class="card card-body text-center">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Cursos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $idUser = $_SESSION['idUser'];
+                                    
+                                    $query = "SELECT C.idCurso as id, C.nombre as nombre, C.grado as grado 
+                                                FROM Curso C INNER JOIN CursosEstudiantes CE ON C.idCurso = CE.idCurso
+                                                WHERE CE.cedula='$idUser' AND CE.periodo=(SELECT YEAR(NOW()))";
+                                    $result = mysqli_query($conn, $query);
+
+                                    while($row = mysqli_fetch_array($result)){?>
+                                        <tr>
+                                            <td><?php echo $row['nombre'] ?></td>
+                                            <td><?php echo $row['grado'] ?></td>
+                                            <td>
+                                                <?php if(!isset($_SESSION['idCurso']) or $_SESSION['idCurso']!=$row['id']){?>
+                                                    <a href="Controllers/selCurso.php?id=<?php echo $row['id'] ?>">
+                                                        <img src="https://img.icons8.com/small/452/unchecked-checkbox.png" width="16" height="16">
+                                                    </a>
+                                                <?php }else{ ?>
+                                                    <a href="Controllers/selCurso.php?id=<?php echo $row['id'] ?>">
+                                                        <img src="https://img.icons8.com/small/452/checked-checkbox.png" width="16" height="16">
+                                                    </a>
+                                                <?php }?>
+                                            </td>
+                                        </tr>
+                                    <?php } 
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Estudiante')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+        <div class="container p-3" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="row">
+                <div class="col-md-auto">
+                    <div class="wrapper">
+                        <section class="chat-area">
+                        <header>
+                            <?php 
+                                $id = $_SESSION['idUser'];
+                                $query = "SELECT * FROM `Estudiante` WHERE cedula='$id'";
+                                $result = mysqli_query($conn, $query);
+                                if(mysqli_num_rows($result)>0){
+                                    $row = mysqli_fetch_array($result);
+                                    $nombre = $row['nombre'];
+                                }
+                            ?>
+                            <div class="details">
+                                <span><?php echo $row['nombre'] . " " . $row['apellido1'] . " " . $row['apellido2']; ?></span>
+                            </div>
+                        </header>
+                        <div class="chat-box">
+
+                        </div>
+                        <form action="#" class="typing-area">
+                            <input type="text" class="nombreUser" name="nombreUser" value="<?php echo $nombre ?>" hidden>
+                            <input type="text" class="idCurso" name="idCurso" value="<?php echo $_SESSION['idCurso']?>" hidden>
+                            <input type="text" name="message" class="input-field" placeholder="Escriba mensaje aqui..." autocomplete="off">
+                            <button><img src="includes/send.png" style="height:28px; width:28px;"></button>
+                        </form>
+                        </section>
+                    </div>
+                    <script src="Controllers/chat.js"></script>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    
+<?php include("includes/footer.php") ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--https://icons8.com/icon/set/popular/small--black     ICONOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Pagina principal Estudiante</title>
+    <link rel="stylesheet" href="includes/style.css">
+</head>
+<body style="height: 100%;">
+<?php include("includes/navigation.php") ?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+  <a href="index.php" class="navbar-brand">EducaMEP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaTareas.php">Visualizar Tareas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaNoticias.php">Visualizar Noticias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="verProfesor.php">Profesor Encargado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="chat.php">Chat</a>
+            </li>
+        </ul>
+        <div class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Controllers/exitUser.php">logout</a>
+            </li>
+        </div>
+    </div>
+  </div>
+</nav>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper{
+  background: #fff;
+  max-width: 800px;
+  min-width: 600px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+              0 32px 64px -48px rgba(0,0,0,0.5);
+}
+
+/* Chat Area CSS Start */
+.chat-area header{
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+}
+.chat-area header .back-icon{
+  color: #333;
+  font-size: 18px;
+}
+.chat-area header img{
+  height: 45px;
+  width: 45px;
+  margin: 0 15px;
+}
+.chat-area header .details span{
+  font-size: 17px;
+  font-weight: 500;
+}
+.chat-box{
+  position: relative;
+  min-height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 10px 30px 20px 30px;
+  background: #f7f7f7;
+  box-shadow: inset 0 32px 32px -32px rgb(0 0 0 / 5%),
+              inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
+}
+.chat-box .text{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: calc(100% - 50px);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.chat-box .chat{
+  margin: 15px 0;
+}
+.chat-box .chat p{
+  word-wrap: break-word;
+}
+/* Messages me*/
+.chat-box .outgoing{
+  display: flex;
+}
+.chat-box .outgoing .details{
+  margin-left: auto;
+  max-width: calc(100% - 130px);
+}
+.outgoing .details .message{
+  padding: 8px 16px;
+  background: #333;
+  color: #fff;
+  border-radius: 18px 18px 0 18px;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
+}
+.outgoing .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* Messages others */
+.chat-box .incoming{
+  display: flex;
+  align-items: flex-end;
+}
+.chat-box .incoming .details{
+  margin-right: auto;
+  margin-left: 10px;
+  max-width: calc(100% - 130px);
+}
+.incoming .details .message{
+  padding: 8px 16px;
+  background: #fff;
+  color: #333;
+  border-radius: 18px 18px 18px 0;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
+}
+.incoming .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* typing area */
+.typing-area{
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.typing-area input{
+  height: 45px;
+  width: calc(100% - 58px);
+  font-size: 16px;
+  padding: 0 13px;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  border-radius: 5px 0 0 5px;
+}
+.typing-area button{
+  color: #fff;
+  width: 55px;
+  border: none;
+  outline: none;
+  background: #333;
+  font-size: 19px;
+  cursor: pointer;
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: 0 5px 5px 0;
+  transition: all 0.3s ease;
+}
+.typing-area button.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Responive media query */
+@media screen and (max-width: 450px) {
+
+  .users header img{
+    height: 45px;
+    width: 45px;
+  }
+  .users header .logout{
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+  :is(.users, .users-list) .content .details{
+    margin-left: 15px;
+  }
+
+  .users-list a{
+    padding-right: 10px;
+  }
+
+  .chat-area header{
+    padding: 15px 20px;
+  }
+  .chat-box{
+    min-height: 400px;
+    padding: 10px 15px 15px 20px;
+  }
+  .chat-box .chat p{
+    font-size: 15px;
+  }
+  .chat-box .outogoing .details{
+    max-width: 230px;
+  }
+  .chat-box .incoming .details{
+    max-width: 265px;
+  }
+  .incoming .details img{
+    height: 30px;
+    width: 30px;
+  }
+  .chat-area form{
+    padding: 20px;
+  }
+  .chat-area form input{
+    height: 40px;
+    width: calc(100% - 48px);
+  }
+  .chat-area form button{
+    width: 45px;
+  }
+}
+
+<?php
+
+include("../../db.php");
+
+if(isset($_GET['id']) and isset($_GET['cal'])){
+    $calificacion= $_GET['cal'];
+    $idCurso= $_SESSION['idCurso'];
+    $idDocente= $_GET['id'];
+    $idEstudiante= $_SESSION['idUser'];
+
+    $sql = "SELECT idCalificacion FROM Calificacion 
+            WHERE estudiante='$idEstudiante' AND docente='$idDocente' AND idCurso='$idCurso'";
+
+
+    if ($result=mysqli_query($conn,$sql)) {
+        $rowcount=mysqli_num_rows($result);
+    }
+
+    if($rowcount==0){
+        $query = "INSERT INTO `Calificacion`(`calificacion`, `estudiante`, `docente`, `idCurso`) VALUES ('$calificacion','$idEstudiante',$idDocente,'$idCurso')";
+        mysqli_query($conn, $query);  
+
+        $_SESSION['message'] = 'Calificado correctamente!';
+        $_SESSION['message_type'] = 'success';
+
+        header("Location: ../verProfesor.php");         
+
+
+    }else{
+        $query = "UPDATE Calificacion SET calificacion='$calificacion' WHERE (estudiante='$idEstudiante' AND docente='$idDocente' AND idCurso='$idCurso')";
+        mysqli_query($conn, $query);
+
+        $_SESSION['message'] = 'Calificado Correctamente!';
+        $_SESSION['message_type'] = 'success';
+
+        header("Location: ../verProfesor.php"); 
+    }
+  
+}
+
+?>			
+
+const form = document.querySelector(".typing-area"),
+nombreUser = form.querySelector(".nombreUser").value,
+idCurso = form.querySelector(".idCurso").value,
+inputField = form.querySelector(".input-field"),
+sendBtn = form.querySelector("button"),
+chatBox = document.querySelector(".chat-box");
+
+form.onsubmit = (e)=>{
+    e.preventDefault();
+}
+
+inputField.focus();
+inputField.onkeyup = ()=>{
+    if(inputField.value != ""){
+        sendBtn.classList.add("active");
+    }else{
+        sendBtn.classList.remove("active");
+    }
+}
+sendBtn.onclick = ()=>{
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "Controllers/insertChat.php", true);
+    xhr.onload = ()=>{
+        if(xhr.readyState === XMLHttpRequest.DONE){
+            if(xhr.status === 200){
+                inputField.value = "";
+                scrollToBottom();
+            }
+        }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+}
+
+chatBox.onmouseenter = ()=>{
+    chatBox.classList.add("active");
+}
+
+chatBox.onmouseleave = ()=>{
+    chatBox.classList.remove("active");
+}
+
+setInterval(() =>{
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "Controllers/getChat.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+            let data = xhr.response;
+            chatBox.innerHTML = data;
+            if(!chatBox.classList.contains("active")){
+                scrollToBottom();
+              }
+          }
+      }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //xhr.send("incoming_id="+incoming_id);
+}, 500);
+
+function scrollToBottom(){
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  <?php
+
+include("../../db.php");
+
+$_SESSION['message'] = 'Sesion terminada!';
+$_SESSION['message_type'] = 'success';
+unset($_SESSION['idUser']);
+unset($_SESSION['typeUser']);
+unset($_SESSION['idCurso']);
+
+header("Location: ../../index.php");
+
+?>
+
+<?php
+
+include("../../db.php");
+
+$nombre = mysqli_real_escape_string($conn, $_POST['nombreUser']);
+$idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
+$output = "";
+$sql = "SELECT `mensaje`, `nombre` FROM `Chat` WHERE `idCurso` = '$idCurso' order by `idChat`";
+$query = mysqli_query($conn, $sql);
+if(mysqli_num_rows($query) > 0){
+    while($row = mysqli_fetch_assoc($query)){
+        if($row['nombre'] === $nombre){
+            $output .= '<div class="chat outgoing">
+                            <div class="details">
+                                <p class="author">'. $row['nombre'] .'</p>
+                                <p class="message">'. $row['mensaje'] .'</p>
+                            </div>
+                        </div>';
+        }else{
+            $output .= '<div class="chat incoming">
+                        <div class="details">
+                            <p class="author">'. $row['nombre'] .'</p>
+                            <p class="message">'. $row['mensaje'] .'</p>
+                        </div>
+                        </div>';
+        }
+    }
+}else{
+    $output .= '<div class="text">No hay mensajes disponibles. Se el primero en hablar!</div>';
+}
+echo $output;
+
+?>
+
+<?php
+
+include("../../db.php");
+
+    $nombre = mysqli_real_escape_string($conn, $_POST['nombreUser']);
+    $idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
+    $msg = mysqli_real_escape_string($conn, $_POST['message']);
+
+    if(!empty($msg)){
+        $query = "INSERT INTO `Chat`(`mensaje`, `nombre`, `idCurso`) VALUES ('$msg', '$nombre', '$idCurso')";
+        $result = mysqli_query($conn, $query) or die();
+    }
+
+?>
+
+<?php
+
+include("../../db.php");
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+
+    if(!isset($_SESSION['idCurso']) or $_SESSION['idCurso']!=$id){
+        $_SESSION['idCurso'] = $id;
+        $_SESSION['message'] = 'Curso seleccionado!';
+        $_SESSION['message_type'] = 'success';
+    } else{
+        unset($_SESSION['idCurso']);
+    }
+
+    header("Location: ../index.php");
+}
+
+
+?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col col-lg-4">
+
+                <?php if(isset($_SESSION['message'])){?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);} ?>
+
+                <div class="card card-body text-center">
+                    <form action="Controllers/saveNoticia.php" method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Titulo de la noticia</label>
+                            <input type="text" id="title" name="titulo" class="form-control" placeholder="Titulo de la noticia" autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripcion de la noticia</label>
+                            <textarea name="descripcion" id="description" rows="10" class="form-control" placeholder="Descripcion de la notica"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-success btn-block" name="saveNews" value="Guardar Noticia">
+                    </form>
+                </div>
+
+            </div>
+            <div class="col col-lg-8" style="padding-left:100px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $idCurso = $_SESSION['idCurso'];
+                            $query = "SELECT N.titulo as titulo, N.texto as texto, N.fecha as fecha
+                                        FROM Noticia N INNER JOIN Curso C ON C.idCurso=N.idCurso
+                                        WHERE C.idCurso='$idCurso'";
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){?>
+                                <tr>
+                                    <td><?php echo $row['titulo'] ?></td>
+                                    <td><?php echo $row['texto'] ?></td>
+                                    <td><?php echo $row['fecha'] ?></td>
+                            <?php } 
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+<?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <?php if(isset($_SESSION['message'])){ ?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);
+                } ?>
+                <div class="card card-body text-center">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Primer apellido</th>
+                                <th>Segundo apellido</th>
+                                <th>Cedula</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $idCurso = $_SESSION['idCurso'];
+                                $query = "SELECT E.nombre as 'nombre', E.apellido1  as 'apellido1', E.apellido2 as 'apellido2', E.cedula as 'cedula'
+                                                FROM Estudiante E INNER JOIN CursosEstudiantes CE ON CE.cedula=E.cedula
+                                                WHERE (CE.idCurso='$idCurso' AND CE.periodo=(SELECT YEAR(NOW())) )";
+                                $result = mysqli_query($conn, $query);
+
+                                while($row = mysqli_fetch_array($result)){?>
+                                    <tr>
+                                        <td><?php echo $row['nombre'] ?></td>
+                                        <td><?php echo $row['apellido1'] ?></td>
+                                        <td><?php echo $row['apellido2'] ?></td>
+                                        <td><?php echo $row['cedula'] ?></td>
+                                        <td>
+                                            <a href="Controllers/getEst.php?id=<?php echo $row['cedula'] ?>">
+                                                <img src="https://img.icons8.com/small/452/connection-status-off.png" width="16" height="16">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php } 
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="Controllers/sendEsts.php" class="btn btn-info" style="width: 100%;margin-top: 15px;">Enviar Lista al correo</a>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    } else{ ?>
+        <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="row">
+                <div class="col-md-auto">
+                    
+                    <?php if(isset($_SESSION['message'])){ ?>
+                        <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert" style="margin-bottom: 15px;">
+                            <?= $_SESSION['message'] ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php unset($_SESSION['message']);
+                        unset($_SESSION['message_type']);
+                    } ?>
+
+                    <div class="card card-body text-center">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Cursos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $idUser = $_SESSION['idUser'];
+                                    
+                                    $query = "SELECT C.idCurso as id, C.nombre as nombre, C.grado as grado
+                                                FROM Curso C INNER JOIN CursosDocente CD ON C.idCurso = CD.idCurso
+                                                WHERE CD.cedula='$idUser' AND CD.periodo=(SELECT YEAR(NOW()))";
+                                    $result = mysqli_query($conn, $query);
+
+                                    while($row = mysqli_fetch_array($result)){?>
+                                        <tr>
+                                            <td><?php echo $row['nombre'] ?></td>
+                                            <td><?php echo $row['grado'] ?></td>
+                                            <td>
+                                                <?php if(!isset($_SESSION['idCurso']) or $_SESSION['idCurso']!=$row['id']){?>
+                                                    <a href="Controllers/selCurso.php?id=<?php echo $row['id'] ?>">
+                                                        <img src="https://img.icons8.com/small/452/unchecked-checkbox.png" width="16" height="16">
+                                                    </a>
+                                                <?php }else{ ?>
+                                                    <a href="Controllers/selCurso.php?id=<?php echo $row['id'] ?>">
+                                                        <img src="https://img.icons8.com/small/452/checked-checkbox.png" width="16" height="16">
+                                                    </a>
+                                                <?php }?>
+                                            </td>
+                                        </tr>
+                                    <?php } 
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="card card-body text-center">
+                    <table class="table table-bordered" style="width:500px">
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                            </tr>
+                        </thead>
+                        <?php if (isset($_SESSION['data'])){?>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Cedula</p>
+                                        </div>
+                                        <label><?php echo $_SESSION['data']['cedula'] ?></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Nombre</p>
+                                        </div>
+                                        <?php echo $_SESSION['data']['nombre'] ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Primer apellido</p>
+                                        </div>
+                                    <?php echo $_SESSION['data']['apellido1'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Segundo apellido</p>
+                                        </div>
+                                        <?php echo $_SESSION['data']['apellido2'] ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Correo</p>
+                                        </div>
+                                        <?php echo $_SESSION['data']['correo'] ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <label style="font-weight: bold;">Grado</p>
+                                        </div>
+                                        <?php echo $_SESSION['data']['grado'] ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        <?php unset($_SESSION['data']);}?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php") ?>
+
+<?php include("includes/header.php") ?>
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+        <div class="container p-3" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;">
+            <div class="row">
+                <div class="col-md-auto">
+                    <div class="wrapper">
+                        <section class="chat-area">
+                        <header>
+                            <?php 
+                                $id = $_SESSION['idUser'];
+                                $query = "SELECT * FROM `Docente` WHERE cedula='$id'";
+                                $result = mysqli_query($conn, $query);
+                                if(mysqli_num_rows($result)>0){
+                                    $row = mysqli_fetch_array($result);
+                                    $nombre = $row['nombre'];
+                                }
+                            ?>
+                            <div class="details">
+                                <span><?php echo $row['nombre'] . " " . $row['apellido1'] . " " . $row['apellido2']; ?></span>
+                            </div>
+                        </header>
+                        <div class="chat-box">
+
+                        </div>
+                        <form action="#" class="typing-area">
+                            <input type="text" class="nombreUser" name="nombreUser" value="<?php echo $nombre ?>" hidden>
+                            <input type="text" class="idCurso" name="idCurso" value="<?php echo $_SESSION['idCurso']?>" hidden>
+                            <input type="text" name="message" class="input-field" placeholder="Escriba mensaje aqui..." autocomplete="off">
+                            <button><img src="includes/send.png" style="height:28px; width:28px;"></button>
+                        </form>
+                        </section>
+                    </div>
+                    <script src="Controllers/chat.js"></script>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+    
+<?php include("includes/footer.php") ?>
+
+<?php include("../db.php"); ?>
+
+<?php include("includes/header.php"); ?>
+    <?php if(verifyRightUser('Docente')){ 
+        $_SESSION['message'] = 'Quedese en su interfaz >:c!';
+        $_SESSION['message_type'] = 'danger';
+        $typeUser = $_SESSION['typeUser'];
+        header("Location: ../$typeUser/index.php");
+    }
+    if(verifyCurso()){
+        $_SESSION['message'] = 'Debe Seleccionar un curso!';
+        $_SESSION['message_type'] = 'danger';
+        header("Location: index.php");
+    }else{?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col col-lg-4">
+
+                <?php if(isset($_SESSION['message'])){?>
+                    <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
+                        <?= $_SESSION['message'] ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php unset($_SESSION['message']);
+                      unset($_SESSION['message_type']);} ?>
+
+                <div class="card card-body text-center">
+                    <form action="Controllers/saveTarea.php" method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Titulo de la tarea</label>
+                            <input type="text" id="title" name="titulo" class="form-control" placeholder="Titulo de la tarea" autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Fecha de entrega</label>
+                            <input type="text" id="date" name="fechaE" class="form-control" placeholder="2012-12-20" autofocus>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripcion de la noticia</label>
+                            <textarea id="description" name="descripcion" rows="10" class="form-control" placeholder="Descripcion de la notica"></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-success btn-block" name="saveTarea" value="Guardar Tarea">
+                    </form>
+                </div>
+
+            </div>
+            <div class="col col-lg-8" style="padding-left:100px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                            <th>Fecha entrega</th>
+                            <th>Fecha asignacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $idCurso = $_SESSION['idCurso'];
+                            $query = "SELECT T.titulo as titulo, T.descripcion as descripcion, T.fechaEntrega as fechaE,T.fechaAsignacion as fechaA
+                                        FROM Tarea T INNER JOIN Curso C ON C.idCurso=T.idCurso
+                                        WHERE C.idCurso='$idCurso'";
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){?>
+                                <tr>
+                                    <td><?php echo $row['titulo'] ?></td>
+                                    <td><?php echo $row['descripcion'] ?></td>
+                                    <td><?php echo $row['fechaE'] ?></td>
+                                    <td><?php echo $row['fechaA'] ?></td>
+                            <?php } 
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php include("includes/footer.php") ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--https://icons8.com/icon/set/popular/small--black     ICONOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="includes/style.css">
+    <title>Pagina principal docente</title>
+</head>
+<body style="height: 100%;">
+<?php include("includes/navigation.php") ?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+  <a href="index.php" class="navbar-brand">EducaMEP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="asignarTarea.php">Asignar Tarea</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="publicarNoticia.php">Publicar Noticia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="listaEstudiantes.php">Lista de Estudiantes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="chat.php">Chat</a>
+            </li>
+        </ul>
+        <div class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="Controllers/exitUser.php">logout</a>
+            </li>
+        </div>
+    </div>
+  </div>
+</nav>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper{
+  background: #fff;
+  max-width: 800px;
+  min-width: 600px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+              0 32px 64px -48px rgba(0,0,0,0.5);
+}
+
+/* Chat Area CSS Start */
+.chat-area header{
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+}
+.chat-area header .back-icon{
+  color: #333;
+  font-size: 18px;
+}
+.chat-area header img{
+  height: 45px;
+  width: 45px;
+  margin: 0 15px;
+}
+.chat-area header .details span{
+  font-size: 17px;
+  font-weight: 500;
+}
+.chat-box{
+  position: relative;
+  min-height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 10px 30px 20px 30px;
+  background: #f7f7f7;
+  box-shadow: inset 0 32px 32px -32px rgb(0 0 0 / 5%),
+              inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
+}
+.chat-box .text{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: calc(100% - 50px);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.chat-box .chat{
+  margin: 15px 0;
+}
+.chat-box .chat p{
+  word-wrap: break-word;
+}
+/* Messages me*/
+.chat-box .outgoing{
+  display: flex;
+}
+.chat-box .outgoing .details{
+  margin-left: auto;
+  max-width: calc(100% - 130px);
+}
+.outgoing .details .message{
+  padding: 8px 16px;
+  background: #333;
+  color: #fff;
+  border-radius: 18px 18px 0 18px;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
+}
+.outgoing .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* Messages others */
+.chat-box .incoming{
+  display: flex;
+  align-items: flex-end;
+}
+.chat-box .incoming .details{
+  margin-right: auto;
+  margin-left: 10px;
+  max-width: calc(100% - 130px);
+}
+.incoming .details .message{
+  padding: 8px 16px;
+  background: #fff;
+  color: #333;
+  border-radius: 18px 18px 18px 0;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0rem 16px 16px -16px rgb(0 0 0 / 10%);
+}
+.incoming .details .author{
+  background: transparent;
+  margin-bottom: 0px;
+  font-size: small;
+  color: rgb(0, 0, 0);
+}
+/* typing area */
+.typing-area{
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.typing-area input{
+  height: 45px;
+  width: calc(100% - 58px);
+  font-size: 16px;
+  padding: 0 13px;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  border-radius: 5px 0 0 5px;
+}
+.typing-area button{
+  color: #fff;
+  width: 55px;
+  border: none;
+  outline: none;
+  background: #333;
+  font-size: 19px;
+  cursor: pointer;
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: 0 5px 5px 0;
+  transition: all 0.3s ease;
+}
+.typing-area button.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Responive media query */
+@media screen and (max-width: 450px) {
+
+  .users header img{
+    height: 45px;
+    width: 45px;
+  }
+  .users header .logout{
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+  :is(.users, .users-list) .content .details{
+    margin-left: 15px;
+  }
+
+  .users-list a{
+    padding-right: 10px;
+  }
+
+  .chat-area header{
+    padding: 15px 20px;
+  }
+  .chat-box{
+    min-height: 400px;
+    padding: 10px 15px 15px 20px;
+  }
+  .chat-box .chat p{
+    font-size: 15px;
+  }
+  .chat-box .outogoing .details{
+    max-width: 230px;
+  }
+  .chat-box .incoming .details{
+    max-width: 265px;
+  }
+  .incoming .details img{
+    height: 30px;
+    width: 30px;
+  }
+  .chat-area form{
+    padding: 20px;
+  }
+  .chat-area form input{
+    height: 40px;
+    width: calc(100% - 48px);
+  }
+  .chat-area form button{
+    width: 45px;
+  }
+}
+
+
+const form = document.querySelector(".typing-area"),
+nombreUser = form.querySelector(".nombreUser").value,
+idCurso = form.querySelector(".idCurso").value,
+inputField = form.querySelector(".input-field"),
+sendBtn = form.querySelector("button"),
+chatBox = document.querySelector(".chat-box");
+
+form.onsubmit = (e)=>{
+    e.preventDefault();
+}
+
+inputField.focus();
+inputField.onkeyup = ()=>{
+    if(inputField.value != ""){
+        sendBtn.classList.add("active");
+    }else{
+        sendBtn.classList.remove("active");
+    }
+}
+sendBtn.onclick = ()=>{
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "Controllers/insertChat.php", true);
+    xhr.onload = ()=>{
+        if(xhr.readyState === XMLHttpRequest.DONE){
+            if(xhr.status === 200){
+                inputField.value = "";
+                scrollToBottom();
+            }
+        }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+}
+
+chatBox.onmouseenter = ()=>{
+    chatBox.classList.add("active");
+}
+
+chatBox.onmouseleave = ()=>{
+    chatBox.classList.remove("active");
+}
+
+setInterval(() =>{
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "Controllers/getChat.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+            let data = xhr.response;
+            chatBox.innerHTML = data;
+            if(!chatBox.classList.contains("active")){
+                scrollToBottom();
+              }
+          }
+      }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //xhr.send("incoming_id="+incoming_id);
+}, 500);
+
+function scrollToBottom(){
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+
+<?php
+
+include("../../db.php");
+
+$_SESSION['message'] = 'Sesion terminada!';
+$_SESSION['message_type'] = 'success';
+unset($_SESSION['idUser']);
+unset($_SESSION['typeUser']);
+unset($_SESSION['idCurso']);
+
+header("Location: ../../index.php");
+
+?>
+
+<?php
+
+include("../../db.php");
+
+$nombre = mysqli_real_escape_string($conn, $_POST['nombreUser']);
+$idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
+$output = "";
+$sql = "SELECT `mensaje`, `nombre` FROM `Chat` WHERE `idCurso` = '$idCurso' order by `idChat`";
+$query = mysqli_query($conn, $sql);
+if(mysqli_num_rows($query) > 0){
+    while($row = mysqli_fetch_assoc($query)){
+        if($row['nombre'] === $nombre){
+            $output .= '<div class="chat outgoing">
+                            <div class="details">
+                                <p class="author">'. $row['nombre'] .'</p>
+                                <p class="message">'. $row['mensaje'] .'</p>
+                            </div>
+                        </div>';
+        }else{
+            $output .= '<div class="chat incoming">
+                        <div class="details">
+                            <p class="author">'. $row['nombre'] .'</p>
+                            <p class="message">'. $row['mensaje'] .'</p>
+                        </div>
+                        </div>';
+        }
+    }
+}else{
+    $output .= '<div class="text">No hay mensajes disponibles. Se el primero en hablar!</div>';
+}
+echo $output;
+
+?>
+
+<?php
+
+include("../../db.php");
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    $query = "SELECT * FROM `Estudiante` WHERE cedula = '$id'";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result){
+        die ("Query failed");
+    }
+    $_SESSION['data'] = mysqli_fetch_array($result);
+
+    header("Location: ../estudiante.php");
+}
+
+?>
+
+<?php
+
+include("../../db.php");
+
+    $nombre = mysqli_real_escape_string($conn, $_POST['nombreUser']);
+    $idCurso = mysqli_real_escape_string($conn, $_POST['idCurso']);
+    $msg = mysqli_real_escape_string($conn, $_POST['message']);
+
+    if(!empty($msg)){
+        $query = "INSERT INTO `Chat`(`mensaje`, `nombre`, `idCurso`) VALUES ('$msg', '$nombre', '$idCurso')";
+        $result = mysqli_query($conn, $query) or die();
+    }
+
+?>
+
+<?php
+
+include("../../db.php");
+
+if(isset($_POST['saveNews'])){
+    if ($_POST['titulo'] == null or $_POST['descripcion'] == null){
+        $_SESSION['message'] = 'Rellene todos los campos';
+        $_SESSION['message_type'] = 'danger';
+    
+        header("Location: ../publicarNoticia.php");
+    } else{
+        $tittle = $_POST['titulo'];
+        $description = $_POST['descripcion'];
+        $idCurso= $_SESSION['idCurso'];
+        
+        $query = "INSERT INTO `Noticia`(`titulo`, `idCurso`, `texto`, `fecha`) VALUES ('$tittle', '$idCurso', '$description', NOW());";
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+
+        $_SESSION['message'] = 'Noticia guardada y enviada!';
+        $_SESSION['message_type'] = 'success';
+
+        header("Location: ../publicarNoticia.php");
+    }
+
+}
+
+?>
+
+include("../../db.php");
+
+if ($_POST['saveTarea'] == null or $_POST['descripcion'] == null or $_POST['fechaE']== null){
+        $_SESSION['message'] = 'Rellene todos los campos';
+        $_SESSION['message_type'] = 'danger';
+    
+        header("Location: ../asignarTarea.php");
+}else{
+        $titulo= $_POST['titulo'];
+        $idCurso= $_SESSION['idCurso'];
+        $descripcion= $_POST['descripcion'];
+        $fechaEntrega= $_POST['fechaE'];
+        $fechaAsignacion = date('Y-m-d', time());
+        
+        $query = "INSERT INTO `Tarea`(`titulo`, `idCurso`, `descripcion`, `fechaEntrega`, `fechaAsignacion`) 
+                        VALUES ('$titulo', '$idCurso', '$descripcion', '$fechaEntrega', NOW());";
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+    
+        $_SESSION['message'] = 'Tarea guardada y enviada!';
+        $_SESSION['message_type'] = 'success';
+    
+        header("Location: ../asignarTarea.php");
+}
+
+?>
+
+<?php
+
+include("../../db.php");
+
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+
+    if(!isset($_SESSION['idCurso']) or $_SESSION['idCurso']!=$id){
+        $_SESSION['idCurso'] = $id;
+        $_SESSION['message'] = 'Curso seleccionado!';
+        $_SESSION['message_type'] = 'success';
+    } else{
+        unset($_SESSION['idCurso']);
+    }
+
+    header("Location: ../index.php");
+}
+
+
+?>
+
+<?php
+
+include("../../db.php");
+
+require ("../../mail.php");
+require("../../PDFLib/fpdf.php");
+    $id = $_SESSION['idUser'];
+    $idCurso = $_SESSION['idCurso'];
+        
+    $query = "SELECT correo FROM Docente WHERE (cedula = '$id')";
+    $result = mysqli_query($conn, $query);
+    // Mail
+    $userMail = mysqli_fetch_array($result)['correo'];
+
+    // Subject
+    $query = "SELECT nombre FROM Curso WHERE (idCurso = '$idCurso')";
+    $result = mysqli_query($conn, $query);
+    $title = 'Lista de estudiantes del curso "' . mysqli_fetch_array($result)['nombre'] . '"';
+    $subject = $title;
+    
+    // Pdf
+    $pdf = new FPDF(); 
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',12);
+    $pdf->Cell(0, 10, $title,0,1, 'C');
+
+    $width_cell=array(50,50,50,40);
+    $pdf->SetFillColor(193,229,252);
+    $pdf->Cell($width_cell[0],10,'Nombre',1,0,'C',true); // First header column 
+    $pdf->Cell($width_cell[1],10,'Primer apellido',1,0,'C',true); // Second header column
+    $pdf->Cell($width_cell[2],10,'Segundo apellido',1,0,'C',true); // Third header column 
+    $pdf->Cell($width_cell[3],10,'Cedula',1,1,'C',true); // Fourth header column
+
+    $pdf->SetFont('Arial','',10);
+    $sql = "SELECT E.nombre as 'nombre', E.apellido1  as 'apellido1', E.apellido2 as 'apellido2', E.cedula as 'cedula'
+                FROM Estudiante E INNER JOIN CursosEstudiantes CE ON CE.cedula=E.cedula
+                WHERE (CE.idCurso='$idCurso' AND CE.periodo=(SELECT YEAR(NOW())) )";
+    $query = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($query) > 0){
+        while($row = mysqli_fetch_assoc($query)){
+            $pdf->Cell($width_cell[0],10,$row['nombre'],    1,0,'C',false);
+            $pdf->Cell($width_cell[1],10,$row['apellido1'], 1,0,'C',false); 
+            $pdf->Cell($width_cell[2],10,$row['apellido2'], 1,0,'C',false); 
+            $pdf->Cell($width_cell[3],10,$row['cedula'],    1,1,'C',false); 
+        }
+    }
+
+    $fileName = 'ListaEstudiantes' . $idCurso . '.pdf';
+    $attachment = $pdf->Output('S', $fileName);
+    // Body
+    $body = '<a> La lista de estudiantes que solicito </a>';
+
+    sendMailWithPDF($subject, $body, $userMail, $attachment, $fileName);
+    header("Location: ../listaEstudiantes.php");
+?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<?php 
+$cedula= $_GET['cedula']; 
+$nombre = $_GET['nombre'];
+$apellido1 = $_GET['apellido1']; 
+$apellido2 = $_GET['apellido2']; 
+$correo = $_GET['correo']; 
+$grado = $_GET['grado'];  
+?>
+
+<div class="container p-4">
+    <div class="row">
+    <h3>Modificar Estudiante</h3>	
+    	<div class="col">
+		<form action="scripts/actualizarEstudiante.php" method="POST">
+		  <div class="form-group m-3">
+		    <label for="inputCedula">Cedula : <?php echo "{$cedula}";?> </label>
+		    <input type="number" class="form-control" id="inputCedula" name="cedula" value="<?php echo "{$cedula}";?>" hidden>
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" value="<?php echo "{$nombre}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido1">Apellido1</label>
+		    <input type="text" class="form-control" id="inputApellido1" name="apellido1" value="<?php echo "{$apellido1}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido2">Apellido2</label>
+		    <input type="text" class="form-control" id="inputApellido2" name="apellido2" value="<?php echo "{$apellido2}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputCorreo">Correo electronico</label>
+		    <input type="email" class="form-control" id="inputCorreo" name="correo" value="<?php echo "{$correo}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputGrado">Grado</label>
+		    <select class="form-control" id="inputGrado" name="grado">
+		      <option>1 PRIMER GRADO</option>
+		      <option>2 SEGUNDO GRADO</option>
+		      <option>3 TERCER GRADO</option>
+		      <option>4 CUARTO GRADO</option>
+		      <option>5 QUINTO GRADO</option>
+		      <option>6 SEXTO GRADO</option>
+		      <option>7 SEPTIMO GRADO</option>
+		      <option>8 OCTAVO GRADO</option>
+		      <option>9 NOVENO GRADO</option>
+		      <option>10 DECIMO GRADO</option>
+		      <option>11 UNDECIMO GRADO</option>
+		    </select>
+		  </div>
+		  <button type="submit" class="btn btn-dark btn-lg m-4 ">Actualizar</button>
+		  <button type="button" onclick= "window.location.href ='GestionEstudiante.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>
+		</form>
+		</div>
+		</div>
+    </div>
+
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<?php 
+$cedula= $_GET['cedula']; 
+$nombre = $_GET['nombre'];
+$apellido1 = $_GET['apellido1']; 
+$apellido2 = $_GET['apellido2']; 
+$correo = $_GET['correo']; 
+
+?>
+
+<div class="container p-4">
+    <div class="row">
+    <h3>Modificar Docente</h3>	
+    	<div class="col">
+		<form action="scripts/actualizarDocuente.php" method="POST">
+		  <div class="form-group m-3">
+		    <label for="inputCedula">Cedula : <?php echo "{$cedula}";?> </label>
+		    <input type="number" class="form-control" id="inputCedula" name="cedula" value="<?php echo "{$cedula}";?>" hidden>
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" value="<?php echo "{$nombre}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido1">Apellido1</label>
+		    <input type="text" class="form-control" id="inputApellido1" name="apellido1" value="<?php echo "{$apellido1}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido2">Apellido2</label>
+		    <input type="text" class="form-control" id="inputApellido2" name="apellido2" value="<?php echo "{$apellido2}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputCorreo">Correo electronico</label>
+		    <input type="email" class="form-control" id="inputCorreo" name="correo" value="<?php echo "{$correo}";?>">
+		  </div>
+		  <button type="submit" class="btn btn-dark btn-lg m-4 ">Actualizar</button>
+		  <button type="button" onclick= "window.location.href ='GestionDocente.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>
+		</form>
+		</div>
+		</div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<?php
+if (isset($_SESSION['cursoAdmin'])){
+    $idCurso = $_SESSION['cursoAdmin'];
+    $nombre = $_SESSION['nombreAdmin'];
+    unset($_SESSION['cursoAdmin']);
+    unset($_SESSION['nombreAdmin']);
+}
+else{
+    $idCurso= $_GET['idCurso'];
+    $nombre = $_GET['nombre'];  
+} 
+?>
+
+
+
+
+<div class="container p-4">
+    <div class="row">
+    	<div class="col">
+        <h3>ModificarCurso Curso</h3>	
+		<form action="scripts/actualizarCurso.php" method="POST">
+        <button type="submit" class="btn btn-dark btn-lg m-4 ">Actualizar curso</button>
+		  <button type="button" onclick= "window.location.href ='GestionCurso.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>   
+          <div class="form-group m-3">
+		    <label for="inputIdCurso">idCurso: <?php echo "{$idCurso}";?></label>
+		    <input type="number" class="form-control" id="inputIdCurso" name="idCurso" value="<?php echo "{$idCurso}";?>" hidden>
+		  </div>
+
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" value="<?php echo "{$nombre}";?>">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputGrado">Grado</label>
+		    <select class="form-control" id="inputGrado" name="grado">
+		      <option>1 PRIMER GRADO</option>
+		      <option>2 SEGUNDO GRADO</option>
+		      <option>3 TERCER GRADO</option>
+		      <option>4 CUARTO GRADO</option>
+		      <option>5 QUINTO GRADO</option>
+		      <option>6 SEXTO GRADO</option>
+		      <option>7 SEPTIMO GRADO</option>
+		      <option>8 OCTAVO GRADO</option>
+		      <option>9 NOVENO GRADO</option>
+		      <option>10 DECIMO GRADO</option>
+		      <option>11 UNDECIMO GRADO</option>
+		    </select>
+		  </div>  
+		</form>
+		</div>
+	</div>
+    <div class="row">
+    <h3>Horario</h3>
+			<form action="scripts/crearHorario2.php?idCurso=<?php echo "{$idCurso}"; ?>&nombre=<?php echo "{$nombre}"; ?> " method="POST">
+				<div class="form-group m-3">
+				    <label for="inputDia">Dia</label>
+				    <select class="form-control" id="inputDia" name="dia">
+				      <option>Lunes</option>
+				      <option>Martes</option>
+				      <option>Miercoles</option>
+				      <option>Jueves</option>
+				      <option>Viernes</option>
+				      <option>Sabado</option>
+				      <option>Domingo</option>
+				    </select>
+				  </div> 
+				  <div class="row"> 
+				  <div class="col">
+				  	<div class="form-group m-3">
+				    <label for="inputHoraInicial">Hora de inicio</label>
+				    <select class="form-control" id="inputHoraInicial" name="horaInicio">
+				      <option><time>7:00</time></option>
+				      <option><time>8:00</time></option>
+				      <option><time>9:00</time></option>
+				      <option><time>10:00</time></option>
+				      <option><time>11:00</time></option>
+				      <option><time>12:00</time></option>
+				      <option><time>13:00</time></option>
+				    </select>
+				  </div> 
+				  </div>
+				  <div class="col">
+				  	<div class="form-group m-3">
+				    <label for="inputHoraFinal">Hora de finalizacion</label>
+				    <select class="form-control" id="inputHoraFinal" name="horaFinal">
+				      <option><time>7:00</time></option>
+				      <option><time>8:00</time></option>
+				      <option><time>9:00</time></option>
+				      <option><time>10:00</time></option>
+				      <option><time>11:00</time></option>
+				      <option><time>12:00</time></option>
+				      <option><time>13:00</time></option>
+				    </select>
+				  </div> 
+				  </div>
+				  </div>
+                  <button type="submit" class="btn btn-dark btn-lg m-2">Agregar</button>
+			</form>
+
+			<table class="table text-center table-success table-striped table-borderless table-sm m-2">
+			  <thead>
+			    <tr>
+				  <th>IdCurso</th>
+			      <th>Dia</th>
+			      <th>Hora Inicial</th>
+			      <th>Hora Final</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+            <?php
+				if (isset($_SESSION['idHorarioAdmin'])){
+					$query3 = "DELETE FROM Horario WHERE idHorario='{$_SESSION['idHorarioAdmin']}'";
+					mysqli_query($conn, $query3);
+					unset($_SESSION['idHorarioAdmin']);
+				}
+                $query2 = "SELECT idHorario,idCurso,dia,horaInicio,horaFinal FROM Horario WHERE idCurso = '{$idCurso}'";
+                $resultado2 = mysqli_query($conn, $query2);
+                while($consulta2 = mysqli_fetch_array($resultado2)){
+					echo "<tr>
+							<td>{$consulta2['idCurso']}</td>
+							<td>{$consulta2['dia']}</td>
+							<td>{$consulta2['horaInicio']}</td>
+							<td>{$consulta2['horaFinal']}</td>";?>
+							<td> 
+								<form action='EliminarHorario.php?idCurso=<?php echo "{$idCurso}"; ?>&nombre=<?php echo "{$nombre}"; ?>' method='POST'>
+									<input type='text' class='idHorario' name='idHorario' value='<?php echo "{$consulta2['idHorario']}";?>' hidden></input>
+									<button type='submit' name='enviarHorario2' class='btn btn-primary'>X</button>
+								</form>
+							</td>
+						</tr>
+						<?php
+                }
+            ?>
+			  </tbody>
+			</table>
+    </div>
+    </div>
+    
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<div class="d-flex justify-content-center text-center">
+<div style="background-image: url('https://www.silicon.es/wp-content/uploads/2015/07/Fuente-Shutterstock_Autor-FabioBalbi_educacion-estudiar-1280x720.jpg');height: 700px;width:1280px;">
+
+<div class="row m-5">
+<div class="d-flex justify-content-center">
+<button type="button" onclick= "window.location.href ='GestionCurso.php'" class="btn btn-primary btn-lg">  Gestión de Cursos  </button>
+</div>
+</div>
+<div class="row m-5">
+<div class="d-flex justify-content-center">
+<button type="button" onclick= "window.location.href ='GestionDocente.php'" class="btn btn-primary btn-lg">  Gestión de Docentes  </button>
+</div>
+</div>
+<div class="row m-5">
+<div class="d-flex justify-content-center">
+<button type="button" onclick= "window.location.href ='GestionEstudiante.php'" class="btn btn-primary btn-lg">  Gestión de Estudiantes  </button>
+</div>
+</div>
+<div class="row m-5">
+<div class="d-flex justify-content-center">
+<button type="button" onclick= "window.location.href ='asignarEstudiante.php'" class="btn btn-primary btn-lg">  Asignaci�n Cursos Est  </button>
+</div>
+</div>
+<div class="row m-5">
+<div class="d-flex justify-content-center">
+<button type="button" onclick= "window.location.href ='asignarDocente.php'" class="btn btn-primary btn-lg">  Asignaci�n Cursos Doc </button>
+</div>
+</div>
+</div>
+</div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<div class="container p-2 m-5 text-center">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Apellido1</th>
+                        <th>Apellido2</th>
+                        <th>Correo</th>
+                        <th>Grado</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+    $query = "SELECT cedula,nombre,apellido1,apellido2,correo,grado FROM Estudiante";
+
+    // Ejecutar la consulta
+    $resultado = mysqli_query($conn, $query);
+    while($consulta = mysqli_fetch_array($resultado)){
+        echo "<tr><td>{$consulta['cedula']}</td><td>{$consulta['nombre']}</td><td>{$consulta['apellido1']}</td><td>{$consulta['apellido2']}</td><td>{$consulta['correo']}</td><td>{$consulta['grado']}</td>";?>
+        <td> 
+            <form action="controller/setModelEst.php" method="POST">
+                <input type="text" class="idEstudiante" name="idEstudiante" value="<?php echo "{$consulta['cedula']}";?>" hidden></input>
+                <button type="submit" name="setCedEst" class='btn btn-primary'>Lista de Cursos</button>
+            </form>
+        </td>
+        <td><a href="ModificarEstudiante.php?cedula=<?php echo $consulta['cedula'] ?>&nombre=<?php echo $consulta['nombre']?>&apellido1=<?php echo $consulta['apellido1']?>&apellido2=<?php echo $consulta['apellido2']?>&correo=<?php echo $consulta['correo']?>&grado=<?php echo $consulta['grado']?>"><img src="https://img.icons8.com/small/452/edit.png" width="25" height="25"></a></td>
+        <td><a href="EliminarEstudiante.php?cedula=<?php echo $consulta['cedula'] ?>"><img src="https://img.icons8.com/small/452/delete-sign.png" width="25" height="25"></a></td></tr>
+<?php
+    }
+?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <?php 
+    if (isset($_SESSION['idEstudianteAdmin'])){
+        $query2 = "SELECT C.idCurso, C.nombre, C.grado 
+        FROM Curso C INNER JOIN CursosEstudiantes CE ON C.idCurso = CE.idCurso
+        WHERE CE.cedula = '{$_SESSION['idEstudianteAdmin']}' AND CE.periodo=(SELECT YEAR(NOW()))";
+        $resultado2 = mysqli_query($conn, $query2);
+        echo "
+                    <div class='container'>
+                        <div class='alert alert-success alert-dismissible'>
+                            <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                                <table class='table table-sm table-striped'>
+                                    <thead>
+                                        <tr>
+                                            <th>idCurso</th>
+                                            <th>Nombre</th>
+                                            <th>Grado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+        while($consulta2 = mysqli_fetch_array($resultado2)){
+            echo "<tr>
+                                    <tr><td>{$consulta2['idCurso']}</td>
+                                    <td>{$consulta2['nombre']}</td>
+                                    <td>{$consulta2['grado']}</td> <tr>";
+
+        }
+        echo "                      </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ";
+        unset($_SESSION['idEstudianteAdmin']);
+    }
+    ?>
+    <div class="col text-left m-5">
+        <button type="button" onclick= "window.location.href ='AgregarEstudiante.php'" class="btn btn-primary btn-lg">Agregar Estudiante</button>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+
+<div class="container p-2 m-5 text-center">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Apellido1</th>
+                        <th>Apellido2</th>
+                        <th>Correo</th>
+                        <th>Calificacion Promedio</th>
+                        <th># Calificaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+    $query = "SELECT cedula,nombre,apellido1,apellido2,correo FROM Docente";
+
+    // Ejecutar la consulta
+    $resultado = mysqli_query($conn, $query);
+
+    while($consulta = mysqli_fetch_array($resultado)){
+        $calPromedio = 0;
+        $numPromedios = 0;
+        $query2 = "SELECT calificacion FROM `calificacion` WHERE docente = {$consulta['cedula']} "; 
+        $resultado2 = mysqli_query($conn, $query2);
+        while($consulta2 = mysqli_fetch_array($resultado2)){
+            $calPromedio = $calPromedio + $consulta2['calificacion'];
+            $numPromedios = $numPromedios + 1;
+        }
+        if ($numPromedios != 0) {
+            $calPromedio = $calPromedio/$numPromedios;
+        }
+        echo "<tr><td>{$consulta['cedula']}</td><td>{$consulta['nombre']}</td><td>{$consulta['apellido1']}</td><td>{$consulta['apellido2']}</td><td>{$consulta['correo']}</td><td>{$calPromedio}</td><td>{$numPromedios}</td>";?>
+        <td> 
+            <form action="controller/setModelEst.php" method="POST">
+                <input type="text" class="idDocente" name="idDocente" value="<?php echo "{$consulta['cedula']}";?>" hidden></input>
+                <button type="submit" name="setCedDoc" class='btn btn-primary'>Cursos que Imparte</button>
+            </form>
+        </td>
+        <td><a href="ModificarDocente.php?cedula=<?php echo $consulta['cedula'] ?>&nombre=<?php echo $consulta['nombre']?>&apellido1=<?php echo $consulta['apellido1']?>&apellido2=<?php echo $consulta['apellido2']?>&correo=<?php echo $consulta['correo']?>"><img src="https://img.icons8.com/small/452/edit.png" width="25" height="25"></a></td>
+        <td><a href="EliminarDocente.php?cedula=<?php echo $consulta['cedula'] ?>"><img src="https://img.icons8.com/small/452/delete-sign.png" width="25" height="25"></a></td></tr>
+<?php
+    }
+?>
+</tbody>
+            </table>
+        </div>
+    </div>
+
+    <?php 
+    if (isset($_SESSION['idDocenteAdmin'])){
+        $query2 = "SELECT C.idCurso, C.nombre, C.grado 
+        FROM Curso C INNER JOIN CursosDocente CE ON C.idCurso = CE.idCurso
+        WHERE CE.cedula = '{$_SESSION['idDocenteAdmin']}' AND CE.periodo=(SELECT YEAR(NOW()))";
+        $resultado2 = mysqli_query($conn, $query2);
+        echo "
+                    <div class='container'>
+                        <div class='alert alert-success alert-dismissible'>
+                            <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                                <table class='table table-sm table-striped'>
+                                    <thead>
+                                        <tr>
+                                            <th>idCurso</th>
+                                            <th>Nombre</th>
+                                            <th>Grado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+        while($consulta2 = mysqli_fetch_array($resultado2)){
+            echo "<tr>
+                                    <tr><td>{$consulta2['idCurso']}</td>
+                                    <td>{$consulta2['nombre']}</td>
+                                    <td>{$consulta2['grado']}</td> <tr>";
+
+        }
+        echo "                      </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ";
+        unset($_SESSION['idDocenteAdmin']);
+    }
+    ?>
+
+
+    <div class="col text-left m-5">
+            <button type="button" onclick= "window.location.href ='AgregarDocente.php'" class="btn btn-primary btn-lg">Agregar Docente</button>
+
+            </div>
+
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+<div class="container p-2 m-5 text-center">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>idCurso</th>
+                        <th>Nombre</th>
+                        <th>Grado</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+    $query = "SELECT idCurso,nombre,grado FROM Curso";
+
+    // Ejecutar la consulta
+    $resultado = mysqli_query($conn, $query);
+
+    while($consulta = mysqli_fetch_array($resultado)){
+        echo "<tr><td>{$consulta['idCurso']}</td><td>{$consulta['nombre']}</td><td>{$consulta['grado']}</td>";?>
+        <td><a href="ModificarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>&nombre=<?php echo $consulta['nombre'] ?>"><img src="https://img.icons8.com/small/452/edit.png" width="25" height="25"></a></td>
+        <td><a href="EliminarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>"><img src="https://img.icons8.com/small/452/delete-sign.png" width="25" height="25"></a></td></tr>
+<?php
+    }
+?>
+</tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col text-left m-5">
+        <button type="button" onclick= "window.location.href ='AgregarCurso.php'" class="btn btn-primary btn-lg">Agregar Curso</button>
+    </div>
+
+
+
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+<?php 
+
+if(isset($_POST['enviarHorario'])){
+    $idHorario = $_POST['idHorario'];
+    $_SESSION['idHorarioAdmin'] = $idHorario;
+    header("Location: AgregarHorario.php" );
+}
+if(isset($_POST['enviarHorario2'])){
+    $_SESSION['cursoAdmin'] = $_GET['idCurso'];
+    $_SESSION['nombreAdmin'] = $_GET['nombre'];
+    $idHorario = $_POST['idHorario'];
+    $_SESSION['idHorarioAdmin'] = $idHorario;
+    header("Location: ModificarCurso.php" );
+}
+?>
+
+<?php include("includes/db.php") ?>
+<?php
+    $cedula= $_GET['cedula'];
+
+    if(empty($cedula) ){
+        header("Location: GestionEstudiante.php" );
+    }
+
+    $query = "DELETE FROM Estudiante WHERE cedula='$cedula'";
+
+    if(mysqli_query($conn, $query)){
+        echo "Deleted successfully.";
+        header("Location: GestionEstudiante.php" );
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        header("Location: GestionEstudiante.php" );
+    }
+?>
+
+<?php include("includes/db.php") ?>
+<?php
+    $cedula= $_GET['cedula'];
+
+    if(empty($cedula) ){
+        header("Location: GestionDocente.php" );
+    }
+
+    $query = "DELETE FROM Docente WHERE cedula='$cedula'";
+
+    if(mysqli_query($conn, $query)){
+        echo "Deleted successfully.";
+        header("Location: GestionDocente.php" );
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        header("Location: GestionDocente.php" );
+    }
+?>
+
+<?php include("includes/db.php") ?>
+
+<?php
+  
+    $idCurso= $_GET['idCurso'];
+
+    if(empty($idCurso) ){
+        header("Location: GestionCurso.php" );
+    }
+
+    $query = "DELETE FROM Curso WHERE idCurso='$idCurso'";
+
+    if(mysqli_query($conn, $query)){
+        echo "Deleted successfully.";
+        header("Location: GestionCurso.php" );
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        header("Location: GestionCurso.php" );
+    }
+   
+    
+?>
+
+<?php include("includes/db.php") ?>
+<?php include("includes/header.php") ?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col col-lg-4">
+                <form action="controller/asigEst.php" method="POST">
+                    <br></br>
+                    <select name="id_estudiante" id="Estudiante" class="form-select" aria-label="Default select example">
+                        <option selected>Estudiantes</option>
+                        <?php
+                            $query = "SELECT E.cedula as cedula, E.nombre as NombreE FROM Estudiante E";            
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){
+                                 echo '<option value="'.$row['cedula'].'">'.$row['cedula'].'-'.$row['NombreE'].'</option>';
+                            } 
+                        ?>
+                    </select>
+                    <br></br>
+                    <select name="id_curso" id="Curso" class="form-select" aria-label="Default select example">
+                        <option selected>Cursos</option>
+                        <?php
+                            $query = "SELECT C.idCurso as idCurso, C.nombre as NombreC FROM Curso C";            
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){
+                                 echo '<option value="'.$row['idCurso'].'">'.$row['idCurso'].'-'.$row['NombreC'].'</option>';
+                            } 
+                        ?>
+                    </select>
+                    <br></br>
+                    <input type="submit" class="btn btn-success btn-block" name="actualizar" value="Ver Alumnos">
+                    <input type="submit" class="btn btn-success btn-block" name="AsignarEst" value="Asignar">
+                    <input type="submit" class="btn btn-success btn-block" name="EliminarEst" value="Borrar">
+                </form>            
+            </div>
+            <div class="col col-lg-8" style="padding-left:100px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Curso</th>
+                            <th>Nombre Curso</th>
+                            <th>Grado</th>
+                            <th>Cedula</th>
+                            <th>Nombre Estudiante</th>
+                            <th>Primer apellido</th>
+                            <th>Segundo apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $cedula = $_SESSION['id_estudianteTabla'];
+                            $query = "SELECT C.idCurso as idCurso, C.nombre as NombreC, C.grado as Grado, E.cedula as cedula, E.nombre as NombreE, E.apellido1  as apell1, E.apellido2 as apell2
+                                        FROM Curso C INNER JOIN CursosEstudiantes CE ON C.idCurso = CE.idCurso
+                                                    INNER JOIN Estudiante E on CE.cedula=E.cedula
+                                        WHERE CE.cedula='$cedula' AND CE.periodo=(SELECT YEAR(NOW()))";            
+                            $result = mysqli_query($conn, $query);
+                            unset($_SESSION['id_estudianteTabla']);
+                            while($row = mysqli_fetch_array($result)){?>
+                                <tr>
+                                    <td><?php echo $row['idCurso'] ?></td>
+                                    <td><?php echo $row['NombreC'] ?></td>
+                                    <td><?php echo $row['Grado'] ?></td>
+                                    <td><?php echo $row['cedula'] ?></td>
+                                    <td><?php echo $row['NombreE'] ?></td>
+                                    <td><?php echo $row['apell1'] ?></td>
+                                    <td><?php echo $row['apell2'] ?></td>
+                                </tr>
+                            <?php } 
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+<?php include("includes/header.php") ?>
+    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+        <div class="row">
+            <div class="col col-lg-4">
+                <form action="controller/asigDoc.php" method="POST">
+                    <br></br>
+                    <select name="id_docente" id="Docente" class="form-select" aria-label="Default select example">
+                        <option selected>Docentes</option>
+                        <?php
+                            $query = "SELECT D.cedula as cedula, D.nombre as NombreD FROM Docente D";            
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){
+                                 echo '<option value="'.$row['cedula'].'">'.$row['cedula'].'-'.$row['NombreD'].'</option>';
+                            } 
+                        ?>
+                    </select>
+                    <br></br>
+                    <select name="id_curso" id="Curso" class="form-select" aria-label="Default select example">
+                        <option selected>Cursos</option>
+                        <?php
+                            $query = "SELECT C.idCurso as idCurso, C.nombre as NombreC FROM Curso C";            
+                            $result = mysqli_query($conn, $query);
+
+                            while($row = mysqli_fetch_array($result)){
+                                 echo '<option value="'.$row['idCurso'].'">'.$row['idCurso'].'-'.$row['NombreC'].'</option>';
+                            } 
+                        ?>
+                    </select>
+                    <br></br>
+                    <input type="submit" class="btn btn-success btn-block" name="actualizar" value="Ver Cursos">
+                    <input type="submit" class="btn btn-success btn-block" name="AsignarDoc" value="Asignar">
+                    <input type="submit" class="btn btn-success btn-block" name="EliminarDoc" value="Borrar">
+                </form>            
+            </div>
+            <div class="col col-lg-8" style="padding-left:100px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID Curso</th>
+                            <th>Nombre Curso</th>
+                            <th>Grado</th>
+                            <th>Cedula</th>
+                            <th>Nombre Docente</th>
+                            <th>Primer apellido</th>
+                            <th>Segundo apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $cedula = $_SESSION['id_docenteTabla'];
+                            $query = "SELECT C.idCurso as idCurso, C.nombre as NombreC, C.grado as Grado, D.cedula as cedula, D.nombre as NombreD, D.apellido1  as apell1, D.apellido2 as apell2
+                                        FROM Curso C INNER JOIN CursosDocente CD ON C.idCurso = CD.idCurso
+                                                    INNER JOIN Docente D on CD.cedula=D.cedula
+                                        WHERE CD.cedula='$cedula' AND CD.periodo=(SELECT YEAR(NOW()))";            
+                            $result = mysqli_query($conn, $query);
+                            unset($_SESSION['id_docenteTabla']);
+                            while($row = mysqli_fetch_array($result)){?>
+                                <tr>
+                                    <td><?php echo $row['idCurso'] ?></td>
+                                    <td><?php echo $row['NombreC'] ?></td>
+                                    <td><?php echo $row['Grado'] ?></td>
+                                    <td><?php echo $row['cedula'] ?></td>
+                                    <td><?php echo $row['NombreD'] ?></td>
+                                    <td><?php echo $row['apell1'] ?></td>
+                                    <td><?php echo $row['apell2'] ?></td>
+                                </tr>
+                            <?php } 
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+
+<?php
+if(isset($_POST['nombre'])){
+	$nombre= $_POST['nombre'];
+    $grado= $_POST['grado'];
+   
+
+    if( empty($nombre) or empty($grado)){
+        header("Location: GestionCurso.php" );
+    }
+
+    $query = "INSERT INTO Curso (nombre,grado) VALUES ('$nombre','$grado')";
+
+    if(!mysqli_query($conn, $query)){ //si no hubo query devuelvase sino siga...
+        header("Location: GestionCurso.php" );
+    } 
+
+}
+?>
+
+<h3>Horario</h3>
+			<form action="scripts/crearHorario.php" method="POST">
+				<div class="form-group m-3">
+				    <label for="inputDia">Dia</label>
+				    <select class="form-control" id="inputDia" name="dia">
+				      <option>Lunes</option>
+				      <option>Martes</option>
+				      <option>Miercoles</option>
+				      <option>Jueves</option>
+				      <option>Viernes</option>
+				      <option>Sabado</option>
+				      <option>Domingo</option>
+				    </select>
+				  </div> 
+				  <div class="row"> 
+				  <div class="col">
+				  	<div class="form-group m-3">
+				    <label for="inputHoraInicial">Hora de inicio</label>
+				    <select class="form-control" id="inputHoraInicial" name="horaInicio">
+				      <option><time>7:00</time></option>
+				      <option><time>8:00</time></option>
+				      <option><time>9:00</time></option>
+				      <option><time>10:00</time></option>
+				      <option><time>11:00</time></option>
+				      <option><time>12:00</time></option>
+				      <option><time>13:00</time></option>
+				    </select>
+				  </div> 
+				  </div>
+				  <div class="col">
+				  	<div class="form-group m-3">
+				    <label for="inputHoraFinal">Hora de finalizacion</label>
+				    <select class="form-control" id="inputHoraFinal" name="horaFinal">
+				      <option><time>7:00</time></option>
+				      <option><time>8:00</time></option>
+				      <option><time>9:00</time></option>
+				      <option><time>10:00</time></option>
+				      <option><time>11:00</time></option>
+				      <option><time>12:00</time></option>
+				      <option><time>13:00</time></option>
+				    </select>
+				  </div> 
+				  </div>
+				  </div>
+                  <button type="submit" class="btn btn-dark btn-lg m-2">Agregar horario</button>
+				  <button type="button" onclick= "window.location.href ='GestionCurso.php'" class="btn btn-dark btn-lg m-2">Finalizar</button>
+			</form>
+
+			<table class="table text-center table-success table-striped table-borderless table-sm m-2">
+			  <thead>
+			    <tr>
+				  <th>IdCurso</th>
+			      <th>Dia</th>
+			      <th>Hora Inicial</th>
+			      <th>Hora Final</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+            <?php
+				if (isset($_SESSION['idHorarioAdmin'])){
+					$query3 = "DELETE FROM Horario WHERE idHorario='{$_SESSION['idHorarioAdmin']}'";
+					mysqli_query($conn, $query3);
+					unset($_SESSION['idHorarioAdmin']);
+				}
+                $query2 = "SELECT idHorario,idCurso,dia,horaInicio,horaFinal FROM Horario WHERE idCurso = (SELECT MAX(idCurso) FROM Curso)";
+                $resultado2 = mysqli_query($conn, $query2);
+                while($consulta2 = mysqli_fetch_array($resultado2)){
+					echo "<tr>
+							<td>{$consulta2['idCurso']}</td>
+							<td>{$consulta2['dia']}</td>
+							<td>{$consulta2['horaInicio']}</td>
+							<td>{$consulta2['horaFinal']}</td>";?>
+							<td> 
+								<form action='EliminarHorario.php' method='POST'>
+									<input type='text' class='idHorario' name='idHorario' value='<?php echo "{$consulta2['idHorario']}";?>' hidden></input>
+									<button type='submit' name='enviarHorario' class='btn btn-primary'>X</button>
+								</form>
+							</td>
+						</tr>
+						<?php
+                }
+            ?>
+			  </tbody>
+			</table>
+<?php include("includes/footer.php") ?>
+
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+	<div class="container p-4">
+    <div class="row">
+    <h3>Agregar Estudiante</h3>	
+    	<div class="col">
+		<form action="scripts/insertarEstudiante.php" method="POST">
+		  <div class="form-group m-3">
+		    <label for="inputCedula">Cedula</label>
+		    <input type="number" class="form-control" id="inputCedula" name="cedula" placeholder="12345678">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Caballero Juan">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido1">Apellido1</label>
+		    <input type="text" class="form-control" id="inputApellido1" name="apellido1" placeholder="Calderon">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido2">Apellido2</label>
+		    <input type="text" class="form-control" id="inputApellido2" name="apellido2" placeholder="Solano">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputCorreo">Correo electronico</label>
+		    <input type="email" class="form-control" id="inputCorreo" name="correo" placeholder="nombre@example.com">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputGrado">Grado</label>
+		    <select class="form-control" id="inputGrado" name="grado">
+		      <option>1 PRIMER GRADO</option>
+		      <option>2 SEGUNDO GRADO</option>
+		      <option>3 TERCER GRADO</option>
+		      <option>4 CUARTO GRADO</option>
+		      <option>5 QUINTO GRADO</option>
+		      <option>6 SEXTO GRADO</option>
+		      <option>7 SEPTIMO GRADO</option>
+		      <option>8 OCTAVO GRADO</option>
+		      <option>9 NOVENO GRADO</option>
+		      <option>10 DECIMO GRADO</option>
+		      <option>11 UNDECIMO GRADO</option>
+		    </select>
+		  </div>
+		  <button type="submit" class="btn btn-dark btn-lg m-4 ">Aceptar</button>
+		  <button type="button" onclick= "window.location.href ='GestionEstudiante.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>
+		</form>
+		</div>
+		</div>
+    </div>
+
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+	<div class="container p-4">
+    <div class="row">
+    <h3>Agregar Docente</h3>	
+    	<div class="col">
+		<form action="scripts/insertarDocente.php" method="POST">
+		  <div class="form-group m-3">
+		    <label for="inputCedula">Cedula</label>
+		    <input type="number" class="form-control" id="inputCedula" name="cedula" placeholder="12345678">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Caballero Juan">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido1">Apellido1</label>
+		    <input type="text" class="form-control" id="inputApellido1" name="apellido1" placeholder="Calderon">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputApellido2">Apellido2</label>
+		    <input type="text" class="form-control" id="inputApellido2" name="apellido2" placeholder="Solano">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputCorreo">Correo electronico</label>
+		    <input type="email" class="form-control" id="inputCorreo" name="correo" placeholder="nombre@example.com">
+		  </div>
+			  <button type="submit" class="btn btn-dark btn-lg m-4 ">Aceptar</button>
+			  <button type="button" onclick= "window.location.href ='GestionDocente.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>
+				     
+		</form>
+		</div>
+		</div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/db.php") ?>
+
+<?php include("includes/header.php") ?>
+	<div class="container p-4">
+    <div class="row">
+    	<div class="col">
+        <h3>Agregar Curso</h3>	
+		<form action="AgregarHorario.php" method="POST">
+		  <div class="form-group m-3">
+		    <label for="inputNombre">Nombre</label>
+		    <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Ciencias">
+		  </div>
+		  <div class="form-group m-3">
+		    <label for="inputGrado">Grado</label>
+		    <select class="form-control" id="inputGrado" name="grado">
+		      <option>1 PRIMER GRADO</option>
+		      <option>2 SEGUNDO GRADO</option>
+		      <option>3 TERCER GRADO</option>
+		      <option>4 CUARTO GRADO</option>
+		      <option>5 QUINTO GRADO</option>
+		      <option>6 SEXTO GRADO</option>
+		      <option>7 SEPTIMO GRADO</option>
+		      <option>8 OCTAVO GRADO</option>
+		      <option>9 NOVENO GRADO</option>
+		      <option>10 DECIMO GRADO</option>
+		      <option>11 UNDECIMO GRADO</option>
+		    </select>
+		  </div>
+		  <button type="submit" class="btn btn-dark btn-lg m-4 ">Continuar</button>
+		  <button type="button" onclick= "window.location.href ='GestionCurso.php'" class="btn btn-danger btn-lg m-4">Cancelar</button>     
+		</form>
+		</div>
+	</div>
+    </div>
+<?php include("includes/footer.php") ?>
+
+<?php include("includes/header.php") ?>
+<div class="container p-3" style="height: 100%;display: flex; justify-content: center;align-items: center;">
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>idCurso</th>
+                        <th>Nombre</th>
+                        <th>Grado</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+
+    $conexion = mysqli_connect("localhost","312306","eeerrr96","312306");
+
+    if(!$conexion)
+    {
+        exit("Error al intentar conectarse al servidor MYSQL.");
+    }
+    
+    $query = "SELECT idCurso,nombre,grado FROM Curso";
+
+    // Ejecutar la consulta
+    $resultado = mysqli_query($conexion, $query);
+
+    while($consulta = mysqli_fetch_array($resultado)){
+        echo "<td>{$consulta['idCurso']}</td><td>{$consulta['nombre']}</td><td>{$consulta['grado']}</td>";?>
+        <td><a href="actualizarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>"><img src="https://img.icons8.com/small/452/edit.png" width="16" height="16"></a></td>
+        <td><a href="borrarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>"><img src="https://img.icons8.com/small/452/delete-sign.png" width="16" height="16"></a></td>
+<?php
+    }
+    mysqli_close($conexion);
+?>
+</tbody>
+            </table>
+        </div>
+    </div>
+<button type="button" class="btn btn-primary">Agregar Curso</button>
+<?php include("includes/footer.php") ?>
+					
+
+                    <?php include("../includes/db.php") ?>
+<?php include("../../mail.php") ?>
+<?php
+    
+    $cedula= $_POST['cedula'];
+    $nombre= $_POST['nombre'];
+    $apellido1= $_POST['apellido1'];
+    $apellido2= $_POST['apellido2'];
+    $correo= $_POST['correo'];
+    $grado = $_POST['grado'];
+    $password = (rand(1,10)*1000)+(rand(1,10)*100)+(rand(1,10)*10)+(rand(1,10)*1);
+
+    sendMail("Bienvenido a EducaMep", "<img src='https://lh3.googleusercontent.com/proxy/giwxuwLduWE7YMF8QKLxkhAJJkn2gh-JgvFLOxQh2WUqvdkS2iS12fmhBABbOJiR3v7aX2Mt90usq5Em9_glVs5LTKOXwpr6hUXeZANGHZRY6ORcKYi-L2iKf6rg5CjwV1HgbDMlKIfEiMl5twRXvGiC6Cs'
+    width='400'
+    height='341'>
+    <h3>User: {$correo}</h3>
+    <h3>Password: {$password} </h3>", $correo);
+
+
+    if(empty($grado) or empty($cedula) or empty($nombre) or empty($apellido1) or empty($apellido2) or empty($correo)){
+        header("Location: ../GestionEstudiante.php" );
+    }
+    else{
+        $query = "INSERT INTO Estudiante (cedula,nombre,apellido1,apellido2,correo,grado,password) VALUES ('$cedula','$nombre','$apellido1','$apellido2','$correo','$grado','$password')";
+
+        if(mysqli_query($conn, $query)){
+            echo "Added successfully.";
+            header("Location: ../GestionEstudiante.php" );
+        } else{
+            header("Location: ../GestionEstudiante.php" );
+        }
+
+    }
+         
+    
+?>
+
+<?php include("../includes/db.php") ?>
+<?php include("../../mail.php") ?>
+<?php
+    
+    $cedula= $_POST['cedula'];
+    $nombre= $_POST['nombre'];
+    $apellido1= $_POST['apellido1'];
+    $apellido2= $_POST['apellido2'];
+    $correo= $_POST['correo'];
+    $password = (rand(1,10)*1000)+(rand(1,10)*100)+(rand(1,10)*10)+(rand(1,10)*1);
+  
+    sendMail("Bienvenido a EducaMep", "<img src='https://lh3.googleusercontent.com/proxy/giwxuwLduWE7YMF8QKLxkhAJJkn2gh-JgvFLOxQh2WUqvdkS2iS12fmhBABbOJiR3v7aX2Mt90usq5Em9_glVs5LTKOXwpr6hUXeZANGHZRY6ORcKYi-L2iKf6rg5CjwV1HgbDMlKIfEiMl5twRXvGiC6Cs'
+    width='400'
+    height='341'>
+    <h3>User: {$correo}</h3>
+    <h3>Password: {$password} </h3>", $correo);
+
+
+   
+    if(empty($cedula) or empty($nombre) or empty($apellido1) or empty($apellido2) or empty($correo)){
+        header("Location: ../GestionDocente.php" );
+    }
+    else{
+        $query = "INSERT INTO Docente (cedula,nombre,apellido1,apellido2,correo,password) VALUES ('$cedula','$nombre','$apellido1','$apellido2','$correo','$password')";
+
+        if(mysqli_query($conn, $query)){
+            echo "Added successfully.";
+            header("Location: ../GestionDocente.php" );
+        } else{
+            echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        }
+
+    }
+         
+    
+?>		
+
+<?php include("includes/header.php") ?>
+<?php
+    error_reporting(0);
+
+    $conexion = mysqli_connect("localhost","312306","eeerrr96","312306");
+
+    if(!$conexion)
+    {
+        exit("Error al intentar conectarse al servidor MYSQL.");
+    }
+
+    $nombre= $_POST['nombre'];
+    $grado= $_POST['grado'];
+   
+
+    if( empty($nombre) or empty($grado)){
+        exit("ERROR: debe llenar todos los espacios.");
+    }
+
+    $query = "INSERT INTO Curso (nombre,grado) VALUES ('$nombre','$grado')";
+
+    if(mysqli_query($conexion, $query)){
+        echo "Added successfully.";
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conexion);
+    }
+     
+    // Close connection
+    mysqli_close($conexion);
+?>
+
+<?php include("includes/footer.php") ?>	
+
+<?php include("../includes/db.php") ?>
+<?php
+    $idCurso= $_GET['idCurso'];
+    $_SESSION['cursoAdmin'] = $_GET['idCurso'];
+    $_SESSION['nombreAdmin'] = $_GET['nombre'];
+    $dia= $_POST['dia'];
+    $horaInicio= $_POST['horaInicio'];
+    $horaFinal= $_POST['horaFinal'];
+
+    $query = "INSERT INTO Horario (idCurso,horaInicio,horaFinal,dia) VALUES ('$idCurso','$horaInicio','$horaFinal','$dia')";
+
+    if(mysqli_query($conn, $query)){
+        echo "Added successfully.";
+        header("Location: ../ModificarCurso.php" );
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        header("Location: ../ModificarCurso.php" );
+    }    
+?>	
+
+
+<?php include("../includes/db.php") ?>
+<?php
+    $resultadoVar = mysqli_query($conn, "SELECT max(idCurso) FROM Curso");
+    $fila = mysqli_fetch_row($resultadoVar);
+    $idCurso= $fila[0];
+    $dia= $_POST['dia'];
+    $horaInicio= $_POST['horaInicio'];
+    $horaFinal= $_POST['horaFinal'];
+
+    $query = "INSERT INTO Horario (idCurso,horaInicio,horaFinal,dia) VALUES ('$idCurso','$horaInicio','$horaFinal','$dia')";
+
+    if(mysqli_query($conn, $query)){
+        echo "Added successfully.";
+        header("Location: ../AgregarHorario.php" );
+    } else{
+        echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        header("Location: ../AgregarHorario.php" );
+    }    
+?>			
+
+
+<?php include("../includes/db.php") ?>
+<?php
+    $cedula= $_POST['cedula'];
+    $nombre= $_POST['nombre'];
+    $apellido1= $_POST['apellido1'];
+    $apellido2= $_POST['apellido2'];
+    $correo= $_POST['correo'];
+    $grado = $_POST['grado'];
+
+    if(empty($grado) or empty($cedula) or empty($nombre) or empty($apellido1) or empty($apellido2) or empty($correo)){
+        header("Location: ../GestionEstudiante.php" );
+    }
+    else{
+        $query = "UPDATE Estudiante SET nombre='$nombre',apellido1='$apellido1',apellido2='$apellido2',correo='$correo',grado='$grado' WHERE cedula='$cedula' ";
+
+        if(mysqli_query($conn, $query)){
+            echo "Updated successfully.";
+            header("Location: ../GestionEstudiante.php" );
+        } else{
+            echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+            header("Location: ../GestionEstudiante.php" );
+        }
+
+    }
+         
+?>
+
+<?php include("../includes/db.php") ?>
+<?php
+    
+    $cedula= $_POST['cedula'];
+    $nombre= $_POST['nombre'];
+    $apellido1= $_POST['apellido1'];
+    $apellido2= $_POST['apellido2'];
+    $correo= $_POST['correo'];
+
+    if(empty($cedula) or empty($nombre) or empty($apellido1) or empty($apellido2) or empty($correo)){
+        header("Location: ../GestionDocente.php" );
+    }
+    else{
+        $query = "UPDATE Docente SET nombre='$nombre',apellido1='$apellido1',apellido2='$apellido2',correo='$correo' WHERE cedula='$cedula' ";
+        if(mysqli_query($conn, $query)){
+            echo "Updated successfully.";
+            header("Location: ../GestionDocente.php" );
+        } else{
+            echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+            header("Location: ../GestionDocente.php" );
+        }
+    }
+
+?>
+
+<?php include("../includes/db.php") ?>
+<?php
+
+
+    $idCurso= $_POST['idCurso'];
+    $nombre= $_POST['nombre'];
+    $grado= $_POST['grado'];
+
+    if(empty($idCurso) or empty($nombre) or empty($grado)){
+        header("Location: ../GestionCurso.php" );
+    }
+    else{
+        $query = "UPDATE Curso SET nombre='$nombre',grado='$grado' WHERE idCurso='$idCurso'";
+        if(mysqli_query($conn, $query)){
+            echo "Updated successfully.";
+            header("Location: ../GestionCurso.php" );
+        } else{
+            echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+            header("Location: ../GestionCurso.php" );
+        }
+    }    
+?>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+  <a href="IndexGestion.php" class="navbar-brand">EducaMEP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="IndexGestion.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="GestionCurso.php">Gestión de Cursos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="GestionDocente.php">Gestión de Docentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="GestionEstudiante.php">Gestión de Estudiantes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="asignarEstudiante.php">Asig Cursos Estudiante</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="asignarDocente.php">Asig Cursos Docente</a>
+            </li>
+        </ul>
+        <div class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="../index.php">Sign Up</a>
+            </li>
+        </div>
+    </div>
+  </div>
+</nav>	
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Pagina principal administrador</title>
+</head>
+<body>
+<?php include("includes/navigation.php") ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<?php
+
+include("../includes/db.php"); 
+
+if(isset($_POST['AsignarDoc'])){
+    $cedula= $_POST['id_docente'];
+    $idCurso= $_POST['id_curso'];
+    $fecha = date('Y', time());
+
+    $sql = "SELECT cedula FROM CursosDocente 
+            WHERE periodo='$fecha' AND cedula='$cedula' AND idCurso='$idCurso'";
+
+    if ($result=mysqli_query($conn,$sql)) {
+        $rowcount=mysqli_num_rows($result);
+    }
+    if($rowcount==0){
+        $query = "INSERT INTO `CursosDocente` (`periodo`,`idCurso`,`cedula`) 
+                                    VALUES ('$fecha','$idCurso','$cedula')";
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+        $_SESSION['message'] = 'Docente asignado al curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarDocente.php");
+
+    }else{
+        $_SESSION['message'] = 'El docente ya ha sido asignado al curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarDocente.php");
+    }
+}
+
+
+if(isset($_POST['EliminarDoc'])){
+    $cedula= $_POST['id_docente'];
+    $idCurso= $_POST['id_curso'];
+    $fecha = date('Y', time());
+
+    $sql = "SELECT cedula FROM CursosDocente WHERE periodo='$fecha' AND cedula='$cedula' AND idCurso='$idCurso'";
+
+    if ($result=mysqli_query($conn,$sql)) {
+        $rowcount=mysqli_num_rows($result);
+    }
+    if($rowcount==0){
+        header("Location: ../asignarDocente.php");
+    
+    }else{
+    
+        $query = "DELETE FROM `CursosDocente` WHERE `periodo`='$fecha' AND `idCurso`='$idCurso' AND `cedula`='$cedula'";
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+        $_SESSION['message'] = 'Docente relegado del curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarDocente.php");
+    }
+
+}
+
+if(isset($_POST['actualizar'])){
+    $cedula= $_POST['id_docente'];
+    $_SESSION['id_docenteTabla']=$cedula;
+
+
+    $_SESSION['message'] = 'Cursos del profesor!';
+    $_SESSION['message_type'] = 'success';
+
+    header("Location: ../asignarDocente.php");
+}
+
+?>  
+
+<?php
+
+include("../includes/db.php");
+
+if(isset($_POST['AsignarEst'])){
+    $cedula= $_POST['id_estudiante'];
+    $idCurso= $_POST['id_curso'];
+    $fecha = date('Y', time());
+    
+    $sql = "SELECT cedula FROM CursosEstudiantes 
+            WHERE periodo='$fecha' AND cedula='$cedula' AND idCurso='$idCurso'";
+
+    if ($result=mysqli_query($conn,$sql)) {
+        $rowcount=mysqli_num_rows($result);
+    }
+    if($rowcount==0){
+        $query = "INSERT INTO `CursosEstudiantes` (`periodo`,`idCurso`,`cedula`) 
+                                VALUES ('$fecha','$idCurso','$cedula')";
+
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+        $_SESSION['message'] = 'Estudiante asignado al curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarEstudiante.php");
+
+    }else{
+        $_SESSION['message'] = 'El estudiante ya ha sido asignado al curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarEstudiante.php");
+    }
+
+    
+}
+if(isset($_POST['EliminarEst'])){
+    $cedula= $_POST['id_estudiante'];
+    $idCurso= $_POST['id_curso'];
+    $fecha = date('Y', time());
+
+    $sql = "SELECT cedula FROM CursosEstudiantes 
+            WHERE periodo='$fecha' AND cedula='$cedula' AND idCurso='$idCurso'";
+
+    if ($result=mysqli_query($conn,$sql)) {
+        $rowcount=mysqli_num_rows($result);
+    }
+    if($rowcount==0){
+        $_SESSION['message'] = 'No se puede relegar un estudiante de un curso al que no esta asignado!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarEstudiante.php");
+    
+    }else{
+        $query = "DELETE FROM CursosEstudiantes WHERE periodo='$fecha' AND idCurso='$idCurso' AND cedula='$cedula'";
+
+        $result = mysqli_query($conn, $query);
+        if (!$result){
+            die("query failed");
+        }
+        $_SESSION['message'] = 'Estudiante relegado del curso!';
+        $_SESSION['message_type'] = 'success';
+        header("Location: ../asignarEstudiante.php");
+    }
+
+        
+}
+if(isset($_POST['actualizar'])){
+    $cedula= $_POST['id_estudiante'];
+    $_SESSION['id_estudianteTabla']=$cedula;
+
+
+    $_SESSION['message'] = 'Estudiantes del Curso!';
+    $_SESSION['message_type'] = 'success';
+
+    header("Location: ../asignarEstudiante.php");
+}
+
+?>  
+
+<?php include("../includes/db.php") ?>
+<?php 
+
+if(isset($_POST['setCedEst'])){
+    $idEst = $_POST['idEstudiante'];
+    $_SESSION['idEstudianteAdmin'] = $idEst;
+    header("Location: ../GestionEstudiante.php" );
+}
+
+if(isset($_POST['setCedDoc'])){
+    $idDoc = $_POST['idDocente'];
+    $_SESSION['idDocenteAdmin'] = $idDoc;
+    header("Location: ../GestionDocente.php" );
+}
+
+?>
