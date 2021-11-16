@@ -2,20 +2,19 @@
 
 include("../../db.php");
 
-if(isset($_POST['saveTarea'])){
-    if ($_POST['saveTarea'] == null or $_POST['descripcion'] == null or $_POST['fechaE']== null){
+if ($_POST['saveTarea'] == null or $_POST['descripcion'] == null or $_POST['fechaE']== null){
         $_SESSION['message'] = 'Rellene todos los campos';
         $_SESSION['message_type'] = 'danger';
     
         header("Location: ../asignarTarea.php");
-    }else{
+}else{
         $titulo= $_POST['titulo'];
         $idCurso= $_SESSION['idCurso'];
         $descripcion= $_POST['descripcion'];
         $fechaEntrega= $_POST['fechaE'];
         $fechaAsignacion = date('Y-m-d', time());
         
-        $query = "INSERT INTO `tarea`(`titulo`, `idCurso`, `descripcion`, `fechaEntrega`, `fechaAsignacion`) 
+        $query = "INSERT INTO `Tarea`(`titulo`, `idCurso`, `descripcion`, `fechaEntrega`, `fechaAsignacion`) 
                         VALUES ('$titulo', '$idCurso', '$descripcion', '$fechaEntrega', NOW());";
         $result = mysqli_query($conn, $query);
         if (!$result){
@@ -26,8 +25,6 @@ if(isset($_POST['saveTarea'])){
         $_SESSION['message_type'] = 'success';
     
         header("Location: ../asignarTarea.php");
-    }
-    
 }
 
 ?>

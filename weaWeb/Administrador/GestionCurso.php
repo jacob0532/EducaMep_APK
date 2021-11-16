@@ -1,32 +1,38 @@
-<?php include("../db.php") ?>
+<?php include("includes/db.php") ?>
 
 <?php include("includes/header.php") ?>
-    
-    <div class="container p-3" style="height: 100%;display: flex;justify-content: center;align-items: center;">
+<div class="container p-2 m-5 text-center">
         <div class="row">
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Titulo</th>
-                        <th>Descripcion</th>
-                        <th>Fecha</th>
+                        <th>idCurso</th>
+                        <th>Nombre</th>
+                        <th>Grado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                        $query = "SELECT `titulo`, `texto`, `fecha` FROM noticia";
-                        $result = mysqli_query($conn, $query);
+<?php
+    $query = "SELECT idCurso,nombre,grado FROM Curso";
 
-                        while($row = mysqli_fetch_array($result)){?>
-                            <tr>
-                                <td><?php echo $row['titulo'] ?></td>
-                                <td><?php echo $row['texto'] ?></td>
-                                <td><?php echo $row['fecha'] ?></td>
-    
-                    <?php } ?>
-                </tbody>
+    // Ejecutar la consulta
+    $resultado = mysqli_query($conn, $query);
+
+    while($consulta = mysqli_fetch_array($resultado)){
+        echo "<tr><td>{$consulta['idCurso']}</td><td>{$consulta['nombre']}</td><td>{$consulta['grado']}</td>";?>
+        <td><a href="ModificarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>&nombre=<?php echo $consulta['nombre'] ?>"><img src="https://img.icons8.com/small/452/edit.png" width="25" height="25"></a></td>
+        <td><a href="EliminarCurso.php?idCurso=<?php echo $consulta['idCurso'] ?>"><img src="https://img.icons8.com/small/452/delete-sign.png" width="25" height="25"></a></td></tr>
+<?php
+    }
+?>
+</tbody>
             </table>
         </div>
     </div>
+    <div class="col text-left m-5">
+        <button type="button" onclick= "window.location.href ='AgregarCurso.php'" class="btn btn-primary btn-lg">Agregar Curso</button>
+    </div>
+
+
 
 <?php include("includes/footer.php") ?>

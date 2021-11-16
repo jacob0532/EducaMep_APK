@@ -7,7 +7,7 @@
         $typeUser = $_SESSION['typeUser'];
         header("Location: ../$typeUser/index.php");
     }
-    if(verifyDocente()){
+    if(verifyCurso()){
         $_SESSION['message'] = 'Debe Seleccionar un curso!';
         $_SESSION['message_type'] = 'danger';
         header("Location: index.php");
@@ -58,7 +58,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="Controllers/sendEsts.php?id=18" class="btn btn-info" style="width: 100%;margin-top: 15px;">Enviar Lista al correo</a>
+                <a href="Controllers/sendEsts.php" class="btn btn-info" style="width: 100%;margin-top: 15px;">Enviar Lista al correo</a>
             </div>
         </div>
     </div>

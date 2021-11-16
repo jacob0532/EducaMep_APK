@@ -10,15 +10,15 @@
                 <a class="nav-link" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">About</a>
+                <a class="nav-link" href="https://www.mep.go.cr/">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">MEP</a>
+                <a class="nav-link" href="https://www.mep.go.cr/">MEP</a>
             </li>
         </ul>
         <div class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Help</a>
+                <a class="nav-link" href="https://www.mep.go.cr/">Help</a>
             </li>
         </div>
     </div>

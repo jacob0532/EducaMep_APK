@@ -7,7 +7,7 @@
         $typeUser = $_SESSION['typeUser'];
         header("Location: ../$typeUser/index.php");
     }
-    if(verifyDocente()){
+    if(verifyCurso()){
         $_SESSION['message'] = 'Debe Seleccionar un curso!';
         $_SESSION['message_type'] = 'danger';
         header("Location: index.php");

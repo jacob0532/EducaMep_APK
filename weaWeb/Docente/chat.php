@@ -7,7 +7,7 @@
         $typeUser = $_SESSION['typeUser'];
         header("Location: ../$typeUser/index.php");
     }
-    if(verifyDocente()){
+    if(verifyCurso()){
         $_SESSION['message'] = 'Debe Seleccionar un curso!';
         $_SESSION['message_type'] = 'danger';
         header("Location: index.php");
@@ -38,7 +38,7 @@
                             <input type="text" class="nombreUser" name="nombreUser" value="<?php echo $nombre ?>" hidden>
                             <input type="text" class="idCurso" name="idCurso" value="<?php echo $_SESSION['idCurso']?>" hidden>
                             <input type="text" name="message" class="input-field" placeholder="Escriba mensaje aqui..." autocomplete="off">
-                            <button></button>
+                            <button><img src="includes/send.png" style="height:28px; width:28px;"></button>
                         </form>
                         </section>
                     </div>

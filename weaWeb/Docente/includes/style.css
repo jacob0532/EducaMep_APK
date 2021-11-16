@@ -96,7 +96,7 @@
   padding: 8px 16px;
   background: #fff;
   color: #333;
-  border-radius: 18px 18px 0 18px;
+  border-radius: 18px 18px 18px 0;
   box-shadow: 0 0 32px rgb(0 0 0 / 8%),
               0rem 16px 16px -16px rgb(0 0 0 / 10%);
 }

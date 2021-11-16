@@ -17,7 +17,7 @@ if(isset($_POST['loginAdmin'])){
         $_SESSION['idUser'] = mysqli_fetch_array($result)['cedula'];
         $_SESSION['typeUser'] = 'Administrador';
         $id = $_SESSION['idUser'];
-        header("Location: ../Administrador/index.php?id=$id");
+        header("Location: ../Administrador/IndexGestion.php?id=$id");
     }
 }
 

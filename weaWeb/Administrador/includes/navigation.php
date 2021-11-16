@@ -1,32 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-  <a href="index.php" class="navbar-brand">EducaMEP</a>
+  <a href="IndexGestion.php" class="navbar-brand">EducaMEP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link " aria-current="page" href="IndexGestion.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="asignarTarea.php">XXXXXXXXXXX</a>
+                <a class="nav-link " href="GestionCurso.php">Gestión de Cursos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="publicarNoticia.php">XXXXXX</a>
+                <a class="nav-link " href="GestionDocente.php">Gestión de Docentes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="listaEstudiantes.php">XXXXXX</a>
+                <a class="nav-link " href="GestionEstudiante.php">Gestión de Estudiantes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="asignarEstudiante.php">Asig Cursos Estudiante</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="asignarDocente.php">Asig Cursos Docente</a>
             </li>
         </ul>
         <div class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Sign Up</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link active" href="../index.php">Sign Up</a>
             </li>
         </div>
     </div>
   </div>
-</nav>
+</nav>	

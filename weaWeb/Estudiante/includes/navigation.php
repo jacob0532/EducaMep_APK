@@ -13,7 +13,7 @@
                 <a class="nav-link" href="listaTareas.php">Visualizar Tareas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="listaNoticias.php">Visualizar Noticia</a>
+                <a class="nav-link" href="listaNoticias.php">Visualizar Noticias</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="verProfesor.php">Profesor Encargado</a>

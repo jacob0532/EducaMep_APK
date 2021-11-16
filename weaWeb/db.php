@@ -1,9 +1,9 @@
 <?php
 $conn = mysqli_connect(
     'localhost',
-    'root',
-    '',
-    'EducaMEP'
+    '312306',
+    'eeerrr96',
+    '312306'
 );
 
 session_start();
@@ -26,7 +26,7 @@ if(!$conn){
     exit("Error al intentar conectarse al servidor MYSQL.");
 }
 
-function verifyDocente() : bool {
+function verifyCurso() : bool {
     if (isset($_SESSION['idCurso'])){
         return false;
     }
@@ -34,13 +34,13 @@ function verifyDocente() : bool {
 }
 
 function verifyRightUser(string $type ) : bool{
-    if(isset($_SESSION['idUser']) and isset($_SESSION['typeUser'])){
-        return false;
+    if($_SESSION['idUser'] == null and $_SESSION['typeUser'] == null){
+        return true;
     }
-    if ($_SESSION['typeUser'] == $type){
-        return false;
+    if ($_SESSION['typeUser'] != $type){
+        return true;
     }
-    return true;
+    return false;
 }
 
 
